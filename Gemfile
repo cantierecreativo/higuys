@@ -3,6 +3,7 @@ source 'https://rails-assets.org'
 
 ruby '2.1.2'
 
+gem 'aws-sdk'
 gem 'airbrake'
 gem 'coffee-rails'
 gem 'delayed_job_active_record'
@@ -39,6 +40,7 @@ group :development, :test do
   gem 'rack-livereload'
   gem 'rb-inotify', require: false # linux
   gem 'rb-fsevent', require: false # os x
+  gem 'vcr'
 end
 
 group :test do

@@ -4,14 +4,14 @@ module Api
       upload_request = UploadRequest.new
 
       if upload_request.execute
-        render json: { success: true, url: upload_request.url, request_id: upload_request.request_id }, status: :ok
+        render json: { success: true, url: upload_request.url }, status: :ok
       else
         render json: { success: false }, status: :unprocessable_entity
       end
     end
 
     def photos
-      upload_notifier = UploadNotifier.new
+      upload_notifier = UploadNotifier.new(params[:s3_url])
 
       if upload_notifier.execute
         render json: { success: true },  status: :ok
@@ -19,6 +19,5 @@ module Api
         render json: { success: false }, status: :unprocessable_entity
       end
     end
-
   end
 end

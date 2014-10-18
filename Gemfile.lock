@@ -34,6 +34,10 @@ GEM
       multi_json
     arel (5.0.1.20140414130214)
     awesome_print (1.2.0)
+    aws-sdk (1.31.3)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     bourbon (3.2.3)
       sass (~> 3.2)
       thor
@@ -256,6 +260,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uuidtools (2.1.5)
+    vcr (2.9.0)
     webmock (1.19.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -269,6 +275,7 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   awesome_print
+  aws-sdk
   bourbon (~> 3.2.1)
   byebug
   coffee-rails
@@ -304,4 +311,5 @@ DEPENDENCIES
   timecop
   uglifier
   unicorn
+  vcr
   webmock

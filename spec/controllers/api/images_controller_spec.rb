@@ -25,7 +25,7 @@ describe Api::ImagesController do
       end
 
       it 'returns an hash with an url and a request id' do
-        expect(response.body).to eq({ success: true, url: url, request_id: request_id }.to_json)
+        expect(response.body).to eq({ success: true, url: url }.to_json)
       end
     end
 
@@ -45,11 +45,12 @@ describe Api::ImagesController do
   describe 'POST :photos' do
     let(:notifier_result) { true }
     let(:upload_notifier)  { double('UploadNotifier', execute: notifier_result) }
-    let(:params) { {} }
+    let(:s3_url) { 'bucket_url' }
+    let(:params) { { s3_url: s3_url } }
     let(:action) { post :photos, params }
 
     before do
-      allow(Api::UploadNotifier).to receive(:new).and_return(upload_notifier)
+      allow(Api::UploadNotifier).to receive(:new).with(s3_url).and_return(upload_notifier)
     end
 
     before do
