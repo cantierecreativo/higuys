@@ -8,8 +8,6 @@
     z-index: -1
     background-color: $primary-color
     +position(absolute, 0px 0px 50% 0px)
-
-  +at-breakpoint(lte-small-desk)
     +vertical-padding(1)
 
   +at-breakpoint(gte-small-desk)
@@ -21,9 +19,8 @@
   +vertical-margin(2)
 
 .home-hero__faces
-  +at-breakpoint(lte-small-desk)
-    max-width: 150px
-    margin: 20px auto
+  max-width: 150px
+  margin: 20px auto
 
   +at-breakpoint(gte-small-desk)
     max-width: none
@@ -32,9 +29,8 @@
 
 
 .home-hero__tagline
-  +at-breakpoint(lte-small-desk)
-    +font-size(beta)
-    +margin-bottom(8)
+  +font-size(beta)
+  +margin-bottom(8)
 
   +at-breakpoint(gte-small-desk)
     +font-size(huge)
