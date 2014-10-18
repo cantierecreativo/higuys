@@ -1,6 +1,5 @@
 .home-hero
   color: white
-  +vertical-padding(3)
   text-align: center
   position: relative
 
@@ -10,15 +9,36 @@
     background-color: $primary-color
     +position(absolute, 0px 0px 50% 0px)
 
+  +at-breakpoint(lte-small-desk)
+    +vertical-padding(1)
+
+  +at-breakpoint(gte-small-desk)
+    +vertical-padding(3)
+
 .home-hero__screenshot,
 .home-hero__faces,
 .home-hero__tagline
   +vertical-margin(2)
 
+.home-hero__faces
+  +at-breakpoint(lte-small-desk)
+    max-width: 150px
+    margin: 20px auto
+
+  +at-breakpoint(gte-small-desk)
+    max-width: none
+    margin: auto
+    +vertical-padding(3)
+
+
 .home-hero__tagline
-  +font-size(huge)
-  +heading-font-family
-  +margin-bottom(3)
+  +at-breakpoint(lte-small-desk)
+    +font-size(beta)
+    +margin-bottom(8)
+
+  +at-breakpoint(gte-small-desk)
+    +font-size(huge)
+    +margin-bottom(3)
 
 .home-hero__screenshot img
   box-shadow: 0 3px 30px 0px rgba(black, 0.3)

@@ -8,7 +8,7 @@
           .nav__item
             a.button--rev.button-huge(href="#") Sign in
           .nav__item
-            = link_to "Try the live demo!", walls_path, data: { method: 'post' }, class: 'button--rev button-huge', role: 'join-demo-wall'
+            = link_to "Try the live demo!", walls_path, data: { method: 'post' }, class: 'button--rev button-huge visible--on-gte-small-desk', role: 'join-demo-wall'
 
     .home-hero__faces= image_tag "faces.gif"
 
@@ -16,7 +16,6 @@
 
     .home-hero__screenshot
       = image_tag "home-wall.png"
-
 
 .infos
   .wrap--on-small-desk
@@ -28,7 +27,7 @@
         p Hi Guys! take away the worry & hassle of feeling alone in the dark!
 
     .infos__actions
-      a.button href="#" live demo
+      a.button.visible--on-gte-small-desk href="#" live demo
       a.button href="#" free sign up
 
 .infos--light
@@ -48,7 +47,7 @@
 
 
     .infos__actions
-      a.button href="#" Download Mac Osx >= 10.6
+      a.button.visible--on-gte-small-desk href="#" Download Mac Osx >= 10.6
 
 .footer
   .wrap--on-small-desk

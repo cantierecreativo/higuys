@@ -1,7 +1,13 @@
 .infos
-  padding: 0 30%
   text-align: center
   +vertical-padding(3)
+
+  +at-breakpoint(lte-small-desk)
+    padding: 0 5%
+
+  +at-breakpoint(gte-small-desk)
+    padding: 0 30%
+
 
 .infos__title
   +font-size(alpha)

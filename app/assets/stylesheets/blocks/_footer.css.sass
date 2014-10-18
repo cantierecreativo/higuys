@@ -1,8 +1,12 @@
 .footer
-  +vertical-padding(8)
   background-color: $dark-bg-color
   text-align: center
   color: $white-color
+
+  +at-breakpoint(lte-small-desk)
+    padding: 0 5%
+    +vertical-padding(8)
+
 
 .footer__logo
   +margin-bottom(2)
