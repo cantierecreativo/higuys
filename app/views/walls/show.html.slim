@@ -2,5 +2,8 @@
 
 .camera
   video data-camera-in="me"
-  canvas data-camera-out="me"
+  canvas#camera data-camera-out="me"
   a.camera__shot href="#" data-camera-shot="me" Take picture
+  .camera__filters
+    - %w(brightness).each do |fx|
+      a.camera__filter data-camerafx=fx = fx.humanize

@@ -1,6 +1,17 @@
+%button
+  display: inline-block
+  text-align: center
+  padding: 1em
+  background-color: $red-color
+  color: white
+  text-decoration: none
+  text-transform: uppercase
+  margin: .5em
+
 .camera
   position: relative
   margin: auto
+  text-align: center
   video
     display: none
   canvas
@@ -8,12 +19,8 @@
     display: block
 
 .camera__shot
-  display: block
-  text-align: center
+  @extend %button
   width: 8em
-  padding: 1em
-  background-color: $red-color
-  color: white
-  text-decoration: none
-  text-transform: uppercase
-  margin: .5em auto
+
+.camera__filters
+  

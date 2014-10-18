@@ -170,6 +170,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.6)
       sprockets-rails (~> 2.0)
+    rails-assets-caman (4.1.2)
     rails-assets-normalize-scss (3.0.1)
     rails-assets-sass-list-maps (1.0.0)
     railties (4.1.6)
@@ -295,6 +296,7 @@ DEPENDENCIES
   rack-livereload
   rack-timeout
   rails (= 4.1.6)
+  rails-assets-caman
   rails-assets-normalize-scss
   rails-assets-sass-list-maps
   rb-fsevent

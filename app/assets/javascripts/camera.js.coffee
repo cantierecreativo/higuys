@@ -57,6 +57,7 @@ class @Camera
 
 $ ->
   camera = new Camera($('[data-camera-in]'), $('[data-camera-out]'))
+
   $('[data-camera-shot]').click (e) ->
     console.log 'click!'
     camera.shot()
