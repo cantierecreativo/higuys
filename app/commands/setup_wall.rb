@@ -1,9 +1,7 @@
 class SetupWall < Struct.new(:session)
-  ACCESS_CODE_SIZE = 8
+  extend Command
 
-  def self.execute(session)
-    new(session).execute
-  end
+  ACCESS_CODE_SIZE = 8
 
   def execute
     if guest.wall

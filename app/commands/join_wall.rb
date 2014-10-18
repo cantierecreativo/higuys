@@ -1,9 +1,7 @@
 class JoinWall < Struct.new(:wall, :session)
-  MAX_USERS_FOR_WALL = 12
+  extend Command
 
-  def self.execute(wall, session)
-    new(wall, session).execute
-  end
+  MAX_USERS_FOR_WALL = 12
 
   def execute
     if guest.wall && guest.wall != wall

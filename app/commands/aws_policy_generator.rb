@@ -1,9 +1,7 @@
 class AwsPolicyGenerator
-  EXPIRATION_TIME = 3.days
+  extend Command
 
-  def self.execute
-    new.execute
-  end
+  EXPIRATION_TIME = 3.days
 
   def execute
     s3 = AWS::S3.new(
@@ -18,6 +16,7 @@ class AwsPolicyGenerator
       expires: Time.now.to_i + EXPIRATION_TIME,
       acl: "public-read"
     )
+
     OpenStruct.new upload_url: force_http_port(policy.clone).to_s,
                    url: url(policy.clone).to_s
   end

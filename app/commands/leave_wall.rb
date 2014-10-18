@@ -1,7 +1,5 @@
 class LeaveWall < Struct.new(:wall, :session)
-  def self.execute(wall, session)
-    new(wall, session).execute
-  end
+  extend Command
 
   def execute
     if !guest || guest.wall != wall
