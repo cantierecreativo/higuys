@@ -6,7 +6,7 @@ describe Api::ImagesController do
     let(:request_id) { 'REQUEST_ID' }
     let(:request_result) { true }
     let(:upload_request) { double('UploadRequest', url: url, request_id: request_id, execute: request_result) }
-    let (:params) { { } }
+    let(:params) { { } }
     let(:action) { post :upload_request, params }
 
     before do
@@ -86,3 +86,4 @@ describe Api::ImagesController do
     end
   end
 end
+

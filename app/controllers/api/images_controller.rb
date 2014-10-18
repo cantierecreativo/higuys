@@ -14,10 +14,11 @@ module Api
       upload_notifier = UploadNotifier.new(params[:s3_url])
 
       if upload_notifier.execute
-        render json: { success: true },  status: :ok
+        render json: { success: true }, status: :ok
       else
         render json: { success: false }, status: :unprocessable_entity
       end
     end
   end
 end
+
