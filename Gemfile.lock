@@ -161,6 +161,8 @@ GEM
       multi_json (~> 1.0)
       signature (~> 0.1.6)
     rack (1.5.2)
+    rack-attack (4.1.1)
+      rack
     rack-livereload (0.3.15)
       rack
     rack-test (0.6.2)
@@ -299,6 +301,7 @@ DEPENDENCIES
   poltergeist
   pry-rails
   pusher
+  rack-attack
   rack-livereload
   rack-timeout
   rails (= 4.1.6)
