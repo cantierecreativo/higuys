@@ -1,0 +1,23 @@
+.autoshoot-control
+  display: inline-block
+  width: 200px
+  text-align: center
+  padding: 4px
+  background-color: rgba(black, 0.3)
+  border-radius: 3px
+  +transition(background-color .2s ease-out)
+
+  &:hover
+    background-color: rgba(black, 0.5)
+    text-decoration: none
+
+.autoshoot-control__normal
+  .autoshoot-control:hover &
+    display: none
+
+.autoshoot-control__hover
+  display: none
+
+  .autoshoot-control:hover &
+    display: inline-block
+

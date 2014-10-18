@@ -1,41 +1,122 @@
++keyframes(flash)
+  0%
+    opacity: 0
+  90%
+    opacity: 1
+  100%
+    opacity: 0
+
++keyframes(countdown)
+  0%
+    width: 0
+  100%
+    width: 100%
+
 .wall
   position: relative
   width: 100%
-  height: 100vh
+  min-height: 100vh
+  padding-top: 2%
+  +clearfix
 
 .wall__brick
+  background-color: #444
   position: relative
-  float: left
-  border: 2px solid $gray-color
   overflow: hidden
-  background-size: contain
+  background-size: 102%
   background-position: center
   background-repeat: no-repeat
-  background-color: rgba($gray-dark-color, .2)
+  margin-bottom: 2%
+
   &:after
     content: ""
     display: block
     padding-top: 75%
 
-  width: (100% / 2)
-
-  +at-breakpoint(gte-small-desk)
-    width: (100% / 3)
-
-  +at-breakpoint(ultra-desk)
-    width: (100% / 4)
-
   [class^=icon]
     +position(absolute, 0px 0px 0px 0px)
+
     &:before
-      +position(absolute, 0px 0px 0px 0px)
-      font-size: 15em
+      +center
       display: block
-      +size(1em)
+      font-size: 80px
       line-height: 1em
       margin: auto
       color: $gray-color
 
-.wall__brick-status
+.wall__brick__shoot
+  background-color: rgba(black, 0.6)
+  +position(absolute, 0px 0px 0px 0px)
+  color: white
+  text-decoration: none
+  opacity: 0
+  text-align: center
+  +transition(opacity .2s ease-out)
+  z-index: 1
+
+  .wall__brick:hover &
+    opacity: 1
+
+.wall__brick__camera
+  position: absolute
+  width: auto
+  height: 102%
+  +transform(translateX(-50%) translateY(-50%) scaleX(-1))
+  top: 50%
+  left: 50%
+  display: none
+  +center
+
+  .is-stream-active &
+    display: block
+
+.wall__brick__flash
+  +position(absolute, 0px 0px 0px 0px)
+  background-color: white
+  opacity: 0
+
+  .is-stream-active &
+    +animation(flash .2s ease-in 1.8s)
+
+.wall__brick__status
+  +font-size(smallprint)
   color: $white-color
-  +position(absolute, 0 5px 0px 0)
+  +position(absolute, 0 0px 15px 0px)
+  text-align: center
+  text-shadow: 0 1px 1px rgba(black, 0.4)
+
+.wall__brick__countdown
+  +position(absolute, 0 0 0px 0px)
+  height: 5px
+  background-color: $primary-color
+  width: 0
+
+  .is-stream-active &
+    +animation(countdown 2s linear)
+
++at-breakpoint(gte-lap)
+  .wall__brick
+    float: left
+    margin-right: 2%
+
++at-breakpoint(lap)
+  .wall__brick
+    width: (100% - ((2 + 1) * 2%)) / 2
+
+    &:nth-child(2n), &.is-first
+      margin-left: 2%
+
++at-breakpoint(small-desk)
+  .wall__brick
+    width: (100% - ((3 + 1) * 2%)) / 3
+
+    &:nth-child(3n), &.is-first
+      margin-left: 2%
+
++at-breakpoint(gte-big-desk)
+  .wall__brick
+    width: (100% - ((4 + 1) * 2%)) / 4
+
+    &:nth-child(4n), &.is-first
+      margin-left: 2%
+

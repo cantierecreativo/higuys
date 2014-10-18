@@ -19,7 +19,7 @@ class @AutoshootControl extends EventEmitter
     @remainingSeconds = '?'
     @setState('PAUSED')
 
-    @$dom.on 'click', 'a', (e) =>
+    @$dom.on 'click', (e) =>
       e.stopPropagation()
       e.preventDefault()
 
@@ -36,8 +36,8 @@ class @AutoshootControl extends EventEmitter
     template = if state == 'COUNTDOWN'
       """
         <span>
-          <span class='control-bar__action__normal'>Photo in #{@remainingSeconds}...</span>
-          <span class='control-bar__action__hover'>Pause</span>
+          <span class='autoshoot-control__normal'>Photo in #{@remainingSeconds}...</span>
+          <span class='autoshoot-control__hover'>Pause</span>
         </span>
       """
     else if state == 'SHOOTING'
@@ -47,8 +47,8 @@ class @AutoshootControl extends EventEmitter
     else if state == 'PAUSED'
       """
         <span>
-          <span class='control-bar__action__normal'>Autoshoot disabled</span>
-          <span class='control-bar__action__hover'>Resume</span>
+          <span class='autoshoot-control__normal'>Pause auto-shoot</span>
+          <span class='autoshoot-control__hover'>Resume</span>
         </span>
       """
 

@@ -61,7 +61,7 @@ describe StorePhoto do
       it "returns false" do
         expect(result).to be false
       end
-      
+
     end
 
     context 'when all data is ok' do
@@ -81,3 +81,4 @@ describe StorePhoto do
     end
   end
 end
+

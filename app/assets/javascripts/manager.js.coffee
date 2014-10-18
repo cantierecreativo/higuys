@@ -19,26 +19,37 @@ class @Manager
     @channel = pusher.subscribe("demo-#{wallId}")
 
     @channel.bind 'join', =>
-      console.log 'JOIN'
+      @refreshStatus()
 
     @channel.bind 'leave', =>
-      console.log 'LEAVE'
+      @refreshStatus()
 
     @channel.bind 'photo', =>
-      console.log 'PHOTO'
+      @refreshStatus()
 
     @autoshoot.on 'requestStateChange', (state) =>
       if state == 'COUNTDOWN'
         @restartCountdown()
       else if state == 'PAUSED'
         clearTimeout(@countdownTimeout)
+        @countdownTimeout =  null
         @autoshoot.setState('PAUSED')
 
+    @myView.on 'requestShoot', =>
+      return if @isShooting
+      return if @autoshoot.state == 'SHOOTING'
+
+      if @autoshoot.state == 'COUNTDOWN'
+        clearTimeout(@countdownTimeout)
+        @countdownTimeout = null
+        @shoot()
+
     @refreshStatus (err) =>
-      if err
-        alert "Fail"
-      else
-        @restartCountdown()
+      @myView.startStream (e) =>
+        if e
+          alert "Fail"
+        else
+          @shoot()
 
   refreshStatus: (cb) ->
     @client.fetchStatus @wallId, (err, result) =>
@@ -48,25 +59,27 @@ class @Manager
         @wall.refreshFriends(result)
         cb()
 
-  restartCountdown: ->
-    @remainingSeconds = 3
-    @autoshoot.setState('COUNTDOWN')
-
-    shoot = =>
+  shoot: ->
+    getPhoto = =>
       photoDataUrl = @wall.myView.shootPhoto()
+      @wall.myView.toggleVideo(false)
       @notifyNewPhoto(photoDataUrl)
       @restartCountdown()
+
+    @autoshoot.setState('SHOOTING')
+    @wall.myView.toggleVideo(true)
+    setTimeout(getPhoto, 2000)
+
+  restartCountdown: ->
+    @remainingSeconds = 20
+    @autoshoot.setState('COUNTDOWN')
 
     update = =>
       @remainingSeconds -= 1
 
       if @remainingSeconds == 0
-        @autoshoot.setState('SHOOTING')
-        @wall.myView.enableVideoStream (err) ->
-          if err
-            alert "FUCKSHIT"
-          else
-            setTimeout(shoot, 3000)
+        @countdownTimeout = null
+        @shoot()
       else
         @autoshoot.setRemainingSeconds(@remainingSeconds)
         @countdownTimeout = setTimeout(update, 1000)

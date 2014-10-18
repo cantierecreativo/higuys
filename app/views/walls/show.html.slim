@@ -1,21 +1,38 @@
 - content_for(:title){ "hi guys! hall of mates!" }
 - content_for(:description){ "this is the hall where you can invite and see your colleagues" }
 
-.control-bar
-  .control-bar__actions
-    a.button--secondary.control-bar__action.js-autoshoot(href="#")
-    = link_to "Invite", wall_path(@wall), class: 'button--secondary control-bar__action'
-    = link_to "Leave wall", leave_wall_path(@wall), data: { method: 'post' }, class: 'button--primary control-bar__action', role: 'leave'
+.wall-container
+  .wall-nav
+    .wall-nav__placeholder
+    .wall-nav__bar
+      .or
+        .or__item
+          = link_to "hi guys!", root_path, class: "sprite--logo is-small"
+        .or__item
+          a.autoshoot-control.js-autoshoot(href="#")
+        .or__item
+          .wall-nav__item
+            = link_to "Invite a friend!", wall_path(@wall), class: 'js-invite'
+          .wall-nav__item
+            = link_to "Leave wall", leave_wall_path(@wall), data: { method: 'post' }, role: 'leave'
 
-.wall data-wall-id=@wall.access_code
-  .wall__brick
-    .camera.js-camera
-      .camera__flash.js-flash
-      video
-      canvas
-      a.camera__shot href="#" data-camera-shot="me" Take picture
-      .camera__pic data-camera-pic="me"
-  .js-friends
+  .wall data-wall-id=@wall.access_code
+    .wall__brick.js-camera.is-first
+      a.wall__brick__shoot.js-shoot href="#"
+        i.icon--camera
+      video.wall__brick__camera
+      .wall__brick__countdown
+      .wall__brick__flash
+    .js-friends
+
+.dialog.js-invite-dialog
+  .dialog__frame
+    .dialog__body
+      .formatted-input
+        h1.beta Lorem ipsum dolor sit amet!
+        p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+      .space--top-1
+        input(type="text" value=wall_url(@wall) disabled)
 
 - content_for(:javascript) do
   = javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
