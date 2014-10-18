@@ -1,5 +1,6 @@
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actionmailer (4.1.6)
       actionpack (= 4.1.6)
@@ -145,6 +146,8 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.6)
       sprockets-rails (~> 2.0)
+    rails-assets-normalize-scss (3.0.1)
+    rails-assets-sass-list-maps (1.0.0)
     railties (4.1.6)
       actionpack (= 4.1.6)
       activesupport (= 4.1.6)
@@ -250,6 +253,8 @@ DEPENDENCIES
   pry-rails
   rack-timeout
   rails (= 4.1.6)
+  rails-assets-normalize-scss
+  rails-assets-sass-list-maps
   recipient_interceptor
   rspec-rails (~> 3.0.0)
   sass-rails (~> 4.0.3)
