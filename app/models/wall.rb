@@ -7,4 +7,3 @@ class Wall < ActiveRecord::Base
     access_code
   end
 end
-

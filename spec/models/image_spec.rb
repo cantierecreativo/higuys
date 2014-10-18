@@ -21,4 +21,16 @@ RSpec.describe Image, type: :model do
       expect(image).not_to be_valid
     end
   end
+
+  describe '#imgx_url' do
+    let(:image) { create(:image, s3_url: 'http://higuysio.secchio/test.jpg') }
+
+    before do
+      stub_const 'ENV', { 'IMGX_URL' => 'http://foobar.imgx.com/' }
+    end
+
+    it 'returns the imgx_url of the image' do
+      expect(image.imgx_url).to eq('http://foobar.imgx.com/test.jpg')
+    end
+  end
 end

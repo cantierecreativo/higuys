@@ -5,6 +5,17 @@ class Image < ActiveRecord::Base
 
   validate :ensure_valid_s3_url
 
+  scope :newst, -> { order(created_at: :desc) }
+
+  def imgx_url
+    if s3_url.present?
+      filename = File.basename(URI.parse(s3_url).path)
+      imgx_uri = URI.parse(ENV['IMGX_URL'])
+      imgx_uri.path = File.join(imgx_uri.path, filename)
+      imgx_uri.to_s
+    end
+  end
+
   private
 
   def ensure_valid_s3_url

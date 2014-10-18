@@ -69,6 +69,11 @@ describe StorePhoto do
         expect { result }.to change { Image.count }.by(1)
       end
 
+      it 'sets the last_image' do
+        result
+        expect(guest.reload.last_image).to_not be_nil
+      end
+
       it 'pushes a "photo" event' do
         result
         expect(pusher).to have_received(:trigger).with("demo-#{guest.wall.access_code}", 'photo', guest_id: guest.id)

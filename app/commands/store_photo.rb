@@ -1,11 +1,13 @@
 class StorePhoto < Struct.new(:s3_url, :guest_id)
   def execute
     if guest && guest.wall.present? && image.valid?
-      Pusher.trigger(channel_name, 'photo', guest_id: guest.id)
-      true
-    else
-      false
+      guest.last_image = image
+      if guest.save
+        Pusher.trigger(channel_name, 'photo', guest_id: guest.id)
+        true
+      end
     end
+    false
   end
 
   private
@@ -19,6 +21,6 @@ class StorePhoto < Struct.new(:s3_url, :guest_id)
   end
 
   def image
-    Image.create(s3_url: s3_url, guest: guest)
+    @image ||= Image.create(s3_url: s3_url, guest: guest)
   end
 end
