@@ -7,6 +7,10 @@ class WallsController < ApplicationController
   end
 
   def show
+    @wall = Wall.find_by_access_code!(params[:id])
+    JoinWall.execute(@wall, session)
+  rescue JoinWall::GuestAlreadyHasAWall
+    redirect_to root_path, alert: "You're already part of another wall!"
   end
 end
 

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 SetupWall
+JoinWall
 Wall
 
 RSpec.describe WallsController do
@@ -32,9 +33,29 @@ RSpec.describe WallsController do
   end
 
   describe "GET show" do
-    it "returns http success" do
-      get :show, id: 'XXX'
-      expect(response).to be_success
+    let(:join_wall) { class_double("JoinWall").as_stubbed_const(transfer_nested_constants: true) }
+    let(:wall) { create(:wall) }
+
+    context 'with no errors' do
+      before do
+        allow(join_wall).to receive(:execute).with(wall, session)
+      end
+
+      before { get :show, id: wall.access_code }
+
+      it { is_expected.to respond_with 200 }
+    end
+
+    context 'with GuestAlreadyHasAWall exception' do
+      before do
+        allow(join_wall).to receive(:execute).with(wall, session)
+          .and_raise(JoinWall::GuestAlreadyHasAWall)
+      end
+
+      before { get :show, id: wall.access_code }
+
+      it { is_expected.to redirect_to root_path }
+      it { is_expected.to set_the_flash[:alert] }
     end
   end
 end
