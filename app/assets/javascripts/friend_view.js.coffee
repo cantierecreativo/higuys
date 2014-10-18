@@ -1,8 +1,8 @@
 class @FriendView
   constructor: (friend) ->
-    template = if friend.photo_url
+    template = if friend.image_url
       """
-        <div class="wall__brick" style="background-image: url('#{friend.photo_url}')">
+        <div class="wall__brick" style="background-image: url('#{friend.image_url}')">
           <span class="wall__brick__status">active about 2 minutes ago</span>
         </div>
       """
@@ -15,4 +15,7 @@ class @FriendView
       """
 
     @$dom = $(template)
+
+  remove: ->
+    @$dom.remove()
 

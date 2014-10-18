@@ -1,8 +1,8 @@
 module Api
   class ImagesController < BaseController
     def upload_request
-      url = AwsPolicyGenerator.execute
-      render json: { url: url }, status: :ok
+      apg = AwsPolicyGenerator.execute
+      render json: { upload_url: apg.upload_url, url: apg.url }, status: :ok
     end
 
     def photos

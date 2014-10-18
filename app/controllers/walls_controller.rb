@@ -9,6 +9,7 @@ class WallsController < ApplicationController
   def show
     @wall = Wall.find_by_access_code!(params[:id])
     joined = JoinWall.execute(@wall, session)
+    @guest_id = session[:guest_id]
     if joined
       flash.now[:notice] = "Welcome! You've successfully joined the wall!"
     end

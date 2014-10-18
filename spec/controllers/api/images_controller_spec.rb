@@ -12,7 +12,7 @@ describe Api::ImagesController do
     let(:action) { post :upload_request }
 
     before do
-      allow(upload_request).to receive(:execute) { url }
+      allow(upload_request).to receive(:execute) { double(url: url, upload_url: url) }
     end
 
     before do
@@ -27,7 +27,7 @@ describe Api::ImagesController do
       end
 
       it 'returns an hash with an url and a request id' do
-        expect(response.body).to eq({ url: url }.to_json)
+        expect(response.body).to eq({ upload_url: url, url: url }.to_json)
       end
     end
   end

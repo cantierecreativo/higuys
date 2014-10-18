@@ -9,10 +9,11 @@ navigator.getUserMedia = navigator.getUserMedia or
 
 $ ->
   $wall = $("[data-wall-id]")
+  guestId = $("[data-guest-id]").data('guest-id')
 
   if $wall.length > 0
     if navigator.getUserMedia
-      new Manager($wall.data('wall-id'), $wall, $(".js-autoshoot"))
+      new Manager($wall.data('wall-id'), $wall, $(".js-autoshoot"), guestId)
     else
       alert("WHOOPS")
 

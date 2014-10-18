@@ -18,18 +18,22 @@ class AwsPolicyGenerator
       expires: Time.now.to_i + EXPIRATION_TIME,
       acl: "public-read"
     )
-    clean_uri(policy).to_s
-  end
-
-  def clean_uri(uri)
-    uri.port = 80
-    uri
+    OpenStruct.new upload_url: force_http_port(policy.clone).to_s,
+                   url: url(policy.clone).to_s
   end
 
   private
+
+  def url(policy)
+    force_http_port(policy).tap { |uri| uri.query = nil }
+  end
+
+  def force_http_port(uri)
+    uri.port = 80
+    uri
+  end
 
   def filename
     @filename ||= "#{SecureRandom.hex}.jpg"
   end
 end
-

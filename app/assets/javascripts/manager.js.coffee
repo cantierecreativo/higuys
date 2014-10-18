@@ -9,8 +9,8 @@
 #   settare i timout per l'autoshoot
 
 class @Manager
-  constructor: (@wallId, $wallDom, $autoshootControlDom) ->
-    @wall = new Wall($wallDom)
+  constructor: (@wallId, $wallDom, $autoshootControlDom, @guestId) ->
+    @wall = new Wall($wallDom, @guestId)
     @myView = @wall.myView
     @autoshoot = new AutoshootControl($autoshootControlDom)
     @client = new Client()
@@ -57,7 +57,7 @@ class @Manager
         cb(err)
       else
         @wall.refreshFriends(result)
-        cb()
+        cb?()
 
   shoot: ->
     getPhoto = =>
@@ -89,11 +89,13 @@ class @Manager
   notifyNewPhoto: (photoDataUrl) ->
     upload = (data) =>
       $.ajax(
-        url: data.url
+        url: data.upload_url
         type: 'PUT'
         data: @dataUriToBlob(photoDataUrl)
         processData: false
         contentType: false
+        success: ->
+          $.post "/api/photos", s3_url: data.url
       )
     $.post("/api/upload-requests", upload, 'json')
 

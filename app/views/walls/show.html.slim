@@ -1,6 +1,3 @@
-- content_for(:title){ "hi guys! hall of mates!" }
-- content_for(:description){ "this is the hall where you can invite and see your colleagues" }
-
 .wall-container
   .wall-nav
     .wall-nav__placeholder
@@ -16,7 +13,7 @@
           .wall-nav__item
             = link_to "Leave wall", leave_wall_path(@wall), data: { method: 'post' }, role: 'leave'
 
-  .wall data-wall-id=@wall.access_code
+  .wall data-wall-id=@wall.access_code data-guest-id=@guest_id
     .wall__brick.js-camera.is-first
       a.wall__brick__shoot.js-shoot href="#"
         i.icon--camera

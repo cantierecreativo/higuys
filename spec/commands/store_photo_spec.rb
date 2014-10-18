@@ -54,6 +54,8 @@ describe StorePhoto do
     end
 
     context "if the image already exists" do
+      let!(:image) { create(:image, s3_url: s3_url) }
+
       before do
         command.execute
       end
@@ -61,7 +63,6 @@ describe StorePhoto do
       it "returns false" do
         expect(result).to be false
       end
-
     end
 
     context 'when all data is ok' do
