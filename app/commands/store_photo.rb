@@ -1,9 +1,7 @@
-class StorePhoto < Struct.new(:s3_url, :guest_id)
-  class InvalidInputException < RuntimeError; end
+class StorePhoto < Struct.new(:s3_url, :session)
+  extend Command
 
-  def self.execute(*args)
-    new(*args).execute
-  end
+  class InvalidInputException < RuntimeError; end
 
   def execute
     if !guest || guest.wall.blank? || image.invalid?
@@ -19,7 +17,7 @@ class StorePhoto < Struct.new(:s3_url, :guest_id)
   private
 
   def guest
-    @guest ||= Guest.where(id: guest_id).first
+    @guest ||= Guest.where(id: session[:guest_id]).first
   end
 
   def image

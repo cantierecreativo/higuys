@@ -1,7 +1,5 @@
 class PushEvent < Struct.new(:wall, :event, :data)
-  def self.execute(*args)
-    new(*args).execute
-  end
+  extend Command
 
   def execute
     Pusher.trigger(channel_name, event, data)

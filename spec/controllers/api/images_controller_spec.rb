@@ -38,7 +38,7 @@ describe Api::ImagesController do
       class_double("StorePhoto")
         .as_stubbed_const(transfer_nested_constants: true)
     }
-    let(:action) { post :photos, { s3_url: 'URL' }, { guest_id: 'GUEST_ID' } }
+    let(:action) { post :photos, { s3_url: 'URL' } }
 
     context 'on success' do
       before do
@@ -51,6 +51,7 @@ describe Api::ImagesController do
 
       it 'notify all the other clients that I have uploaded a photo' do
         expect(store_photo).to have_received(:execute)
+          .with('URL', session)
       end
 
       it 'responds with ok' do

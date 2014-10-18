@@ -6,7 +6,7 @@ module Api
     end
 
     def photos
-      StorePhoto.execute(params[:s3_url], session[:guest_id])
+      StorePhoto.execute(params[:s3_url], session)
       render json: nil, status: :ok
     rescue StorePhoto::InvalidInputException
       render json: nil, status: :unprocessable_entity

@@ -6,14 +6,15 @@ Guest
 describe StorePhoto do
   let(:guest) { create(:guest, :with_wall) }
   let(:s3_url) { 'http://higuysio.secchio/test.jpg' }
-  let(:command) { described_class.new(s3_url, guest.id) }
+  let(:command) { described_class.new(s3_url, session) }
+  let(:session) { { guest_id: guest.id } }
 
   it "takes the s3_url" do
     expect(command.s3_url).to eq s3_url
   end
 
-  it "takes the guest_id" do
-    expect(command.guest_id).to eq guest.id
+  it "takes the session" do
+    expect(command.session).to eq session
   end
 
   describe "#execute" do
