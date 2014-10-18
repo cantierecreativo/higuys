@@ -35,4 +35,3 @@ class SetupWall < Struct.new(:session)
     end
   end
 end
-

@@ -1,4 +1,6 @@
 class JoinWall < Struct.new(:wall, :session)
+  MAX_USERS_FOR_WALL = 12
+
   def self.execute(wall, session)
     new(wall, session).execute
   end
@@ -8,7 +10,11 @@ class JoinWall < Struct.new(:wall, :session)
       raise GuestAlreadyHasAWallException.new(guest.wall)
     end
 
-    if guest.wall != wall
+    if wall.guests.count >= MAX_USERS_FOR_WALL
+      raise TooManyUsersOnWallException.new(wall)
+    end
+
+    if guest.wall.nil?
       guest.update_attributes!(wall: wall)
       session[:guest_id] = guest.id
 
@@ -30,4 +36,3 @@ class JoinWall < Struct.new(:wall, :session)
                end
   end
 end
-

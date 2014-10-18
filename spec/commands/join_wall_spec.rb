@@ -81,6 +81,20 @@ describe JoinWall do
           }.to raise_error(GuestAlreadyHasAWallException)
         end
       end
+
+      context 'if the wall has reached the guests number limit' do
+        let!(:another_guest) { create(:guest, wall: wall) }
+
+        before do
+          stub_const("JoinWall::MAX_USERS_FOR_WALL", 1)
+        end
+
+        it 'raises an exception' do
+          expect {
+            command.execute
+          }.to raise_error(TooManyUsersOnWallException)
+        end
+      end
     end
   end
 end

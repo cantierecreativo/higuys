@@ -62,6 +62,18 @@ RSpec.describe WallsController do
       it { is_expected.to redirect_to wall_path(another_wall) }
       it { is_expected.to set_the_flash[:alert] }
     end
+
+    context 'with TooManyUsersOnWallException' do
+      before do
+        allow(join_wall).to receive(:execute).with(wall, session)
+          .and_raise(TooManyUsersOnWallException.new(wall))
+      end
+
+      before { get :show, id: wall.access_code }
+
+      it { is_expected.to redirect_to root_path }
+      it { is_expected.to set_the_flash[:alert] }
+    end
   end
 
   describe 'POST leave' do
