@@ -6,6 +6,7 @@ html
     meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" name="viewport"
     title= "hi guys!"
     = stylesheet_link_tag :application, media: "all"
+    = javascript_include_tag "modernizr"
     = csrf_meta_tags
   body
     = render "flashes"

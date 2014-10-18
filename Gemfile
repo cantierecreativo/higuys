@@ -25,6 +25,7 @@ gem 'pusher'
 gem 'bourbon', '~> 3.2.1'
 gem 'rails-assets-normalize-scss'
 gem 'rails-assets-sass-list-maps'
+gem 'rails-assets-modernizr'
 
 group :development do
   gem 'spring'

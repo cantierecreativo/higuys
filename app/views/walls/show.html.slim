@@ -1,10 +1,20 @@
-= link_to "Leave wall", leave_wall_path(@wall), data: { method: 'post' }, class: 'button--primary button-huge', role: 'leave'
+.control-bar
+  .control-bar__actions
+    = link_to "#", class: 'button--secondary control-bar__action' do
+      span Smile in 30s
+      span Pause
+    = link_to "Invite", wall_path(@wall), class: 'button--secondary control-bar__action'
+    = link_to "Leave wall", leave_wall_path(@wall), data: { method: 'post' }, class: 'button--primary control-bar__action', role: 'leave'
 
 .wall
-
-.camera
-  .camera__flash
-  video data-camera-in="me"
-  canvas data-camera-out="me"
-  a.camera__shot href="#" data-camera-shot="me" Take picture
-  .camera__pic data-camera-pic="me"
+  .wall__brick
+    .camera
+      .camera__flash
+      video data-camera-in="me"
+      canvas data-camera-out="me"
+      a.camera__shot href="#" data-camera-shot="me" Take picture
+      .camera__pic data-camera-pic="me"
+  - 11.times do |i|
+    .wall__brick
+      div class="icon--higuys-0#{i%3+1}"
+      span.wall__brick-status = "active about 2 minutes ago"

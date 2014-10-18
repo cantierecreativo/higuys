@@ -1,0 +1,41 @@
+.wall
+  position: relative
+  width: 100%
+  height: 100vh
+
+.wall__brick
+  position: relative
+  float: left
+  border: 2px solid $gray-color
+  overflow: hidden
+  background-size: contain
+  background-position: center
+  background-repeat: no-repeat
+  background-color: rgba($gray-dark-color, .2)
+  &:after
+    content: ""
+    display: block
+    padding-top: 75%
+
+  width: (100% / 2)
+
+  +at-breakpoint(gte-small-desk)
+    width: (100% / 3)
+
+  +at-breakpoint(ultra-desk)
+    width: (100% / 4)
+
+  [class^=icon]
+    +position(absolute, 0px 0px 0px 0px)
+    &:before
+      +position(absolute, 0px 0px 0px 0px)
+      font-size: 15em
+      display: block
+      +size(1em)
+      line-height: 1em
+      margin: auto
+      color: $gray-color
+
+.wall__brick-status
+  color: $white-color
+  +position(absolute, 0 5px 0px 0)
