@@ -8,7 +8,7 @@
           .nav__item
             a.button--rev.button-huge(href="#") Sign in
           .nav__item
-            a.button--rev.button-huge@join-demo-wall(href="#") Try the live demo!
+            = link_to "Try the live demo!", walls_path, data: { method: 'post' }, class: 'button--rev button-huge', role: 'join-demo-wall'
 
     .home-hero__faces= image_tag "faces.gif"
 
