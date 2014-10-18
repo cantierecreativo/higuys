@@ -38,13 +38,13 @@ describe JoinWall do
         end
       end
 
-      context 'if the guest is already linked with a wall' do
+      context 'if the guest is already linked with another wall' do
         let(:guest) { create(:guest, :with_wall) }
 
         it 'raises an exeception' do
           expect {
             command.execute
-          }.to raise_error(JoinWall::GuestAlreadyHasAWall)
+          }.to raise_error(GuestAlreadyHasAWallException)
         end
       end
     end

@@ -1,13 +1,12 @@
 class SetupWall < Struct.new(:session)
   ACCESS_CODE_SIZE = 8
-  class GuestAlreadyHasAWall < RuntimeError; end
 
   def self.execute(session)
     new(session).execute
   end
 
   def execute
-    raise GuestAlreadyHasAWall if guest.wall
+    raise GuestAlreadyHasAWallException.new(guest.wall) if guest.wall
 
     guest.update_attributes!(wall: wall)
     session[:guest_id] = guest.id

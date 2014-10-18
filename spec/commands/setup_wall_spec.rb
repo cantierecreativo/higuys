@@ -43,7 +43,7 @@ describe SetupWall do
         it 'raises an exeception' do
           expect {
             command.execute
-          }.to raise_error(SetupWall::GuestAlreadyHasAWall)
+          }.to raise_error(GuestAlreadyHasAWallException)
         end
       end
     end

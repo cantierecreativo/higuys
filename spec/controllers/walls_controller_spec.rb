@@ -21,13 +21,15 @@ RSpec.describe WallsController do
     end
 
     context 'with GuestAlreadyHasAWall exception' do
+      let(:another_wall) { create(:wall) }
+
       before do
         allow(setup_wall).to receive(:execute).with(session)
-          .and_raise(SetupWall::GuestAlreadyHasAWall)
+          .and_raise(GuestAlreadyHasAWallException.new(another_wall))
       end
 
       before { post :create }
-      it { is_expected.to redirect_to root_path }
+      it { is_expected.to redirect_to wall_path(another_wall) }
       it { is_expected.to set_the_flash[:alert] }
     end
   end
@@ -47,14 +49,16 @@ RSpec.describe WallsController do
     end
 
     context 'with GuestAlreadyHasAWall exception' do
+      let(:another_wall) { create(:wall) }
+
       before do
         allow(join_wall).to receive(:execute).with(wall, session)
-          .and_raise(JoinWall::GuestAlreadyHasAWall)
+          .and_raise(GuestAlreadyHasAWallException.new(another_wall))
       end
 
       before { get :show, id: wall.access_code }
 
-      it { is_expected.to redirect_to root_path }
+      it { is_expected.to redirect_to wall_path(another_wall) }
       it { is_expected.to set_the_flash[:alert] }
     end
   end
