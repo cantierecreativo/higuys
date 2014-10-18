@@ -7,10 +7,4 @@ class Guest < ActiveRecord::Base
     inverse_of: :guests
 
   scope :by_id, -> { order(id: :asc) }
-
-  def to_json
-    data = { id: id, image_url: nil }
-    data[:image_url] = last_image.imgx_url if last_image.present?
-    data
-  end
 end

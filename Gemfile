@@ -21,6 +21,7 @@ gem 'uglifier'
 gem 'unicorn'
 gem 'slim-rails'
 gem 'pusher'
+gem 'jbuilder'
 
 gem 'bourbon', '~> 3.2.1'
 gem 'rails-assets-normalize-scss'
@@ -45,6 +46,7 @@ group :development, :test do
   gem 'rb-inotify', require: false # linux
   gem 'rb-fsevent', require: false # os x
   gem 'vcr'
+  gem 'json_spec'
 end
 
 group :test do
