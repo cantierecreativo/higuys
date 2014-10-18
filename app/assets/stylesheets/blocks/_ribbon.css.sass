@@ -1,0 +1,46 @@
+.ribbon
+  +animate
+  background-color: $black-color
+  color: $white-color
+  position: fixed
+  top: 40%
+  +padding(2)
+  z-index: $z-ribbon
+  box-sizing: border-box
+  right: -250px
+  height: 150px
+
+  &:hover
+    right: 0
+    box-shadow: 0 3px 30px 0px rgba(black, 0.3)
+    background-color: $green-color
+
+    .ribbon__opener
+      opacity: 0
+      left: 0
+      width: 0
+
+
+.ribbon__opener
+  +animate(.5s)
+  z-index: $z-ribbon-opener
+  background-color: $black-color
+  display: table
+  text-align: center
+  vertical-align: middle
+  position: absolute
+  opacity: 1
+  +size(50px)
+  top: 0
+  left: -50px
+  padding-top: 10px
+
+.ribbon__logo
+  margin-left: -5px
+
+.ribbon__claim
+  margin-top: 10px
+  max-width: 200px
+
+
+

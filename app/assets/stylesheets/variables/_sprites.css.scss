@@ -2,10 +2,16 @@
 
 $sprite-size: (
   width   162px,
-  height  54px
+  height  89px
 );
 
 $sprite-images: (
+  guy-gray (
+    x             0px,
+    y             57px,
+    width         32px,
+    height        32px
+  ),
   logo (
     x             0px,
     y             0px,
