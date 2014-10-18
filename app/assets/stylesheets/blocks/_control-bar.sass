@@ -6,13 +6,14 @@
 
 .control-bar__action
   margin-right: 5px
-  &:last-child
-    margin-right: 0
 
-  *:last-child
+.control-bar__action__normal
+  .control-bar__actions:hover &
     display: none
-  &:hover
-    *:first-child
-      display: none
-    *:last-child
-      display: inline-block
+
+.control-bar__action__hover
+  display: none
+
+  .control-bar__actions:hover &
+    display: inline-block
+
