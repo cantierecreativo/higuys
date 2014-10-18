@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+PushEvent
+
 describe StorePhoto do
   let(:guest) { create(:guest, :with_wall) }
   let(:s3_url) { 'http://higuysio.secchio/test.jpg' }
@@ -16,13 +18,11 @@ describe StorePhoto do
   describe "#execute" do
     let(:result) { command.execute }
     let(:pusher) do
-      class_double("Pusher").as_stubbed_const(
-        transfer_nested_contants: true
-      )
+      class_double("PushEvent").as_stubbed_const
     end
 
     before do
-      allow(pusher).to receive(:trigger)
+      allow(pusher).to receive(:execute)
     end
 
     context 'if the guest_id does not correspond to any existing guest' do
@@ -77,7 +77,8 @@ describe StorePhoto do
 
       it 'pushes a "photo" event' do
         result
-        expect(pusher).to have_received(:trigger).with("demo-#{guest.wall.access_code}", 'photo', guest_id: guest.id)
+        expect(pusher).to have_received(:execute)
+          .with(guest.wall, 'photo', guest_id: guest.id)
       end
     end
   end

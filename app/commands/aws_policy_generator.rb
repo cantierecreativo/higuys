@@ -37,3 +37,4 @@ class AwsPolicyGenerator
     @filename ||= "#{SecureRandom.hex}.jpg"
   end
 end
+

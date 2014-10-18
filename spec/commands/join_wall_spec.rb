@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+PushEvent
+
 describe JoinWall do
   subject(:command) { JoinWall.new(wall, session) }
   let(:session) { {} }
@@ -15,13 +17,11 @@ describe JoinWall do
 
   describe '#execute' do
     let(:pusher) {
-      class_double("Pusher").as_stubbed_const(
-        transfer_nested_constants: true
-      )
+      class_double("PushEvent").as_stubbed_const
     }
 
     before do
-      allow(pusher).to receive(:trigger)
+      allow(pusher).to receive(:execute)
     end
 
     context 'if the session has no guest user' do
@@ -52,8 +52,8 @@ describe JoinWall do
         end
 
         it 'pushes a "join" event' do
-          expect(pusher).to have_received(:trigger).with(
-            'demo-XXX',
+          expect(pusher).to have_received(:execute).with(
+            wall,
             'join',
             guest_id: guest.id
           )
@@ -98,3 +98,4 @@ describe JoinWall do
     end
   end
 end
+

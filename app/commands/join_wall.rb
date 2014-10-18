@@ -19,7 +19,7 @@ class JoinWall < Struct.new(:wall, :session)
       session[:guest_id] = guest.id
 
       channel_name = "demo-#{wall.access_code}"
-      Pusher.trigger(channel_name, 'join', guest_id: guest.id)
+      PushEvent.execute(wall, 'join', guest_id: guest.id)
       return true
     else
       return false
@@ -32,3 +32,4 @@ class JoinWall < Struct.new(:wall, :session)
     @guest ||= Guest.where(id: session[:guest_id]).first_or_create!
   end
 end
+

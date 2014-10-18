@@ -4,7 +4,7 @@ class StorePhoto < Struct.new(:s3_url, :guest_id)
       return false
     end
     guest.update_attributes(last_image: image)
-    Pusher.trigger(channel_name, 'photo', guest_id: guest.id)
+    PushEvent.execute(guest.wall, 'photo', guest_id: guest.id)
     true
   end
 

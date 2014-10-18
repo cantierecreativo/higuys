@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+PushEvent
+
 describe LeaveWall do
   subject(:command) { LeaveWall.new(wall, session) }
   let(:session) { {} }
@@ -15,13 +17,11 @@ describe LeaveWall do
 
   describe '#execute' do
     let(:pusher) {
-      class_double("Pusher").as_stubbed_const(
-        transfer_nested_constants: true
-      )
+      class_double("PushEvent").as_stubbed_const
     }
 
     before do
-      allow(pusher).to receive(:trigger)
+      allow(pusher).to receive(:execute)
     end
 
     context 'if the session has a guest user within the wall' do
@@ -38,8 +38,8 @@ describe LeaveWall do
         end
 
         it 'pushes a "leave" event' do
-          expect(pusher).to have_received(:trigger).with(
-            'demo-XXX',
+          expect(pusher).to have_received(:execute).with(
+            wall,
             'leave',
             guest_id: guest.id
           )
