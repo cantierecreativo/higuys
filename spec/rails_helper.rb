@@ -15,5 +15,5 @@ RSpec.configure do |config|
 end
 
 ActiveRecord::Migration.maintain_test_schema!
-Capybara.javascript_driver = :webkit
-
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
