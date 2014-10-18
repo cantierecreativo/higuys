@@ -28,6 +28,7 @@ gem 'rails-assets-normalize-scss'
 gem 'rails-assets-sass-list-maps'
 gem 'rails-assets-modernizr'
 gem 'rails-assets-caman'
+gem 'rails-assets-momentjs'
 
 group :development do
   gem 'spring'
