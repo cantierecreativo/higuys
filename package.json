@@ -2,8 +2,10 @@
   "name": "XXX",
   "version": "0.0.1",
   "devDependencies": {
-    "grunt": "*",
-    "grunt-bemo": "*"
+    "grunt": "^0.4.5",
+    "grunt-bemo": "^0.1.7",
+    "grunt-image-resize": "^0.3.0",
+    "grunt-spritesmith": "^2.1.3",
+    "grunt-webfont": "^0.4.8"
   }
 }
-
