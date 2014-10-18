@@ -19,6 +19,7 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'unicorn'
 gem 'slim-rails'
+gem 'pusher'
 
 gem 'bourbon', '~> 3.2.1'
 gem 'rails-assets-normalize-scss'

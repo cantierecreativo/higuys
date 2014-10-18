@@ -15,7 +15,7 @@ feature 'As visitor' do
   let(:home_page) { HomePage.new }
   let(:wall_page) { WallPage.new }
 
-  scenario 'I want to join a demo wall' do
+  scenario 'I want to join a demo wall', vcr: { match_requests_on: %i(method host path) } do
     home_page.load
     home_page.join_demo_wall_element.click
 

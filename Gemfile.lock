@@ -110,6 +110,7 @@ GEM
     hike (1.2.3)
     hitimes (1.2.2)
     http_parser.rb (0.6.0)
+    httpclient (2.5.0)
     i18n (0.6.11)
     i18n-tasks (0.7.7)
       activesupport
@@ -154,6 +155,10 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
+    pusher (0.14.2)
+      httpclient (~> 2.4)
+      multi_json (~> 1.0)
+      signature (~> 0.1.6)
     rack (1.5.2)
     rack-livereload (0.3.15)
       rack
@@ -209,6 +214,7 @@ GEM
       sprockets-rails (~> 2.0)
     shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
+    signature (0.1.7)
     simple_form (3.0.2)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -261,7 +267,7 @@ GEM
       rack
       raindrops (~> 0.7)
     uuidtools (2.1.5)
-    vcr (2.9.0)
+    vcr (2.9.3)
     webmock (1.19.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -292,6 +298,7 @@ DEPENDENCIES
   pg
   poltergeist
   pry-rails
+  pusher
   rack-livereload
   rack-timeout
   rails (= 4.1.6)

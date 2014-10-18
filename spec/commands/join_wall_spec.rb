@@ -3,7 +3,7 @@ require 'rails_helper'
 describe JoinWall do
   subject(:command) { JoinWall.new(wall, session) }
   let(:session) { {} }
-  let(:wall) { create(:wall) }
+  let(:wall) { create(:wall, access_code: 'XXX') }
 
   it 'takes the session' do
     expect(command.session).to eq session
@@ -14,6 +14,16 @@ describe JoinWall do
   end
 
   describe '#execute' do
+    let(:pusher) {
+      class_double("Pusher").as_stubbed_const(
+        transfer_nested_constants: true
+      )
+    }
+
+    before do
+      allow(pusher).to receive(:trigger)
+    end
+
     context 'if the session has no guest user' do
       before do
         command.execute
@@ -35,6 +45,14 @@ describe JoinWall do
 
         it 'makes the guest join the wall' do
           expect(guest.reload.wall).to eq wall
+        end
+
+        it 'pushes a "join" event' do
+          expect(pusher).to have_received(:trigger).with(
+            'demo-XXX',
+            'join',
+            guest_id: guest.id
+          )
         end
       end
 
