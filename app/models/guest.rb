@@ -14,4 +14,3 @@ class Guest < ActiveRecord::Base
     data
   end
 end
-

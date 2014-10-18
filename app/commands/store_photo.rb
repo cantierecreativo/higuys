@@ -24,4 +24,3 @@ class StorePhoto < Struct.new(:s3_url, :session)
     @image ||= Image.create(s3_url: s3_url, guest: guest)
   end
 end
-
