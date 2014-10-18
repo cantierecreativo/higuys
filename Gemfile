@@ -35,6 +35,10 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'guard-livereload', require: false
+  gem 'rack-livereload'
+  gem 'rb-inotify', require: false # linux
+  gem 'rb-fsevent', require: false # os x
 end
 
 group :test do
