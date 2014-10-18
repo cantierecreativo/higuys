@@ -12,3 +12,4 @@
 /tags
 /tmp/*
 node_modules/*
+/config/database.yml
