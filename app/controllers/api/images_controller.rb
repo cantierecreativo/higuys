@@ -1,13 +1,8 @@
 module Api
   class ImagesController < BaseController
     def upload_request
-      upload_request = UploadRequest.new
-
-      if upload_request.execute
-        render json: { success: true, url: upload_request.url }, status: :ok
-      else
-        render json: { success: false }, status: :unprocessable_entity
-      end
+      url = AwsPolicyGenerator.execute
+      render json: { url: url }, status: :ok
     end
 
     def photos

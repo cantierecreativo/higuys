@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'open-uri'
 
-describe Api::UploadRequest do
+describe AwsPolicyGenerator do
   let(:command) { described_class.new }
   let(:upload_url) { "UPLOAD_URL_S3" }
 
@@ -16,7 +16,8 @@ describe Api::UploadRequest do
     end
 
     it "returns the upload URI for s3" do
-      expect(result.to_s.start_with?(expected_url)).to be true
+      expect(result.start_with?(expected_url)).to be true
     end
   end
 end
+

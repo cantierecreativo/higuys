@@ -1,16 +1,18 @@
 require 'rails_helper'
 
+AwsPolicyGenerator
+
 describe Api::ImagesController do
   describe 'POST :upload_request' do
     let(:url) { 'URL' }
-    let(:request_id) { 'REQUEST_ID' }
-    let(:request_result) { true }
-    let(:upload_request) { double('UploadRequest', url: url, request_id: request_id, execute: request_result) }
-    let(:params) { { } }
-    let(:action) { post :upload_request, params }
+    let(:upload_request) {
+      class_double('AwsPolicyGenerator')
+        .as_stubbed_const(transfer_nested_constants: true)
+    }
+    let(:action) { post :upload_request }
 
     before do
-      allow(Api::UploadRequest).to receive(:new).and_return(upload_request)
+      allow(upload_request).to receive(:execute) { url }
     end
 
     before do
@@ -25,19 +27,7 @@ describe Api::ImagesController do
       end
 
       it 'returns an hash with an url and a request id' do
-        expect(response.body).to eq({ success: true, url: url }.to_json)
-      end
-    end
-
-    context 'on error' do
-      let(:request_result) { false }
-
-      it 'responds with unprocessable entity' do
-        expect(response.status).to eq(422)
-      end
-
-      it 'returns an hash with the status of the operation' do
-        expect(response.body).to eq({ success: false }.to_json)
+        expect(response.body).to eq({ url: url }.to_json)
       end
     end
   end
