@@ -84,4 +84,3 @@ describe JoinWall do
     end
   end
 end
-

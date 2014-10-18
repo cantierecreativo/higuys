@@ -33,14 +33,17 @@ describe Api::ImagesController do
   end
 
   describe 'POST :photos' do
-    let(:notifier_result) { true }
-    let(:upload_notifier)  { double('UploadNotifier', execute: notifier_result) }
+    let(:store_photo)  { instance_double('StorePhoto', execute: true) }
     let(:s3_url) { 'bucket_url' }
+    let(:guest_id) { 'GUEST_ID' }
     let(:params) { { s3_url: s3_url } }
-    let(:action) { post :photos, params }
+    let(:session) { { guest_id: guest_id } }
+    let(:action) { post :photos, params, session }
+    let(:execute_status) { true }
 
     before do
-      allow(Api::UploadNotifier).to receive(:new).with(s3_url).and_return(upload_notifier)
+      allow(StorePhoto).to receive(:new).with(s3_url, guest_id).and_return(store_photo)
+      allow(store_photo).to receive(:execute).and_return(execute_status)
     end
 
     before do
@@ -48,32 +51,23 @@ describe Api::ImagesController do
     end
 
     context 'on success' do
-      let(:notifier_result) { true }
+      let(:execute_status) { true }
 
       it 'notify all the other clients that I have uploaded a photo' do
-        expect(upload_notifier).to have_received(:execute)
+        expect(store_photo).to have_received(:execute)
       end
 
       it 'responds with ok' do
         expect(response.status).to eq(200)
       end
-
-      it 'returns an hash with the status of the operation' do
-        expect(response.body).to eq({ success: true }.to_json)
-      end
     end
 
     context 'on error' do
-      let(:notifier_result) { false }
+      let(:execute_status) { false }
 
       it 'responds with unprocessable entity' do
         expect(response.status).to eq(422)
       end
-
-      it 'returns an hash with the status of the operation' do
-        expect(response.body).to eq({ success: false }.to_json)
-      end
     end
   end
 end
-

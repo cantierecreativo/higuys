@@ -6,14 +6,12 @@ module Api
     end
 
     def photos
-      upload_notifier = UploadNotifier.new(params[:s3_url])
-
-      if upload_notifier.execute
-        render json: { success: true }, status: :ok
+      store_photo = StorePhoto.new(params[:s3_url], session[:guest_id])
+      if store_photo.execute
+        render json: nil, status: :ok
       else
-        render json: { success: false }, status: :unprocessable_entity
+        render json: nil, status: :unprocessable_entity
       end
     end
   end
 end
-
