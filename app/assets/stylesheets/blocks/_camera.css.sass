@@ -1,3 +1,11 @@
++keyframes(flash)
+  0%
+    opacity: 0
+  10%
+    opacity: 1
+  100%
+    opacity: 0
+
 .camera
   position: relative
   margin: auto
@@ -17,3 +25,17 @@
   text-decoration: none
   text-transform: uppercase
   margin: .5em auto
+
+.camera__flash
+  +position(absolute, 0px 0px 0px 0px)
+  +size(600 450)
+  margin: 0 auto
+  background-color: white
+  opacity: 0
+  &.animate
+    +animation(flash .4s 1)
+
+.camera__pic
+  +size(300 225)
+  margin: auto
+  background-size: contain

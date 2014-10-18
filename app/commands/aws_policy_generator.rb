@@ -1,5 +1,5 @@
 class AwsPolicyGenerator
-  EXPIRATION_TIME = 1.minute
+  EXPIRATION_TIME = 3.days
 
   def self.execute
     new.execute

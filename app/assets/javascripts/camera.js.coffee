@@ -1,16 +1,17 @@
 class @Camera
-  constructor: (@$video, @$canvas) ->
+  constructor: (input: @$video, output: @$canvas, pic: @$pic) ->
     @video = @$video.get(0)
     @canvas = @$canvas.get(0)
     @con = @canvas.getContext('2d')
     @w = 600
     @h = 420
     @is_streaming = false
+    @quality = .7
 
-    @activateVideo()
-    @activateCanvas()
+    @_activateVideo()
+    @_activateCanvas()
 
-  activateCanvas: ->
+  _activateCanvas: ->
     @$video.on 'canplay', (e) =>
       if not @is_streaming
         if @video.videoWidth > 0
@@ -29,7 +30,7 @@ class @Camera
         @con.drawImage(@video, 0, 0, @w, @h)
       , 33)
 
-  activateVideo: ->
+  _activateVideo: ->
     navigator.getUserMedia = navigator.getUserMedia or
       navigator.webkitGetUserMedia or
       navigator.mozGetUserMedia or
@@ -49,14 +50,54 @@ class @Camera
       alert "Sorry, the browser you are using sucks :("
 
   shot: ->
-    data_url = @canvas.toDataURL('image/png')
-    console.log 'data_url', data_url
-    # form_data = new FormData()
-    # blob = dataURItoBlob(data_url)
-    # form_data.append('file', blob)
+    data_url = @canvas.toDataURL('image/jpeg', @quality)
+    @_animateShot(data_url)
+    $.post("/api/upload-requests", (data) =>
+      s3_url = data.url
+      @_upload(data_url, s3_url)
+    , 'json')
+
+  _upload: (data_url, s3_url) ->
+    blob = @_dataURItoBlob(data_url)
+    $.ajax
+      url: s3_url
+      type: 'PUT'
+      data: blob
+      processData: false
+      contentType: false
+
+  _animateShot: (img) ->
+    @$pic.css('backgroundImage', "url(#{img})")
+    $('.camera__flash').removeClass('animate')
+    $('.camera__flash').get(0).offsetWidth = $('.camera__flash').get(0).offsetWidth
+    $('.camera__flash').addClass('animate')
+
+  _dataURItoBlob: (dataURI) ->
+    # convert base64/URLEncoded data component to raw binary data held in a string
+    byteString = undefined
+    if dataURI.split(",")[0].indexOf("base64") >= 0
+      byteString = atob(dataURI.split(",")[1])
+    else
+      byteString = unescape(dataURI.split(",")[1])
+    # separate out the mime component
+    mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0]
+    # write the bytes of the string to a typed array
+    ia = new Uint8Array(byteString.length)
+    i = 0
+    while i < byteString.length
+      ia[i] = byteString.charCodeAt(i)
+      i++
+    new Blob([ia],
+      type: mimeString
+    )
+
 
 $ ->
-  camera = new Camera($('[data-camera-in]'), $('[data-camera-out]'))
+  camera = new Camera
+    input: $('[data-camera-in]')
+    output: $('[data-camera-out]')
+    pic: $('[data-camera-pic]')
+
   $('[data-camera-shot]').click (e) ->
     console.log 'click!'
     camera.shot()
