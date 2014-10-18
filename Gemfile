@@ -17,7 +17,7 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'simple_form'
 gem 'uglifier'
 gem 'unicorn'
-gem 'slim'
+gem 'slim-rails'
 
 gem 'bourbon', '~> 3.2.1'
 gem 'rails-assets-normalize-scss'
@@ -54,3 +54,4 @@ end
 group :staging, :production do
   gem 'newrelic_rpm', '>= 3.7.3'
 end
+
