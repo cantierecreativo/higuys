@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :walls, only: %i(show create)
+  resources :walls, only: %i(show create) do
+    member do
+      post :leave
+    end
+  end
 
   namespace :api do
     post '/upload-requests', to: 'images#upload_request'

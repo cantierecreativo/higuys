@@ -8,11 +8,16 @@ class JoinWall < Struct.new(:wall, :session)
       raise GuestAlreadyHasAWallException.new(guest.wall)
     end
 
-    guest.update_attributes!(wall: wall)
-    session[:guest_id] = guest.id
+    if guest.wall != wall
+      guest.update_attributes!(wall: wall)
+      session[:guest_id] = guest.id
 
-    channel_name = "demo-#{wall.access_code}"
-    Pusher.trigger(channel_name, 'join', guest_id: guest.id)
+      channel_name = "demo-#{wall.access_code}"
+      Pusher.trigger(channel_name, 'join', guest_id: guest.id)
+      true
+    else
+      false
+    end
   end
 
   private

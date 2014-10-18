@@ -40,7 +40,11 @@ describe JoinWall do
 
       context 'if the guest is not linked with a wall' do
         before do
-          command.execute
+          @result = command.execute
+        end
+
+        it 'returns true' do
+          expect(@result).to be_truthy
         end
 
         it 'makes the guest join the wall' do
@@ -53,6 +57,18 @@ describe JoinWall do
             'join',
             guest_id: guest.id
           )
+        end
+      end
+
+      context 'if the guest is already linked with a wall' do
+        let(:guest) { create(:guest, wall: wall) }
+
+        before do
+          @result = command.execute
+        end
+
+        it 'returns true' do
+          expect(@result).to be_falsy
         end
       end
 

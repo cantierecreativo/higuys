@@ -1,6 +1,9 @@
+= link_to "Leave wall", leave_wall_path(@wall), data: { method: 'post' }, class: 'button--primary button-huge', role: 'leave'
+
 .wall
 
 .camera
   video data-camera-in="me"
   canvas data-camera-out="me"
   a.camera__shot href="#" data-camera-shot="me" Take picture
+
