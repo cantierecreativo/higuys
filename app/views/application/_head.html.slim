@@ -1,0 +1,22 @@
+head
+  meta charset="utf-8"
+  meta name="ROBOTS" content="NOODP"
+  meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" name="viewport"
+  title = content_for?(:title) ? yield(:title) : "hi guys!"
+  meta name="description" content='#{content_for?(:description) ? yield(:description) : "Hi Guys! is a remote presence tool where you can see your colleagues during the working day!"}'
+
+  link rel="canonical" href="http://higuys.io#{request.fullpath}"
+
+  / OPEN GRAPH STUFF
+  meta property="og:title" content="#{yield(:title)}"
+  meta property="og:type" content="website"
+  meta property="og:url" content="http://#{request.host+request.fullpath}"
+  meta property="og:image" content='#{content_for?(:ogimage) ? yield(:ogimage) : image_path("higuys-og-logo.png")}'
+
+  meta property="og:site_name" content="hi guys! remote presence tool for the win!"
+  meta property="og:description" content="#{yield(:description)}"
+
+
+  = stylesheet_link_tag :application, media: "all"
+  = javascript_include_tag "modernizr"
+  = csrf_meta_tags
