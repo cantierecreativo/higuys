@@ -1,5 +1,5 @@
 module Api
-  class ImagesController < ApplicationController
+  class ImagesController < BaseController
     def upload_request
       upload_request = UploadRequest.new
 
