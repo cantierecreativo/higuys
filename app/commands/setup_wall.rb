@@ -6,7 +6,9 @@ class SetupWall < Struct.new(:session)
   end
 
   def execute
-    raise GuestAlreadyHasAWallException.new(guest.wall) if guest.wall
+    if guest.wall
+      raise GuestAlreadyHasAWallException.new(guest.wall)
+    end
 
     guest.update_attributes!(wall: wall)
     session[:guest_id] = guest.id
@@ -28,10 +30,7 @@ class SetupWall < Struct.new(:session)
   end
 
   def guest
-    if (( guest_id = session[:guest_id] ))
-      Guest.find(guest_id)
-    else
-      Guest.create!
-    end
+    @guest ||= Guest.where(id: session[:guest_id]).first_or_create!
   end
 end
+

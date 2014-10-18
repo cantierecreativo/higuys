@@ -18,7 +18,6 @@ class JoinWall < Struct.new(:wall, :session)
       guest.update_attributes!(wall: wall)
       session[:guest_id] = guest.id
 
-      channel_name = "demo-#{wall.access_code}"
       PushEvent.execute(wall, 'join', guest_id: guest.id)
       return true
     else

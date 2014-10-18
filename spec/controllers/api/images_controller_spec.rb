@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 AwsPolicyGenerator
+StorePhoto
 
 describe Api::ImagesController do
   describe 'POST :upload_request' do
@@ -33,25 +34,20 @@ describe Api::ImagesController do
   end
 
   describe 'POST :photos' do
-    let(:store_photo)  { instance_double('StorePhoto', execute: true) }
-    let(:s3_url) { 'bucket_url' }
-    let(:guest_id) { 'GUEST_ID' }
-    let(:params) { { s3_url: s3_url } }
-    let(:session) { { guest_id: guest_id } }
-    let(:action) { post :photos, params, session }
-    let(:execute_status) { true }
-
-    before do
-      allow(StorePhoto).to receive(:new).with(s3_url, guest_id).and_return(store_photo)
-      allow(store_photo).to receive(:execute).and_return(execute_status)
-    end
-
-    before do
-      action
-    end
+    let(:store_photo) {
+      class_double("StorePhoto")
+        .as_stubbed_const(transfer_nested_constants: true)
+    }
+    let(:action) { post :photos, { s3_url: 'URL' }, { guest_id: 'GUEST_ID' } }
 
     context 'on success' do
-      let(:execute_status) { true }
+      before do
+        allow(store_photo).to receive(:execute)
+      end
+
+      before do
+        action
+      end
 
       it 'notify all the other clients that I have uploaded a photo' do
         expect(store_photo).to have_received(:execute)
@@ -62,8 +58,15 @@ describe Api::ImagesController do
       end
     end
 
-    context 'on error' do
-      let(:execute_status) { false }
+    context 'on StorePhotoInvalidInputException' do
+      before do
+        allow(store_photo).to receive(:execute).
+          and_raise(StorePhoto::InvalidInputException)
+      end
+
+      before do
+        action
+      end
 
       it 'responds with unprocessable entity' do
         expect(response.status).to eq(422)
@@ -71,3 +74,4 @@ describe Api::ImagesController do
     end
   end
 end
+

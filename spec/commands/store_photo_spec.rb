@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 PushEvent
+Guest
 
 describe StorePhoto do
   let(:guest) { create(:guest, :with_wall) }
@@ -16,7 +17,6 @@ describe StorePhoto do
   end
 
   describe "#execute" do
-    let(:result) { command.execute }
     let(:pusher) do
       class_double("PushEvent").as_stubbed_const
     end
@@ -28,16 +28,16 @@ describe StorePhoto do
     context 'if the guest_id does not correspond to any existing guest' do
       let(:guest) { instance_double('Guest', id: 'foo') }
 
-      it 'returns false' do
-        expect(result).to be false
+      it 'raises InvalidInputException' do
+        expect { command.execute }.to raise_error StorePhoto::InvalidInputException
       end
     end
 
     context 'if the guest has no associated walls' do
       let(:guest) { create(:guest) }
 
-      it 'returns false' do
-        expect(result).to be false
+      it 'raises InvalidInputException' do
+        expect { command.execute }.to raise_error StorePhoto::InvalidInputException
       end
     end
 
@@ -48,35 +48,35 @@ describe StorePhoto do
         stub_const 'ENV', {'S3_BUCKET_NAME' => 'higuysio'}
       end
 
-      it 'returns false' do
-        expect(result).to be false
+      it 'raises InvalidInputException' do
+        expect { command.execute }.to raise_error StorePhoto::InvalidInputException
       end
     end
 
     context "if the image already exists" do
       let!(:image) { create(:image, s3_url: s3_url) }
 
-      before do
-        command.execute
-      end
-
-      it "returns false" do
-        expect(result).to be false
+      it 'raises InvalidInputException' do
+        expect { command.execute }.to raise_error StorePhoto::InvalidInputException
       end
     end
 
     context 'when all data is ok' do
+      before do
+        @result = command.execute
+      end
+
+
       it 'creates an image entry on the database' do
-        expect { result }.to change { Image.count }.by(1)
+        expect(@result).to be_a Image
+        expect(@result).to be_persisted
       end
 
       it 'sets the last_image' do
-        result
         expect(guest.reload.last_image).to_not be_nil
       end
 
       it 'pushes a "photo" event' do
-        result
         expect(pusher).to have_received(:execute)
           .with(guest.wall, 'photo', guest_id: guest.id)
       end

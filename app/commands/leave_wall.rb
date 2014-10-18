@@ -9,7 +9,6 @@ class LeaveWall < Struct.new(:wall, :session)
     end
 
     guest.update_attributes!(wall: nil)
-    channel_name = "demo-#{wall.access_code}"
     PushEvent.execute(wall, 'leave', guest_id: guest.id)
   end
 

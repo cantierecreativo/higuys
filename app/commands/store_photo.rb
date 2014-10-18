@@ -1,18 +1,22 @@
 class StorePhoto < Struct.new(:s3_url, :guest_id)
+  class InvalidInputException < RuntimeError; end
+
+  def self.execute(*args)
+    new(*args).execute
+  end
+
   def execute
     if !guest || guest.wall.blank? || image.invalid?
-      return false
+      raise InvalidInputException
     end
+
     guest.update_attributes(last_image: image)
     PushEvent.execute(guest.wall, 'photo', guest_id: guest.id)
-    true
+
+    image
   end
 
   private
-
-  def channel_name
-    @channel_name ||= "demo-#{guest.wall.access_code}"
-  end
 
   def guest
     @guest ||= Guest.where(id: guest_id).first
