@@ -1,5 +1,25 @@
 .home-hero
-  background-color: $primary-color
   color: white
   +vertical-padding(3)
+  text-align: center
+  position: relative
+
+  &:before
+    content: ""
+    z-index: -1
+    background-color: $primary-color
+    +position(absolute, 0px 0px 50% 0px)
+
+.home-hero__screenshot,
+.home-hero__faces,
+.home-hero__tagline
+  +vertical-margin(2)
+
+.home-hero__tagline
+  +font-size(huge)
+  +heading-font-family
+  +margin-bottom(3)
+
+.home-hero__screenshot img
+  box-shadow: 0 3px 30px 0px rgba(black, 0.3)
 
