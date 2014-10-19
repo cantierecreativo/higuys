@@ -27,7 +27,7 @@ class @PrivateClient
   constructor: (@accountId) ->
 
   fetchStatus: (cb) ->
-    $.get "/api/accounts/#{@accountId}/status", (data) ->
+    $.get "/api/accounts/#{@accountId}", (data) ->
       cb(null, data)
 
   requestUpload: (cb) ->
