@@ -22,7 +22,10 @@ class @FriendView
   remove: ->
     @$dom
       .addClass('is-hidden')
-      .on 'transitionend webkitTransitionEnd oTransitionEnd otransitionend', =>  @$dom.remove()
+      # sorry guys, ontransitionend callback was not working properly
+      setTimeout( =>
+        @$dom.remove()
+      , 600)
 
   appendTo: ($container) ->
     $container.append(@$dom).css('width') # triggers repaint
