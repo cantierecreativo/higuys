@@ -2,6 +2,8 @@
   color: white
   text-align: center
   position: relative
+  padding-top: $gui-header-height
+
 
   &:before
     content: ""
@@ -20,12 +22,11 @@
 
 .home-hero__faces
   max-width: 150px
-  margin: 20px auto
+  margin: 10px auto
 
   +at-breakpoint(gte-small-desk)
     max-width: 200px
     margin: 0 auto
-    +margin-top(3)
     +vertical-padding(2)
 
 

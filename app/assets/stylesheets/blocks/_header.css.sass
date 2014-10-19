@@ -5,9 +5,16 @@
   width: 100%
   z-index: $z-header
   background-color: $primary-color
+  max-height: $gui-header-height
+  overflow: hidden
 
 .header__logo
   float: left
+  margin-top: 5px
+
+  +at-breakpoint(gte-small-desk)
+    margin-top: 0
+
 
 .header__menu
   float: right

@@ -27,7 +27,9 @@
 
 .button--huge
   @extend .button
-  padding: 1.3em 1.9em
+  padding: .4em
+  +at-breakpoint(gte-small-desk)
+    padding: 1.3em 1.9em
 
 .button--expand
   @extend .button
