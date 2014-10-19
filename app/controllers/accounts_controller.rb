@@ -18,8 +18,8 @@ class AccountsController < ApplicationController
     respond_with @account
   end
 
+  before_action :requires_user_within_account!, only: :show
   def show
-    requires_user_within_account!
     @wall = current_account.wall
     @user_id = current_user.id
   end
