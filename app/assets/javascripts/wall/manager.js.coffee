@@ -37,7 +37,7 @@ class @Manager
     @refreshStatus (err) =>
       @myView.startStream (e) =>
         if e
-          alert "Fail"
+          alert "Ouch... we are unable to start the camera stream. Are you using Chrome or Firefox? Then try to refresh the browser!"
         else
           @shoot()
 

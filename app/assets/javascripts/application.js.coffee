@@ -24,7 +24,7 @@ $ ->
         $(".js-autoshoot")
       )
     else
-      alert("WHOOPS")
+      alert("Unfortunately your browser is not fully compatible with this website. Are you using Chrome or Firefox? Then try to refresh the browser!")
 
   $statusUpdate = $("[data-guest-status-url]")
   if $statusUpdate.length > 0
