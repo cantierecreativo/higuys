@@ -5,7 +5,8 @@ Guest
 
 describe StorePhoto do
   let(:guest) { create(:guest, :with_wall) }
-  let(:s3_url) { 'http://higuysio.secchio/test.jpg' }
+  let(:filename) { 'test.jpg' }
+  let(:s3_url) { "http://higuysio.secchio/#{filename}" }
   let(:command) { described_class.new(s3_url, session) }
   let(:session) { { guest_id: guest.id } }
 
@@ -15,6 +16,12 @@ describe StorePhoto do
 
   it "takes the session" do
     expect(command.session).to eq session
+  end
+
+  describe "#filename" do
+    it "returns the filename extracted from url" do
+      expect(command.filename).to eq filename
+    end
   end
 
   describe "#execute" do
@@ -54,8 +61,8 @@ describe StorePhoto do
       end
     end
 
-    context "if the image already exists" do
-      let!(:image) { create(:image, s3_url: s3_url) }
+    context "if they image already exists" do
+      let!(:image) { create(:image, filename: filename) }
 
       it 'raises InvalidInputException' do
         expect { command.execute }.to raise_error StorePhoto::InvalidInputException
@@ -84,4 +91,3 @@ describe StorePhoto do
     end
   end
 end
-

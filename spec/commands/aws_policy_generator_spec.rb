@@ -16,11 +16,7 @@ describe AwsPolicyGenerator do
     end
 
     it "returns the upload URI for s3" do
-      expect(result.upload_url.start_with?(expected_url)).to be true
-    end
-
-    it "returns the GET URI" do
-      expect(result.url).to eq(expected_url)
+      expect(result.start_with?(expected_url)).to be true
     end
   end
 end

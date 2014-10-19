@@ -17,8 +17,7 @@ class AwsPolicyGenerator
       acl: "public-read"
     )
 
-    OpenStruct.new upload_url: force_http_port(policy.clone).to_s,
-                   url: url(policy.clone).to_s
+    force_http_port(policy.clone).to_s
   end
 
   private
@@ -36,4 +35,3 @@ class AwsPolicyGenerator
     @filename ||= "#{SecureRandom.hex}.jpg"
   end
 end
-

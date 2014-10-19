@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :image do
     guest
-    s3_url "http://higuysio.secchio.it"
+    filename "image.jpg"
   end
 end

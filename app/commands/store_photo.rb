@@ -4,7 +4,7 @@ class StorePhoto < Struct.new(:s3_url, :session)
   class InvalidInputException < RuntimeError; end
 
   def execute
-    if !guest || guest.wall.blank? || image.invalid?
+    if !guest || guest.wall.blank? || !valid_url? || image.invalid?
       raise InvalidInputException
     end
 
@@ -14,6 +14,15 @@ class StorePhoto < Struct.new(:s3_url, :session)
     image
   end
 
+  def filename
+    @filename ||= File.basename(URI.parse(s3_url).path)
+  end
+
+  def valid_url?
+    s3_url.present? && s3_url.start_with?("http://#{ENV["S3_BUCKET_NAME"]}")
+  end
+
+
   private
 
   def guest
@@ -21,6 +30,6 @@ class StorePhoto < Struct.new(:s3_url, :session)
   end
 
   def image
-    @image ||= Image.create(s3_url: s3_url, guest: guest)
+    @image ||= Image.create(filename: filename, guest: guest)
   end
 end

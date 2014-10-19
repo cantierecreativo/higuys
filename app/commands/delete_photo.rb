@@ -16,6 +16,6 @@ class DeletePhoto < Struct.new(:image)
   end
 
   def filename
-    URI.parse(image.s3_url).path.gsub('/', '')
+    image.filename
   end
 end
