@@ -23,4 +23,5 @@
         - else
           .nav__item= link_to "sign in", sign_in_path, role: 'sign-in'
           .nav__item= link_to "make your account", new_account_path, role: 'register-account'
-          .nav__item= link_to "live demo!", walls_path, data: { method: 'post' }, class: 'button--rev', role: 'join-demo-wall'
+          .nav__item= link_to "live demo!", walls_path, data: { method: 'post' }, class: 'button--rev header__menu__live-demo', role: 'join-demo-wall'
+

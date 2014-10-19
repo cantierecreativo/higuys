@@ -22,12 +22,16 @@
   float: right
   margin-top: 12px
   color: white
+  display: none
 
   a
     color: white
 
   .nav__item
     padding-left: 20px
+
+  +at-breakpoint(gte-small-desk)
+    display: block
 
 .headroom--pinned
   top: 0
