@@ -18,10 +18,8 @@ class InvitationsController < ApplicationController
     end
   end
 
+  before_action :requires_registered_user!, :requires_account!, only: :accept
   def accept
-    requires_registered_user!
-    requires_account!
-
     @invitation = current_account.invitations
       .find_by_invitation_code!(params[:invitation_code])
 
