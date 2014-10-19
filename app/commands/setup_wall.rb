@@ -1,14 +1,14 @@
-class SetupWall < Struct.new(:guest)
+class SetupWall < Struct.new(:user)
   extend Command
 
   ACCESS_CODE_SIZE = 8
 
   def execute
-    if guest.wall
-      raise GuestAlreadyHasAWallException.new(guest.wall)
+    if user.wall
+      raise UserAlreadyHasAWallException.new(user.wall)
     end
 
-    guest.update_attributes!(wall: wall)
+    user.update_attributes!(wall: wall)
     wall
   end
 

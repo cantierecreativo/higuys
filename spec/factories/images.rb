@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :image do
-    guest
+    association :user, factory: :guest
     image_path "foo/bar/image.jpg"
   end
 end

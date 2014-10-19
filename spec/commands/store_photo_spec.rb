@@ -1,20 +1,20 @@
 require 'rails_helper'
 
 PushEvent
-Guest
+User
 
 describe StorePhoto do
   let(:filename) { 'foo/bar/test.jpg' }
   let(:s3_url) { "http://higuysio.secchio/#{filename}?foo=1&bar" }
-  let(:command) { described_class.new(guest, s3_url) }
-  let(:guest) { create(:guest, :with_wall) }
+  let(:command) { described_class.new(user, s3_url) }
+  let(:user) { create(:guest, :with_wall) }
 
   it "takes the s3_url" do
     expect(command.s3_url).to eq s3_url
   end
 
-  it "takes the guest" do
-    expect(command.guest).to eq guest
+  it "takes the user" do
+    expect(command.user).to eq user
   end
 
   describe "#execute" do
@@ -26,8 +26,8 @@ describe StorePhoto do
       allow(pusher).to receive(:execute)
     end
 
-    context 'if the guest has no associated walls' do
-      let(:guest) { create(:guest) }
+    context 'if the user has no associated walls' do
+      let(:user) { create(:guest) }
 
       it 'raises InvalidInputException' do
         expect { command.execute }.to raise_error StorePhoto::InvalidInputException
@@ -69,12 +69,12 @@ describe StorePhoto do
       end
 
       it 'sets the last_image' do
-        expect(guest.reload.last_image).to_not be_nil
+        expect(user.reload.last_image).to_not be_nil
       end
 
       it 'pushes a "photo" event' do
         expect(pusher).to have_received(:execute)
-          .with(guest.wall, 'photo', guest_id: guest.id)
+          .with(user.wall, 'photo', user_id: user.id)
       end
     end
   end

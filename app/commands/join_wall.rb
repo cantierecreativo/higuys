@@ -1,20 +1,20 @@
-class JoinWall < Struct.new(:guest, :wall)
+class JoinWall < Struct.new(:user, :wall)
   extend Command
 
   MAX_USERS_FOR_WALL = 12
 
   def execute
-    if guest.wall && guest.wall != wall
-      raise GuestAlreadyHasAWallException.new(guest.wall)
+    if user.wall && user.wall != wall
+      raise UserAlreadyHasAWallException.new(user.wall)
     end
 
-    if wall.guests.count >= MAX_USERS_FOR_WALL
+    if wall.users.count >= MAX_USERS_FOR_WALL
       raise TooManyUsersOnWallException.new(wall)
     end
 
-    if guest.wall.nil?
-      guest.update_attributes!(wall: wall)
-      PushEvent.execute(wall, 'join', guest_id: guest.id)
+    if user.wall.nil?
+      user.update_attributes!(wall: wall)
+      PushEvent.execute(wall, 'join', user_id: user.id)
       return true
     else
       return false

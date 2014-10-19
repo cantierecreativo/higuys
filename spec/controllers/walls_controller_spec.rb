@@ -8,11 +8,11 @@ Wall
 
 RSpec.describe WallsController do
   let(:session_manager) { instance_double("SessionManager") }
-  let(:guest) { create(:guest) }
+  let(:user) { create(:guest) }
 
   before do
     allow(SessionManager).to receive(:new).with(session) { session_manager }
-    allow(session_manager).to receive(:generate_and_sign_in_guest) { guest }
+    allow(session_manager).to receive(:generate_and_sign_in_user) { user }
   end
 
   describe "POST create" do
@@ -23,19 +23,19 @@ RSpec.describe WallsController do
     let(:wall) { build(:wall, access_code: 'XXX') }
     context 'with no errors' do
       before do
-        allow(setup_wall).to receive(:execute).with(guest) { wall }
+        allow(setup_wall).to receive(:execute).with(user) { wall }
       end
 
       before { post :create }
       it { is_expected.to redirect_to wall_path('XXX') }
     end
 
-    context 'with GuestAlreadyHasAWall exception' do
+    context 'with UserAlreadyHasAWall exception' do
       let(:another_wall) { create(:wall) }
 
       before do
-        allow(setup_wall).to receive(:execute).with(guest)
-          .and_raise(GuestAlreadyHasAWallException.new(another_wall))
+        allow(setup_wall).to receive(:execute).with(user)
+          .and_raise(UserAlreadyHasAWallException.new(another_wall))
       end
 
       before { post :create }
@@ -53,7 +53,7 @@ RSpec.describe WallsController do
 
     context 'with no errors' do
       before do
-        allow(join_wall).to receive(:execute).with(guest, wall)
+        allow(join_wall).to receive(:execute).with(user, wall)
       end
 
       before { get :show, id: wall.access_code }
@@ -61,12 +61,12 @@ RSpec.describe WallsController do
       it { is_expected.to respond_with 200 }
     end
 
-    context 'with GuestAlreadyHasAWall exception' do
+    context 'with UserAlreadyHasAWall exception' do
       let(:another_wall) { create(:wall) }
 
       before do
-        allow(join_wall).to receive(:execute).with(guest, wall)
-          .and_raise(GuestAlreadyHasAWallException.new(another_wall))
+        allow(join_wall).to receive(:execute).with(user, wall)
+          .and_raise(UserAlreadyHasAWallException.new(another_wall))
       end
 
       before { get :show, id: wall.access_code }
@@ -77,7 +77,7 @@ RSpec.describe WallsController do
 
     context 'with TooManyUsersOnWallException' do
       before do
-        allow(join_wall).to receive(:execute).with(guest, wall)
+        allow(join_wall).to receive(:execute).with(user, wall)
           .and_raise(TooManyUsersOnWallException.new(wall))
       end
 
@@ -97,7 +97,7 @@ RSpec.describe WallsController do
 
     context 'with no errors' do
       before do
-        allow(leave_wall).to receive(:execute).with(guest, wall)
+        allow(leave_wall).to receive(:execute).with(user, wall)
       end
 
       before { post :leave, id: wall.access_code }

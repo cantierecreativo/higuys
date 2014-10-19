@@ -4,7 +4,7 @@ RSpec.describe Image, type: :model do
   let(:image_path) { "foo/bar/image.jpg" }
   let(:image) { build(:image, image_path: image_path) }
 
-  it { should validate_presence_of :guest }
+  it { should validate_presence_of :user }
   it { should validate_presence_of :image_path }
 
   describe '#imgx_url' do
@@ -19,3 +19,4 @@ RSpec.describe Image, type: :model do
     end
   end
 end
+

@@ -17,7 +17,7 @@ class AccountsController < ApplicationController
   def show
     @account = Account.find_by_slug(params[:id])
     @wall = @account.wall
-    @guest_id = 1
+    @user_id = 1
   end
 
   private

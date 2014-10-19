@@ -1,15 +1,15 @@
-class StorePhoto < Struct.new(:guest, :s3_url)
+class StorePhoto < Struct.new(:user, :s3_url)
   extend Command
 
   class InvalidInputException < RuntimeError; end
 
   def execute
-    if !guest || guest.wall.blank? || !valid_url? || image.invalid?
+    if !user || user.wall.blank? || !valid_url? || image.invalid?
       raise InvalidInputException
     end
 
-    guest.update_attributes(last_image: image)
-    PushEvent.execute(guest.wall, 'photo', guest_id: guest.id)
+    user.update_attributes(last_image: image)
+    PushEvent.execute(user.wall, 'photo', user_id: user.id)
 
     image
   end
@@ -25,6 +25,7 @@ class StorePhoto < Struct.new(:guest, :s3_url)
   private
 
   def image
-    @image ||= Image.create(image_path: image_path, guest: guest)
+    @image ||= Image.create(image_path: image_path, user: user)
   end
 end
+

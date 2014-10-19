@@ -24,7 +24,7 @@ describe Api::WallsController do
       allow(policy_generator).to receive(:execute) { 'URL' }
     end
 
-    context 'with a non authenticated guest' do
+    context 'with a non authenticated user' do
       before { action }
 
       it 'responds with unprocessable entity' do
@@ -32,13 +32,13 @@ describe Api::WallsController do
       end
     end
 
-    context 'with a guest user signed in (associated with a wall)' do
+    context 'with a user user signed in (associated with a wall)' do
       let(:session_manager) { instance_double("SessionManager") }
-      let(:guest) { create(:guest, :with_wall) }
+      let(:user) { create(:guest, :with_wall) }
 
       before do
         allow(SessionManager).to receive(:new).with(session) { session_manager }
-        allow(session_manager).to receive(:current_guest) { guest }
+        allow(session_manager).to receive(:current_user) { user }
       end
 
       before { action }
@@ -61,7 +61,7 @@ describe Api::WallsController do
     let(:wall) { create(:wall) }
     let(:action) { post :create_photo, { s3_url: 'URL', format: :json, wall_id: wall.access_code } }
 
-    context 'with a non authenticated guest' do
+    context 'with a non authenticated user' do
       before { action }
 
       it 'responds with unprocessable entity' do
@@ -69,13 +69,13 @@ describe Api::WallsController do
       end
     end
 
-    context 'with a guest user signed in (associated with a wall)' do
+    context 'with a user user signed in (associated with a wall)' do
       let(:session_manager) { instance_double("SessionManager") }
-      let(:guest) { create(:guest, :with_wall) }
+      let(:user) { create(:guest, :with_wall) }
 
       before do
         allow(SessionManager).to receive(:new).with(session) { session_manager }
-        allow(session_manager).to receive(:current_guest) { guest }
+        allow(session_manager).to receive(:current_user) { user }
       end
 
       before do
@@ -88,7 +88,7 @@ describe Api::WallsController do
 
       it 'notify all the other clients that I have uploaded a photo' do
         expect(store_photo).to have_received(:execute)
-          .with(guest, 'URL')
+          .with(user, 'URL')
       end
 
       it 'responds with ok' do
@@ -118,7 +118,7 @@ describe Api::WallsController do
       get :show, { wall_id: wall.access_code, format: :json }
     end
 
-    context 'with a non authenticated guest' do
+    context 'with a non authenticated user' do
       before { action }
 
       it 'responds with unprocessable entity' do
@@ -126,31 +126,31 @@ describe Api::WallsController do
       end
     end
 
-    context 'with a guest user signed in (associated with a wall)' do
+    context 'with a user user signed in (associated with a wall)' do
       let(:session_manager) { instance_double("SessionManager") }
       let(:image) { create(:image) }
-      let(:guest) { image.guest }
+      let(:user) { image.user }
 
       before do
         allow(SessionManager).to receive(:new).with(session) { session_manager }
-        allow(session_manager).to receive(:current_guest) { guest }
+        allow(session_manager).to receive(:current_user) { user }
       end
 
       before do
-        guest.wall = wall
-        guest.last_image = image
-        guest.save!
+        user.wall = wall
+        user.last_image = image
+        user.save!
       end
 
       before do
         action
       end
 
-      it 'returns a json with all guests of this wall and their photos' do
+      it 'returns a json with all users of this wall and their photos' do
         expect(response.body).to have_json_size(1)
-        expect(response.body).to include_json({id: guest.id,
-                                               image_url: guest.last_image.imgx_url,
-                                               active_at: guest.last_image.created_at,
+        expect(response.body).to include_json({id: user.id,
+                                               image_url: user.last_image.imgx_url,
+                                               active_at: user.last_image.created_at,
                                               }.to_json)
       end
     end

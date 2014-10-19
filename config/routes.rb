@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/auth/:provider/callback', to: 'sessions#create'
+
   resources :walls, only: %i(show create) do
     member do
       post :leave

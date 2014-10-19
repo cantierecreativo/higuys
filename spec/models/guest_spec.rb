@@ -1,47 +1,47 @@
 require 'rails_helper'
 
-RSpec.describe Guest, type: :model do
+RSpec.describe User, type: :model do
   describe '.by_id' do
-    let(:guest1) { create(:guest) }
-    let(:guest2) { create(:guest) }
+    let(:user1) { create(:guest) }
+    let(:user2) { create(:guest) }
 
     before do
-      guest1
-      guest2
+      user1
+      user2
     end
 
-    it 'returns the guest ordere by id in ascending order' do
-      expect(Guest.by_id).to eq([guest1, guest2])
+    it 'returns the user ordere by id in ascending order' do
+      expect(User.by_id).to eq([user1, user2])
     end
   end
 
   describe '.active_in_the_last' do
-    let(:guest) { create(:guest) }
-    let(:image) { create(:image, guest: guest, image_path: 'foobar.jpg') }
+    let(:user) { create(:guest) }
+    let(:image) { create(:image, user: user, image_path: 'foobar.jpg') }
 
-    context 'if the guest was active less than 5 minutes ago' do
+    context 'if the user was active less than 5 minutes ago' do
       before do
         image.created_at = 3.minutes.ago
-        guest.last_image = image
+        user.last_image = image
         image.save
-        guest.save
+        user.save
       end
 
       it 'is returned' do
-        expect(Guest.active_in_the_last(5.minutes)).to eq([guest])
+        expect(User.active_in_the_last(5.minutes)).to eq([user])
       end
     end
 
     context 'else' do
       before do
         image.created_at = 10.minutes.ago
-        guest.last_image = image
+        user.last_image = image
         image.save
-        guest.save
+        user.save
       end
 
       it 'is not returned' do
-        expect(Guest.active_in_the_last(5.minutes)).to eq([])
+        expect(User.active_in_the_last(5.minutes)).to eq([])
       end
     end
   end

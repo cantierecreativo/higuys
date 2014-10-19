@@ -1,6 +1,6 @@
 class Image < ActiveRecord::Base
-  belongs_to :guest, inverse_of: :images
-  validates :guest, presence: true
+  belongs_to :user, inverse_of: :images
+  validates :user, presence: true
   validates :image_path, presence: true, uniqueness: true
 
   before_destroy -> { AwsDeletePhoto.execute(image_path) }
@@ -13,3 +13,4 @@ class Image < ActiveRecord::Base
     imgx_uri.to_s
   end
 end
+

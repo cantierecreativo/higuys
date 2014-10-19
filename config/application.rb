@@ -44,6 +44,11 @@ module HiGuys
     # config.i18n.default_locale = :de
     config.middleware.use Rack::Attack
     config.assets.precompile += %w( modernizr.js )
+
+    Rails.application.config.middleware.use OmniAuth::Builder do
+      provider :developer unless Rails.env.production?
+      provider :github, ENV.fetch('GITHUB_KEY'), ENV.fetch('GITHUB_SECRET')
+    end
   end
 end
 

@@ -10,6 +10,7 @@ describe AwsPolicyGenerator do
     let(:bucket_name) { ENV.fetch("S3_BUCKET_NAME") }
 
     it "returns the upload URI for s3" do
+      build(:image)
       url = "http://#{bucket_name}.s3.amazonaws.com/#{image_path}"
       expect(result.start_with?(url)).to be true
     end

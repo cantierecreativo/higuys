@@ -4,7 +4,7 @@ RSpec.describe Wall do
   describe '.inactive_since' do
     let(:wall) { create(:wall) }
     let(:guest) { create(:guest, wall: wall) }
-    let(:image) { create(:image, guest: guest, image_path: 'foobar.jpg') }
+    let(:image) { create(:image, user: guest, image_path: 'foobar.jpg') }
 
     context 'if an user of the wall was active more than 48 hours ago' do
       before do

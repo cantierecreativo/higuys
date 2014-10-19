@@ -1,4 +1,4 @@
-class GuestAlreadyHasAWallException < RuntimeError
+class UserAlreadyHasAWallException < RuntimeError
   attr_reader :wall
 
   def initialize(wall)

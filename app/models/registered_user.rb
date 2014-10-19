@@ -1,0 +1,3 @@
+class RegisteredUser < User
+end
+

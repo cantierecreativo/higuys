@@ -1,7 +1,7 @@
 class SessionManager < Struct.new(:session)
-  def generate_and_sign_in_guest
-    if current_guest
-      current_guest
+  def generate_and_sign_in_user
+    if current_user
+      current_user
     else
       guest = Guest.create!
       sign_in(guest)
@@ -9,13 +9,13 @@ class SessionManager < Struct.new(:session)
     end
   end
 
-  def sign_in(guest)
-    session[:guest_id] = guest.id
+  def sign_in(user)
+    session[:user_id] = user.id
   end
 
-  def current_guest
-    return nil unless session[:guest_id]
-    @guest ||= Guest.where(id: session[:guest_id]).first
+  def current_user
+    return nil unless session[:user_id]
+    @user ||= User.where(id: session[:user_id]).first
   end
 end
 
