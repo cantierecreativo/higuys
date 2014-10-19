@@ -4,3 +4,4 @@ namespace :hg do
     PurgeInactiveWalls.execute(48.hours)
   end
 end
+

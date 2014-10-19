@@ -17,7 +17,8 @@ class WallsController < ApplicationController
   rescue UserAlreadyHasAWallException => e
     redirect_to wall_path(e.wall), alert: "Ouch, You're already part of another wall... please leave this wall before creating a new one!"
   rescue TooManyUsersOnWallException => e
-    redirect_to root_path, alert: "Too late!, this is wall is full... please join another wall, create a new one or just wait for someone else leaving this wall"
+    LeaveWall.execute(@user, @wall)
+    redirect_to root_path, alert: "Too many people! This is wall is full... please create a new one!"
   end
 
   def leave
