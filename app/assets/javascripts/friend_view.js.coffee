@@ -11,7 +11,7 @@ class @FriendView
     else
       randomAvatar = Math.floor(Math.random() * (4 - 1)) + 1
       """
-        <div class="wall__brick">
+        <div class="wall__brick is-hidden">
           <div class="wall_brick__icon icon--higuys-0#{randomAvatar}"></div>
         </div>
       """
@@ -25,7 +25,7 @@ class @FriendView
       .on 'transitionend webkitTransitionEnd oTransitionEnd otransitionend', =>  @$dom.remove()
 
   appendTo: ($container) ->
-    $container.append(@$dom)
+    $container.append(@$dom).css('width') # triggers repaint
     @$dom.removeClass('is-hidden')
 
   redraw: (@friend) ->
