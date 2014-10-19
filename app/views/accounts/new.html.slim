@@ -1,6 +1,25 @@
-.wrap
-  = simple_form_for @account do |f|
-    = f.input :name, label: 'Account name (eg. "Acme Corporation")'
-    = f.input :slug, label: 'Account permalink slug (eg. "acme")'
-    = f.button :submit
+- content_for(:title){ "hi guys! You are welcome!" }
+- content_for(:description){ "Login to create a private wall and use the desktop application" }
 
+= render 'header'
+
+.inner-page
+  .wrap
+    .login-dialog
+      .flag
+        .flag__image
+          .login-dialog__gentleman
+            .icon--higuy-gentleman
+        .flag__body
+          h2.login-dialog__title Choose your identifiers!
+          .login-dialog__body
+            p Use account name to identify yourself to the people you are inviting.
+            p The account permalink help you to have a nice address to share!
+
+          .space--both-2
+            = simple_form_for @account do |f|
+              = f.input :name, label: 'Account name (eg. "Acme Corporation")'
+              = f.input :slug, label: 'Account permalink slug (eg. "acme")'
+              = f.button :submit
+
+= render 'footer'
