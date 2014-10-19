@@ -3,7 +3,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def invitation(invitation)
     @invitation = invitation
-    mail(to: @invitation.email, subject: '[hi guys!] Someone invited')
+    mail(to: @invitation.email, subject: '[hi guys!] Someone invited you to join his wall')
   end
 end
 
