@@ -10,8 +10,8 @@ class DeletePhoto < Struct.new(:image)
   private
 
   def s3_object
-    s3 = AWS::S3.new(access_key_id: ENV["S3_KEY_ID"], secret_access_key: ENV["S3_SECRET"])
-    bucket = s3.buckets[ENV["S3_BUCKET_NAME"]]
+    s3 = AWS::S3.new(access_key_id: ENV.fetch["S3_KEY_ID"], secret_access_key: ENV.fetch["S3_SECRET"])
+    bucket = s3.buckets[ENV.fetch["S3_BUCKET_NAME"]]
     bucket.objects[image_path]
   end
 

@@ -19,7 +19,7 @@ class StorePhoto < Struct.new(:s3_url, :session)
   end
 
   def valid_url?
-    s3_url.present? && s3_url.start_with?("http://#{ENV["S3_BUCKET_NAME"]}")
+    s3_url.present? && s3_url.start_with?("http://#{ENV.fetch["S3_BUCKET_NAME"]}")
   end
 
   private
