@@ -1,10 +1,10 @@
 module Api
   class WallsController < BaseController
     before_action :require_user_with_wall!
-    before_action :require_permissions_if_account!
+    before_action :require_permissions_on_wall!
 
     def create_upload_policy
-      path = "#{Rails.env}/demo-#{current_user.wall.access_code}/#{SecureRandom.hex}.jpg"
+      path = "#{Rails.env}/demo-#{wall.access_code}/#{SecureRandom.hex}.jpg"
       @apg = AwsPolicyGenerator.execute(path)
       respond_with @apg, status: :ok
     end
@@ -17,7 +17,7 @@ module Api
     end
 
     def show
-      @users = current_user.wall.users.active_in_the_last(5.minutes).by_id
+      @users = wall.users.active_in_the_last(5.minutes).by_id
       respond_with @users, status: :ok
     end
 
@@ -37,9 +37,18 @@ module Api
       end
     end
 
-    def require_permissions_if_account!
-      if current_user.wall.account
+    def require_permissions_on_wall!
+      if wall != current_user.wall
+        respond_with_error code: 'INVALID_REQUEST'
       end
+    end
+
+    def wall
+      @wall ||= if params[:wall_id]
+                  Wall.find_by_access_code!(params[:wall_id])
+                else
+                  Account.find_by_slug!(params[:account_id]).wall
+                end
     end
   end
 end

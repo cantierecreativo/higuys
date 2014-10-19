@@ -10,13 +10,13 @@ class SessionManager < Struct.new(:session)
   end
 
   def generate_and_sign_in_registered_user(github_uid, email)
-    user = if current_user.is_a?(Guest)
-      current_user.update_attribute(type: 'RegisteredUser')
-      current_user.update_attribute(github_user_id: github_uid)
-      current_user.update_attribute(email: email)
-      current_user
-    elsif (( user = RegisteredUser.where(github_user_id: github_uid).first ))
+    user = if (( user = RegisteredUser.where(github_user_id: github_uid).first ))
       user
+    elsif current_user.is_a?(Guest)
+      current_user.update_attribute(:type, 'RegisteredUser')
+      current_user.update_attribute(:github_user_id, github_uid)
+      current_user.update_attribute(:email, email)
+      current_user
     else
       user = RegisteredUser.create!(github_user_id: github_uid, email: email)
     end
