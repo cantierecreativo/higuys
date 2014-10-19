@@ -26,6 +26,10 @@ class SessionManager < Struct.new(:session)
     session[:user_id] = user.id
   end
 
+  def sign_out
+    session[:user_id] = nil
+  end
+
   def current_user
     return nil unless session[:user_id]
     @user ||= User.where(id: session[:user_id]).first

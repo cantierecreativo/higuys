@@ -17,6 +17,11 @@ class SessionsController < ApplicationController
     redirect_to root_path, alert: 'Sorry, some errors occurred during the authentication with Github!'
   end
 
+  def destroy
+    session_manager.sign_out
+    redirect_to root_path, notice: "You've successfully signed out!"
+  end
+
   protected
 
   def auth_hash

@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/auth/github/callback', to: 'sessions#create', as: 'sign_in'
   get '/auth',                    to: 'sessions#prepare', as: 'prepare_auth'
   get '/auth/failure',            to: 'sessions#oauth_failure'
+  delete '/auth',                 to: 'sessions#destroy', as: 'sign_out'
 
   if Rails.env.test? || Rails.env.development?
     get '/auth/force/:user_id',     to: 'sessions#force_signin_in_test'

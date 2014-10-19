@@ -1,5 +1,5 @@
 class InvitationsController < ApplicationController
-  before_action :requires_user_within_account!
+  before_action :requires_user_within_account!, except: :accept
   responders :location, :flash
   respond_to :html
 
@@ -16,6 +16,21 @@ class InvitationsController < ApplicationController
       @invitations = current_account.invitations
       render :index
     end
+  end
+
+  def accept
+    requires_registered_user!
+    requires_account!
+
+    @invitation = current_account.invitations
+      .find_by_invitation_code!(params[:invitation_code])
+
+    JoinAccount.execute(current_user, current_account)
+    @invitation.destroy
+
+    redirect_to current_account, notice: "Welcome! You've successfully joined the wall!"
+  rescue TooManyUsersOnWallException => e
+    redirect_to root_path, alert: "Too many people! This is wall is full... try again later!"
   end
 
   def destroy

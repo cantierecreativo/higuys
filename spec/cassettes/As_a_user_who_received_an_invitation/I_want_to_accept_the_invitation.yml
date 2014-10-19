@@ -1,0 +1,36 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://api.pusherapp.com/apps/93294/events?auth_key=7217b3c3ef1446696bf5&auth_signature=c090b7ee2a378481879eec1f630dcf9187a7c1068b8258432689263c23f6b035&auth_timestamp=1413739411&auth_version=1.0&body_md5=fa72aaba1acedb3edbc042aaec09f5b2
+    body:
+      encoding: UTF-8
+      string: '{"name":"join","channels":["account-foo-1"],"data":"{\"user_id\":14}"}'
+    headers:
+      User-Agent:
+      - HTTPClient/1.0 (2.5.0, ruby 2.1.2 (2014-05-08))
+      Accept:
+      - "*/*"
+      Date:
+      - Sun, 19 Oct 2014 17:23:31 GMT
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/html;charset=utf-8
+      Server:
+      - thin 1.6.1 codename Death Proof
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: "{}"
+    http_version: 
+  recorded_at: Sun, 19 Oct 2014 17:23:32 GMT
+recorded_with: VCR 2.9.3

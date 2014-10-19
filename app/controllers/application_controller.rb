@@ -20,11 +20,15 @@ class ApplicationController < ActionController::Base
   end
 
   def requires_user_within_account!
-    current_account or raise ActiveRecord::RecordNotFound
+    requires_account!
 
     if !current_user.wall || current_user.wall.account != @account
       redirect_to root_path, alert: 'You tried!'
     end
+  end
+
+  def requires_account!
+    current_account or raise ActiveRecord::RecordNotFound
   end
 
   def current_account
