@@ -9,9 +9,9 @@
     .header__menu
       .nav
         .nav__item
-          a.button--rev.button--huge(href="#") sign in
+          a.button--rev.(href="#") sign in
         .nav__item
-          = link_to "live demo!", walls_path, data: { method: 'post' }, class: 'button--rev button--huge', role: 'join-demo-wall'
+          = link_to "live demo!", walls_path, data: { method: 'post' }, class: 'button--rev', role: 'join-demo-wall'
 
 .home-hero
   .wrap
@@ -32,7 +32,7 @@
         p hi guys! take away the worry & hassle of feeling alone in the dark!
 
     .infos__actions
-      a.button.visible--on-gte-small-desk href="#" live demo
+      a.button href="#" live demo
       a.button href="#" free sign up
 
 .infos--light
@@ -48,7 +48,7 @@
         = image_tag "osx-app.png"
 
     .infos__actions
-      a.button.visible--on-gte-small-desk href="#" download osx app
+      .button osx app coming soon!
 
 .footer
   .wrap--on-small-desk

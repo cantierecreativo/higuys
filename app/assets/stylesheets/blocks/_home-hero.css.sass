@@ -13,7 +13,7 @@
     +vertical-padding(1)
 
   +at-breakpoint(gte-small-desk)
-    +vertical-padding(3)
+    padding-top: $gui-header-height
 
 .home-hero__screenshot,
 .home-hero__faces,
@@ -25,6 +25,8 @@
   margin: 10px auto
 
   +at-breakpoint(gte-small-desk)
+    z-index: $z-faces
+    position: relative
     max-width: 200px
     margin: 0 auto
     +vertical-padding(2)
