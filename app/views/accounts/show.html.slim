@@ -1,32 +1,8 @@
 .wall-container
-  .wall-nav
-    .wall-nav__placeholder
-    .wall-nav__bar
-      .or
-        .or__item
-          = link_to "hi guys!", root_path, class: "sprite--logo is-small"
-        .or__item
-          a.autoshoot-control.js-autoshoot(href="#")
-        .or__item
-          .wall-nav__item = current_user.secret_token
-          .wall-nav__item
-            = link_to "Invite a friend!", account_invitations_path(@account)
-          .wall-nav__item
-            = link_to "Leave wall", leave_account_path(@account), data: { method: 'post' }, role: 'leave', class: 'js-leave'
+  = render "walls/navbar", instance: @account
+  = render "walls/camera"
 
-  .wall.js-wall data-pusher-channel=@pusher_channel data-user-id=@user_id
-    .wall__brick.js-camera.is-first
-      .wall__brick__idle
-        span 
-          i.icon--camera
-          | Waiting for your camera&nbsp;:)
-      a.wall__brick__shoot.js-shoot href="#"
-        i.wall_brick__icon.icon--photo
-      video.wall__brick__camera
-      .wall__brick__countdown
-      .wall__brick__flash
-    .js-friends
+= render "walls/tour"
 
 - content_for(:javascript) do
   = javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
-

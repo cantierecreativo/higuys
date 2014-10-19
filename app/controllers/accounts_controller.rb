@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
   before_action :requires_user_within_account!, only: %i(show leave)
   def show
     @wall = current_account.wall
-    @user_id = current_user.id
+    @user = current_user
     @pusher_channel = PushEvent.channel_name(@wall)
   end
 

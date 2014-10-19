@@ -1,0 +1,23 @@
+.wall-nav
+  .wall-nav__bar
+    .or
+      .or__item
+        = link_to "hi guys!", root_path, class: "sprite--logo is-small"
+        input.update-status-control.js-update-status data-guest-status-url=api_wall_update_status_path value=@status_message placeholder='Today I feel ...'
+      .or__item
+        a.autoshoot-control.js-autoshoot(href="#")
+      .or__item
+
+        - if instance.is_a? Wall
+          .wall-nav__item
+            = link_to "Invite a friend!", wall_path(instance), class: 'js-invite'
+          .wall-nav__item
+            = link_to "Leave wall", leave_wall_path(instance), data: { method: 'post' }, role: 'leave', class: 'js-leave'
+
+        - elsif instance.is_a? Account
+          .wall-nav__item
+            = current_user.secret_token
+          .wall-nav__item
+            = link_to "Invite a friend!", account_invitations_path(instance)
+          .wall-nav__item
+            = link_to "Leave wall", "#", data: { method: 'post' }, role: 'leave', class: 'js-leave'
