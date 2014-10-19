@@ -7,7 +7,7 @@ describe AwsPolicyGenerator do
 
   describe "#execute" do
     let(:result) { command.execute }
-    let(:bucket_name) { ENV["S3_BUCKET_NAME"] }
+    let(:bucket_name) { ENV.fetch("S3_BUCKET_NAME") }
 
     it "returns the upload URI for s3" do
       url = "http://#{bucket_name}.s3.amazonaws.com/#{image_path}"

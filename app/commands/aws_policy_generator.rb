@@ -5,10 +5,10 @@ class AwsPolicyGenerator < Struct.new(:image_path)
 
   def execute
     s3 = AWS::S3.new(
-      access_key_id: ENV.fetch["S3_KEY_ID"],
-      secret_access_key: ENV.fetch["S3_SECRET"]
+      access_key_id: ENV.fetch("S3_KEY_ID"),
+      secret_access_key: ENV.fetch("S3_SECRET")
     )
-    bucket = s3.buckets[ENV.fetch["S3_BUCKET_NAME"]]
+    bucket = s3.buckets[ENV.fetch("S3_BUCKET_NAME")]
     object = bucket.objects[image_path]
     presign = AWS::S3::PresignV4.new(object)
     policy = presign.presign(
