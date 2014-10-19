@@ -27,18 +27,19 @@
 
 .infos--light
   .wrap--on-small-desk
-    h2.infos__title Use your browser or desktop client
+    h2.infos__title Use your browser, or a desktop client!
     .infos__body
-      p hi guys! works like a charm with modern browsers:
-      p join a wall and work alongside your mates!
-      .space--both-2
-        p Download the application for your OS (Osx, Linux, Win) to update your pic and update your status.
+      p hi guys! works like a charm with modern browsers such as Chome and Firefox. Just keep it in a tab and forget about it.
+      p Need to leave the browser closed, but still be present on your wall? Just download our tiny native client for your OS: it will automatically shoot a photo for you every 20 seconds.
 
       .space--both-2
         = image_tag "osx-app.png"
 
     .infos__actions
-      .button--large.button--disabled coming soon!
+      - if ENV['MACOS_URL']
+        a.button--large(href=ENV['MACOS_URL']) Download the client for Mac OS X
+      - else
+        .button--large.button--disabled Coming soon!
 
 = render 'footer'
 
