@@ -26,8 +26,7 @@ class AccountsController < ApplicationController
   end
 
   def leave
-    current_user.update_attributes!(wall: nil)
-    PushEvent.execute(current_account.wall, 'leave', user_id: current_user.id)
+    LeaveWall.execute(current_user, current_user.wall)
     redirect_to root_path, notice: "You successfully left the wall"
   end
 
@@ -41,4 +40,3 @@ class AccountsController < ApplicationController
     @account ||= Account.find_by_slug(params[:id])
   end
 end
-
