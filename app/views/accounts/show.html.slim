@@ -8,6 +8,7 @@
         .or__item
           a.autoshoot-control.js-autoshoot(href="#")
         .or__item
+          .wall-nav__item = current_user.secret_token
           .wall-nav__item
             = link_to "Invite a friend!", account_invitations_path(@account)
           .wall-nav__item
