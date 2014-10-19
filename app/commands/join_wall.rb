@@ -21,3 +21,4 @@ class JoinWall < Struct.new(:user, :wall)
     end
   end
 end
+

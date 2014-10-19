@@ -35,4 +35,13 @@ class ApplicationController < ActionController::Base
     @account ||= Account.find_by_slug(params[:account_id])
   end
   helper_method :current_account
+
+  def generic_wall_path(wall)
+    if wall.account
+      account_path(wall.account)
+    else
+      wall_path(wall)
+    end
+  end
 end
+

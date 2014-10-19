@@ -4,6 +4,7 @@ FactoryGirl.define do
 
     trait :with_account do
       account
+      access_code ''
     end
   end
 end
