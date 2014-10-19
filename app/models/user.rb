@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   scope :inactive_in_the_last, -> (seconds) {
     joins(:last_image).where("images.created_at < ?", seconds.ago)
   }
+  scope :without_images, -> { where(last_image: nil) }
 
   scope :by_id, -> { order(id: :asc) }
 
