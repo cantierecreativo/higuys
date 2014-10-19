@@ -1,0 +1,6 @@
+.wrap
+  = simple_form_for @account do |f|
+    = f.input :name, label: 'Account name (eg. "Acme Corporation")'
+    = f.input :slug, label: 'Account permalink slug (eg. "acme")'
+    = f.button :submit
+

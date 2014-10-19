@@ -5,10 +5,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :accounts, only: %i(new create show)
+
   namespace :api do
-    post '/walls/:wall_id/upload-requests', to: 'images#upload_request'
-    post '/walls/:wall_id/photos', to: 'images#photos'
-    get '/walls/:wall_id/status', to: 'status#index'
+    post '/walls/:wall_id/upload-requests', to: 'walls#create_upload_policy'
+    post '/walls/:wall_id/photos',          to: 'walls#create_photo'
+    get  '/walls/:wall_id',                 to: 'walls#show'
   end
 
   root to: 'static#homepage'

@@ -1,4 +1,4 @@
-class JoinWall < Struct.new(:wall, :session)
+class JoinWall < Struct.new(:guest, :wall)
   extend Command
 
   MAX_USERS_FOR_WALL = 12
@@ -14,19 +14,11 @@ class JoinWall < Struct.new(:wall, :session)
 
     if guest.wall.nil?
       guest.update_attributes!(wall: wall)
-      session[:guest_id] = guest.id
-
       PushEvent.execute(wall, 'join', guest_id: guest.id)
       return true
     else
       return false
     end
-  end
-
-  private
-
-  def guest
-    @guest ||= Guest.where(id: session[:guest_id]).first_or_create!
   end
 end
 

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe SetupWall do
-  subject(:command) { SetupWall.new(session) }
-  let(:session) { {} }
+  subject(:command) { SetupWall.new(guest) }
+  let(:guest) { create(:guest) }
 
-  it 'takes the session' do
-    expect(command.session).to eq session
+  it 'takes the guest' do
+    expect(command.guest).to eq guest
   end
 
   describe '#execute' do
@@ -16,35 +16,20 @@ describe SetupWall do
       expect(result).to be_persisted
     end
 
-    context 'if the session has no guest user' do
-      before do
-        command.execute
-      end
-
-      it 'generates a user and stores it in the session' do
-        expect(Guest.find(session[:guest_id])).to be_present
+    context 'if the guest is not linked with a wall' do
+      it 'makes the guest join the wall' do
+        wall = command.execute
+        expect(guest.reload.wall).to eq wall
       end
     end
 
-    context 'if the session has a guest user' do
-      let(:guest) { create(:guest) }
-      let(:session) { { guest_id: guest.id } }
+    context 'if the guest is already linked with a wall' do
+      let(:guest) { create(:guest, :with_wall) }
 
-      context 'if the guest is not linked with a wall' do
-        it 'makes the guest join the wall' do
-          wall = command.execute
-          expect(guest.reload.wall).to eq wall
-        end
-      end
-
-      context 'if the guest is already linked with a wall' do
-        let(:guest) { create(:guest, :with_wall) }
-
-        it 'raises an exeception' do
-          expect {
-            command.execute
-          }.to raise_error(GuestAlreadyHasAWallException)
-        end
+      it 'raises an exeception' do
+        expect {
+          command.execute
+        }.to raise_error(GuestAlreadyHasAWallException)
       end
     end
   end

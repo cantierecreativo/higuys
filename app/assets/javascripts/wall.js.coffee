@@ -19,4 +19,8 @@ class @Wall
       @friendViews.push(friendView)
       @$friendViewsContainer.append(friendView.$dom)
 
+  addTempFriend: ->
+    friendView = new FriendView({})
+    @friendViews.push(friendView)
+    @$friendViewsContainer.append(friendView.$dom)
 

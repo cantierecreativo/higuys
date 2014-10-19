@@ -22,6 +22,7 @@ gem 'unicorn'
 gem 'slim-rails'
 gem 'pusher'
 gem 'jbuilder'
+gem 'responders'
 
 gem 'bourbon', '~> 3.2.1'
 gem 'rails-assets-normalize-scss'

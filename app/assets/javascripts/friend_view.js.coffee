@@ -9,10 +9,10 @@ class @FriendView
         </div>
       """
     else
-      randomAvatar = Math.floor(Math.random() * (3 - 1)) + 1
+      randomAvatar = Math.floor(Math.random() * (4 - 1)) + 1
       """
         <div class="wall__brick">
-          <div class="icon--higuys-0#{randomAvatar}"></div>
+          <div class="wall_brick__icon icon--higuys-0#{randomAvatar}"></div>
         </div>
       """
 
@@ -30,3 +30,4 @@ class @FriendView
 
   activeAtText: ->
     "active about #{ moment(@friend.active_at).fromNow() }"
+

@@ -3,16 +3,23 @@
 #= require ./client
 
 class @Manager
-  constructor: (@wallId, $wallDom, $autoshootControlDom, @guestId) ->
-    @wall = new Wall($wallDom, @guestId)
+  constructor: (isPublic, wallId, guestId, $wallDom, $autoshootControlDom) ->
+    @wall = new Wall($wallDom, guestId)
     @myView = @wall.myView
     @autoshoot = new AutoshootControl($autoshootControlDom)
-    @client = new Client()
+
+    if isPublic
+      @client = new PublicClient(wallId)
+    else
+      @client = new PrivateClient(wallId)
 
     pusher = new Pusher('7217b3c3ef1446696bf5')
-    @channel = pusher.subscribe("demo-#{wallId}")
+    if isPublic
+      @channel = pusher.subscribe("demo-#{wallId}")
+    else
+      @channel = pusher.subscribe("account-#{wallId}")
 
-    @channel.bind 'join', => @refreshStatus()
+    @channel.bind 'join', => @wall.addTempFriend()
     @channel.bind 'leave', => @refreshStatus()
     @channel.bind 'photo', => @refreshStatus()
 
@@ -34,7 +41,6 @@ class @Manager
       @shoot()
 
     @refreshStatus (err) =>
-      @myView.startStream
       @myView.startStream (e) =>
         if e
           alert "Fail"
@@ -42,7 +48,7 @@ class @Manager
           @shoot()
 
   refreshStatus: (cb) ->
-    @client.fetchStatus @wallId, (err, result) =>
+    @client.fetchStatus (err, result) =>
       if err
         cb?(err)
       else
@@ -76,9 +82,9 @@ class @Manager
     update()
 
   notifyNewPhoto: (photoDataUrl) ->
-    @client.requestUpload @wallId, (err, result) =>
+    @client.requestUpload (err, result) =>
       @client.s3Put result.upload_url, @dataUriToBlob(photoDataUrl), (err, data) =>
-          @client.notifyPhotoUpload(@wallId, result.upload_url)
+        @client.notifyPhotoUpload(result.upload_url)
 
   dataUriToBlob: (dataUrl) ->
     byteString = undefined

@@ -46,3 +46,4 @@ RSpec.describe Guest, type: :model do
     end
   end
 end
+

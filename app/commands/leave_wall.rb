@@ -1,4 +1,4 @@
-class LeaveWall < Struct.new(:wall, :session)
+class LeaveWall < Struct.new(:guest, :wall)
   extend Command
 
   def execute
@@ -8,16 +8,6 @@ class LeaveWall < Struct.new(:wall, :session)
 
     guest.update_attributes!(wall: nil)
     PushEvent.execute(wall, 'leave', guest_id: guest.id)
-  end
-
-  private
-
-  def guest
-    @guest ||= if (( guest_id = session[:guest_id] ))
-                 Guest.find(guest_id)
-               else
-                 nil
-               end
   end
 end
 

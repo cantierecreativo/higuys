@@ -1,0 +1,31 @@
+.wall-container
+  .wall-nav
+    .wall-nav__placeholder
+    .wall-nav__bar
+      .or
+        .or__item
+          = link_to "hi guys!", root_path, class: "sprite--logo is-small"
+        .or__item
+          a.autoshoot-control.js-autoshoot(href="#")
+        .or__item
+          .wall-nav__item
+            = link_to "Invite a friend!", "#"
+          .wall-nav__item
+            = link_to "Leave wall", "#", data: { method: 'post' }, role: 'leave', class: 'js-leave'
+
+  .wall data-account-id=@account.slug data-guest-id=@guest_id
+    .wall__brick.js-camera.is-first
+      .wall__brick__idle
+        span 
+          i.icon--camera
+          | Waiting for your camera&nbsp;:)
+      a.wall__brick__shoot.js-shoot href="#"
+        i.wall_brick__icon.icon--photo
+      video.wall__brick__camera
+      .wall__brick__countdown
+      .wall__brick__flash
+    .js-friends
+
+- content_for(:javascript) do
+  = javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"
+

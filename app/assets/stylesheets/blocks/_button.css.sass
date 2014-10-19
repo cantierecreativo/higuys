@@ -11,6 +11,7 @@
   border: 2px solid $primary-color
   -webkit-appearance: none
   border-radius: 5px
+  background: transparent
   +box-sizing(border-box)
   +transition(opacity 0.2s ease-out)
 
@@ -42,10 +43,10 @@
 .button--notice,
 .button--alert
   @extend .button
-  color: white
 
 .button--primary
   border-color: $primary-color
+  color: $primary-color
 
 .button--secondary
   background-color: $secondary-color

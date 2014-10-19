@@ -8,7 +8,11 @@ class PushEvent < Struct.new(:wall, :event, :data)
   private
 
   def channel_name
-    @channel_name ||= "demo-#{wall.access_code}"
+    @channel_name ||= if wall.account
+                        "account-#{wall.account.slug}"
+                      else
+                        "demo-#{wall.access_code}"
+                      end
   end
 end
 

@@ -1,4 +1,4 @@
-class SetupWall < Struct.new(:session)
+class SetupWall < Struct.new(:guest)
   extend Command
 
   ACCESS_CODE_SIZE = 8
@@ -9,7 +9,6 @@ class SetupWall < Struct.new(:session)
     end
 
     guest.update_attributes!(wall: wall)
-    session[:guest_id] = guest.id
     wall
   end
 
@@ -25,10 +24,6 @@ class SetupWall < Struct.new(:session)
                 end
                 wall
               end
-  end
-
-  def guest
-    @guest ||= Guest.where(id: session[:guest_id]).first_or_create!
   end
 end
 

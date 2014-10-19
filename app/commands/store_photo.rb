@@ -1,4 +1,4 @@
-class StorePhoto < Struct.new(:s3_url, :session)
+class StorePhoto < Struct.new(:guest, :s3_url)
   extend Command
 
   class InvalidInputException < RuntimeError; end
@@ -23,10 +23,6 @@ class StorePhoto < Struct.new(:s3_url, :session)
   end
 
   private
-
-  def guest
-    @guest ||= Guest.where(id: session[:guest_id]).first
-  end
 
   def image
     @image ||= Image.create(image_path: image_path, guest: guest)

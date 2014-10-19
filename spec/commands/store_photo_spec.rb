@@ -4,18 +4,17 @@ PushEvent
 Guest
 
 describe StorePhoto do
-  let(:guest) { create(:guest, :with_wall) }
   let(:filename) { 'foo/bar/test.jpg' }
   let(:s3_url) { "http://higuysio.secchio/#{filename}?foo=1&bar" }
-  let(:command) { described_class.new(s3_url, session) }
-  let(:session) { { guest_id: guest.id } }
+  let(:command) { described_class.new(guest, s3_url) }
+  let(:guest) { create(:guest, :with_wall) }
 
   it "takes the s3_url" do
     expect(command.s3_url).to eq s3_url
   end
 
-  it "takes the session" do
-    expect(command.session).to eq session
+  it "takes the guest" do
+    expect(command.guest).to eq guest
   end
 
   describe "#execute" do
@@ -25,14 +24,6 @@ describe StorePhoto do
 
     before do
       allow(pusher).to receive(:execute)
-    end
-
-    context 'if the guest_id does not correspond to any existing guest' do
-      let(:guest) { instance_double('Guest', id: 'foo') }
-
-      it 'raises InvalidInputException' do
-        expect { command.execute }.to raise_error StorePhoto::InvalidInputException
-      end
     end
 
     context 'if the guest has no associated walls' do
