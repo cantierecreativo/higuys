@@ -30,3 +30,4 @@ describe Api::StatusController do
     end
   end
 end
+

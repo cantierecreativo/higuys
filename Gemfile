@@ -29,6 +29,7 @@ gem 'rails-assets-sass-list-maps'
 gem 'rails-assets-modernizr'
 gem 'rails-assets-caman'
 gem 'rails-assets-momentjs'
+gem 'rails-assets-jquery-tourbus'
 
 group :development do
   gem 'spring'

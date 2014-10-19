@@ -185,6 +185,9 @@ GEM
       railties (= 4.1.6)
       sprockets-rails (~> 2.0)
     rails-assets-caman (4.1.2)
+    rails-assets-jquery (2.1.1)
+    rails-assets-jquery-tourbus (0.4.2)
+      rails-assets-jquery (>= 1.8)
     rails-assets-modernizr (2.8.3)
     rails-assets-momentjs (2.8.3)
     rails-assets-normalize-scss (3.0.1)
@@ -321,6 +324,7 @@ DEPENDENCIES
   rack-timeout
   rails (= 4.1.6)
   rails-assets-caman
+  rails-assets-jquery-tourbus
   rails-assets-modernizr
   rails-assets-momentjs
   rails-assets-normalize-scss

@@ -11,7 +11,7 @@
           .wall-nav__item
             = link_to "Invite a friend!", wall_path(@wall), class: 'js-invite'
           .wall-nav__item
-            = link_to "Leave wall", leave_wall_path(@wall), data: { method: 'post' }, role: 'leave'
+            = link_to "Leave wall", leave_wall_path(@wall), data: { method: 'post' }, role: 'leave', class: 'js-leave'
 
   .wall data-wall-id=@wall.access_code data-guest-id=@guest_id
     .wall__brick.js-camera.is-first
@@ -30,6 +30,38 @@
         p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
       .space--top-1
         input(type="text" value=wall_url(@wall) disabled)
+
+ol.js-tour.tourbus-legs
+  li data-orientation="centered"
+    .formatted-content
+      h3 Howdy, welcome to your wall!
+      p It isn't attached to a specific element.
+      a.button.tourbus-next href="javascript:void(0);" Start the tour!
+  li data-el=".js-camera" data-orientation="right" data-width="400"
+    .formatted-content
+      h3 This is you :)
+      p Here's where I explain how our navigation works...
+      a.button.tourbus-next href="javascript:void(0);" Great, move on
+  li data-el=".js-autoshoot" data-orientation="bottom" data-align="center" data-top="20" data-width="400"
+    .formatted-content
+      h3 Auto-shoot
+      p Here's where I explain how our navigation works...
+      a.button.tourbus-next href="javascript:void(0);" Cool!
+  li data-el=".js-invite" data-orientation="bottom" data-align="right" data-arrow="90%" data-top="30" data-width="400"
+    .formatted-content
+      h3 Invite your friends!
+      p Here's where I explain how our navigation works...
+      a.button.tourbus-next href="javascript:void(0);" Roger that
+  li data-el=".js-leave" data-orientation="bottom" data-align="right" data-arrow="90%" data-top="30" data-width="400"
+    .formatted-content
+      h3 One wall at a time...
+      p Here's where I explain how our navigation works...
+      a.button.tourbus-next href="javascript:void(0);" Got it
+  li data-el=".wall-nav" data-orientation="bottom" data-align="center" data-top="-40" data-width="400"
+    .formatted-content
+      h3 One last, super-important thing!
+      p Here's where I explain how our navigation works...
+      a.button.tourbus-next href="javascript:void(0);" Understood!
 
 - content_for(:javascript) do
   = javascript_include_tag "//js.pusher.com/2.2/pusher.min.js"

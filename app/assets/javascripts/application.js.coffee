@@ -1,6 +1,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require ./manager
+#= require jquery-tourbus
 
 navigator.getUserMedia = navigator.getUserMedia or
   navigator.webkitGetUserMedia or
@@ -25,4 +26,6 @@ $ ->
         $(".js-invite-dialog").removeClass('is-active')
 
     e.preventDefault()
+
+  $(".js-tour").tourbus({}).trigger('depart.tourbus')
 
