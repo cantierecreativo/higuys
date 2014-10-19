@@ -9,29 +9,30 @@
   padding: 3px
   margin-top: 0
 
+.header__inner
+  display: table
+  width: 100%
+
 .header__logo
-  float: left
+  display: table-cell
   margin-top: 5px
+  vertical-align: middle
 
-  +at-breakpoint(gte-small-desk)
-    padding: 10px
-    margin-top: 0
-
+  .sprite--logo
+    display: block
 
 .header__menu
-  float: right
+  display: table-cell
+  text-align: right
   margin-top: 12px
   color: white
-  display: none
+  vertical-align: middle
 
   a
     color: white
 
   .nav__item
     padding-left: 20px
-
-  +at-breakpoint(gte-small-desk)
-    display: block
 
 .headroom--pinned
   top: 0
