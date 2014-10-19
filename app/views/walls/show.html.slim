@@ -9,7 +9,7 @@
           a.autoshoot-control.js-autoshoot(href="#")
         .or__item
           .wall-nav__item
-            = link_to "Invite a friend!", wall_path(@wall), class: 'js-invite'
+            = link_to "Invite friends!", wall_path(@wall), class: 'js-invite'
           .wall-nav__item
             = link_to "Leave wall", leave_wall_path(@wall), data: { method: 'post' }, role: 'leave', class: 'js-leave'
 
@@ -30,41 +30,55 @@
   .dialog__frame
     .dialog__body
       .formatted-input
-        h1.beta Lorem ipsum dolor sit amet!
-        p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+        h1.beta Invite friends!
+        p Copy the following url and send it to the people you wish to invite. They will be able to join your wall.
+        p A wall accepts a maximum of 12 users, counting you. Walls are public but are not linked anywhere. Is up to you to give the address to the right guests!
       .space--top-1
         input(type="text" value=wall_url(@wall) disabled)
 
 ol.js-tour.tourbus-legs
   li data-orientation="centered"
     .formatted-content
-      h3 Howdy, welcome to your wall!
-      p It isn't attached to a specific element.
-      a.button.tourbus-next href="javascript:void(0);" Start the tour!
+      h3 Howdy, welcome to the hall-of-mates!
+      p It seems this is your first time in here!
+
+      .space--both-2
+        p Give us a few moments to show you how it works!
+
+      a.button--large.tourbus-next href="javascript:void(0);" Let me see!
+
+
   li data-el=".js-camera" data-orientation="right" data-width="400"
     .formatted-content
-      h3 This is you :)
-      p Here's where I explain how our navigation works...
+      h3 This is your spot :)
+      p Once your webcam is active, your smiley face will be placed here! You can click on it anytime to take a new photo!
       a.button.tourbus-next href="javascript:void(0);" Great, move on
+
+
+
   li data-el=".js-autoshoot" data-orientation="bottom" data-align="center" data-top="20" data-width="400"
     .formatted-content
       h3 Auto-shoot
-      p Here's where I explain how our navigation works...
+      p Every 30 seconds you'll be automatically captured by your camera and your mates will see your photo on their walls! smile and say "hi guys!"
       a.button.tourbus-next href="javascript:void(0);" Cool!
+
+
   li data-el=".js-invite" data-orientation="bottom" data-align="right" data-arrow="90%" data-top="30" data-width="400"
     .formatted-content
       h3 Invite your friends!
-      p Here's where I explain how our navigation works...
-      a.button.tourbus-next href="javascript:void(0);" Roger that
+      p  Send to them the url of your wall. As soon as they accept your invitation, they will be on board and you'll see them on your wall.
+      a.button.tourbus-next href="javascript:void(0);" Got it
+
   li data-el=".js-leave" data-orientation="bottom" data-align="right" data-arrow="90%" data-top="30" data-width="400"
     .formatted-content
       h3 One wall at a time...
-      p Here's where I explain how our navigation works...
-      a.button.tourbus-next href="javascript:void(0);" Got it
+      p YYou can create a new wall or move to an existing one! Keep in mind that you can join one wall at a time and need to leave the existing one before move.
+      a.button.tourbus-next href="javascript:void(0);" I'll do it
+
   li data-el=".wall-nav" data-orientation="bottom" data-align="center" data-top="-40" data-width="400"
     .formatted-content
       h3 One last, super-important thing!
-      p Here's where I explain how our navigation works...
+      p No camera, no picture! Click the "allow" button to let us use your webcam. Then, strike a pose!
       a.button.tourbus-next href="javascript:void(0);" Understood!
 
 - content_for(:javascript) do
