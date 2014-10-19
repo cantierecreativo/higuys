@@ -1,17 +1,7 @@
 - content_for(:title){ "hi guys! here I am!" }
 - content_for(:description){ "hi guys! is a remote presence tool where you can see your colleagues during the working day!" }
 
-.header.js-headroom
-  .wrap
-    .header__logo
-      .sprite--logo hi guys!
-
-    .header__menu
-      .nav
-        .nav__item
-          = link_to "make your account", new_account_path, class: 'button--rev', role: 'register-account'
-        .nav__item
-          = link_to "live demo!", walls_path, data: { method: 'post' }, class: 'button--rev', role: 'join-demo-wall'
+= render 'header'
 
 .home-hero
   .wrap
@@ -50,14 +40,7 @@
     .infos__actions
       .button--large.button--disabled osx app coming soon!
 
-.footer
-  .wrap--on-small-desk
-    = link_to "http://www.leanpanda.com", class: "footer__logo", target: "_blank" do
-      = image_tag "leanpanda-logo.svg"
-
-    .footer__body
-      p hi guys! is a 48h app, passionately made by <a href="http://www.leanpanda.com" target="_blank">Leanpanda Team</a> for the <a href="http://railsrumble.com/entries/66-hi-guys">#railsrumble — 2014 edition</a>
-      p Special thanks to <a href="http://www.cantierecreativo.net" target="_blank">Cantiere Creativo</a> and wifes for supporting with hosting & free food/bbq!
+= render 'footer'
 
 javascript:
   var rumbleBannerBackgroundColor, rumbleBannerTextColor, rumbleBannerLinkColor, rumbleBannerPlacement;

@@ -1,4 +1,27 @@
-h1 Ciao
+- content_for(:title){ "hi guys! You are welcome!" }
+- content_for(:description){ "Login to create a private wall and use the desktop application" }
 
-= link_to "Github", '/auth/github'
+= render 'header'
 
+.inner-page
+  .wrap
+    .login-dialog
+      .flag
+        .flag__image
+          .login-dialog__gentleman
+            .icon--higuy-gentleman
+
+        .flag__body
+          h2.login-dialog__title hi! we welcome you!
+
+          .login-dialog__claim
+            p You can now sign-up in a matter of seconds using your GitHub account.
+
+          .login-dialog__body
+            p You will be able to create private walls and to use the desktop applications
+
+          .login-dialog__actions
+            = link_to 'login with Github', '/auth/github', class: "button--huge"
+
+
+= render 'footer'

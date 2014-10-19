@@ -1,0 +1,11 @@
+.header.js-headroom
+  .wrap
+    .header__logo
+      .sprite--logo hi guys!
+
+    .header__menu
+      .nav
+        .nav__item
+          = link_to "make your account", new_account_path, class: 'button--rev', role: 'register-account'
+        .nav__item
+          = link_to "live demo!", walls_path, data: { method: 'post' }, class: 'button--rev', role: 'join-demo-wall'
