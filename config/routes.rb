@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth',                    to: 'sessions#prepare', as: 'prepare_auth'
   get '/auth/failure',            to: 'sessions#oauth_failure'
-  get '/auth/force/:user_id',     to: 'sessions#force_signin_in_test'
+
+  if Rails.env.test? || Rails.env.development?
+    get '/auth/force/:user_id',     to: 'sessions#force_signin_in_test'
+  end
 
   resources :walls, only: %i(show create) do
     member do

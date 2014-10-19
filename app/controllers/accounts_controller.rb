@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
   def show
     @account = Account.find_by_slug(params[:id])
 
-    if current_user.wall.account != @account
+    if !current_user.wall || current_user.wall.account != @account
       redirect_to root_path, alert: 'You tried!'
     end
 

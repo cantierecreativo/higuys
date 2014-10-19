@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   def requires_registered_user!
     unless current_user.is_a? RegisteredUser
       session[:redirect_after_auth] = request.fullpath
-      redirect_to prepare_auth_path
+      redirect_to prepare_auth_path, alert: 'To access the page you first have to sign in!'
     end
   end
 end
