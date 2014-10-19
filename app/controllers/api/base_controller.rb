@@ -11,10 +11,11 @@ module Api
       end
     end
 
-    def respond_with_success(error)
+    def respond_with_success(success)
       respond_to do |format|
-        format.json { render json: error, status: :ok }
+        format.json { render json: success, status: :ok }
       end
     end
   end
 end
+
