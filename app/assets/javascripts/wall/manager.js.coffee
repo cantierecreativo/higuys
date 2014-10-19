@@ -3,21 +3,15 @@
 #= require ./client
 
 class @Manager
-  constructor: (isPublic, wallId, guestId, $wallDom, $autoshootControlDom) ->
-    @wall = new Wall($wallDom, guestId)
+  constructor: (pusherChannel, userId, $wallDom, $autoshootControlDom) ->
+    @wall = new Wall($wallDom, userId)
     @myView = @wall.myView
     @autoshoot = new AutoshootControl($autoshootControlDom)
 
-    if isPublic
-      @client = new PublicClient(wallId)
-    else
-      @client = new PrivateClient(wallId)
+    @client = new Client()
 
     pusher = new Pusher('7217b3c3ef1446696bf5')
-    if isPublic
-      @channel = pusher.subscribe("demo-#{wallId}")
-    else
-      @channel = pusher.subscribe("account-#{wallId}")
+    @channel = pusher.subscribe(pusherChannel)
 
     @channel.bind 'join',  (data) => @wall.addTempFriend(data.user_id)
     @channel.bind 'leave', (data) => @refreshStatus()
@@ -99,3 +93,4 @@ class @Manager
       ia[i] = byteString.charCodeAt(i)
       i++
     new Blob([ia], type: mimeString)
+

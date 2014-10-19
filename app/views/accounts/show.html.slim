@@ -13,7 +13,7 @@
           .wall-nav__item
             = link_to "Leave wall", "#", data: { method: 'post' }, role: 'leave', class: 'js-leave'
 
-  .wall data-account-id=@account.slug data-guest-id=@user_id
+  .wall.js-wall data-pusher-channel=@pusher_channel data-user-id=@user_id
     .wall__brick.js-camera.is-first
       .wall__brick__idle
         span 

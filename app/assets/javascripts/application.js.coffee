@@ -14,13 +14,12 @@ navigator.getUserMedia = navigator.getUserMedia or
   navigator.msGetUserMedia
 
 $ ->
-  $wall = $("[data-wall-id]")
+  $wall = $(".js-wall")
   if $wall.length > 0
     if navigator.getUserMedia
       new Manager(
-        true,
-        $wall.data('wall-id'),
-        $wall.data('guest-id'),
+        $wall.data('pusher-channel'),
+        $wall.data('user-id'),
         $wall,
         $(".js-autoshoot")
       )
@@ -31,15 +30,3 @@ $ ->
   if $statusUpdate.length > 0
     new StatusUpdater($statusUpdate)
 
-  $wall = $("[data-account-id]")
-  if $wall.length > 0
-    if navigator.getUserMedia
-      new Manager(
-        false,
-        $wall.data('account-id'),
-        $wall.data('guest-id'),
-        $wall,
-        $(".js-autoshoot")
-      )
-    else
-      alert("WHOOPS")

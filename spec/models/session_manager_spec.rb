@@ -3,7 +3,7 @@ require 'rails_helper'
 describe SessionManager do
   let(:session_manager) { described_class.new(session) }
   let(:session) { {} }
-  
+
   describe "#current_user" do
 
     context "when no user exists in session" do
@@ -71,3 +71,4 @@ describe SessionManager do
     end
   end
 end
+

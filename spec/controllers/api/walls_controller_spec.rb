@@ -17,7 +17,7 @@ describe Api::WallsController do
         .as_stubbed_const(transfer_nested_constants: true)
     }
     let(:action) {
-      post :create_upload_policy, format: :json, wall_id: wall.access_code
+      post :create_upload_policy, format: :json
     }
 
     before do
@@ -61,7 +61,7 @@ describe Api::WallsController do
     }
     let(:wall) { create(:wall) }
     let(:action) {
-      post :create_photo, { s3_url: 'URL', format: :json, wall_id: wall.access_code }
+      post :create_photo, { s3_url: 'URL', format: :json }
     }
 
     context 'with a non authenticated user' do
@@ -118,7 +118,7 @@ describe Api::WallsController do
   describe 'GET #show' do
     let(:wall) { create(:wall) }
     let(:action) do
-      get :show, { wall_id: wall.access_code, format: :json }
+      get :show, { format: :json }
     end
 
     context 'with a non authenticated user' do
@@ -166,7 +166,7 @@ describe Api::WallsController do
 
     let(:wall) { create(:wall) }
     let(:action) do
-      put :status, { wall_id: wall.access_code, format: :json , status_message: new_status_message }
+      put :status, { format: :json , status_message: new_status_message }
     end
 
     context 'with a non authenticated user' do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe PushEvent do
   subject(:command) { PushEvent.new(wall, event, data) }
-  let(:wall) { build(:wall, access_code: 'XXX') }
+  let(:wall) { create(:wall, access_code: 'XXX') }
   let(:event) { 'foobar' }
   let(:data) { 'data' }
 

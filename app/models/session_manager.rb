@@ -28,7 +28,7 @@ class SessionManager < Struct.new(:session)
     return nil unless session[:user_id]
     @user ||= User.where(id: session[:user_id]).first
   end
- 
+
   def sign_in(user)
     session[:user_id] = user.id
   end
@@ -43,3 +43,4 @@ class SessionManager < Struct.new(:session)
     SecureRandom.hex(32)
   end
 end
+

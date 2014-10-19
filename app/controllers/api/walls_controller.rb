@@ -1,7 +1,6 @@
 module Api
   class WallsController < BaseController
     before_action :require_user_with_wall!
-    before_action :require_permissions_on_wall!
 
     def create_upload_policy
       path = "#{Rails.env}/demo-#{wall.access_code}/#{SecureRandom.hex}.jpg"
@@ -37,18 +36,8 @@ module Api
       end
     end
 
-    def require_permissions_on_wall!
-      if wall != current_user.wall
-        respond_with_error code: 'INVALID_REQUEST'
-      end
-    end
-
     def wall
-      @wall ||= if params[:wall_id]
-                  Wall.find_by_access_code!(params[:wall_id])
-                else
-                  Account.find_by_slug!(params[:account_id]).wall
-                end
+      @wall ||= current_user.wall
     end
   end
 end

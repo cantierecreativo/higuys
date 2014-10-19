@@ -22,6 +22,7 @@ class AccountsController < ApplicationController
   def show
     @wall = current_account.wall
     @user_id = current_user.id
+    @pusher_channel = PushEvent.channel_name(@wall)
   end
 
   private
