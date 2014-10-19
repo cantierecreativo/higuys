@@ -10,3 +10,4 @@ class @StatusUpdater
           data: {status_message: $dom.val()}
           success: ->
             $dom.blur()
+            $dom.val('')

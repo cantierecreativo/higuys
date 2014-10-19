@@ -15,9 +15,11 @@ class @FriendView
       randomAvatar = Math.floor(Math.random() * (4 - 1)) + 1
       """
         <div class="wall__brick is-hidden">
-          <span class="wall__brick__status js-status-message"></span>
-          <span class="wall__brick__active js-active-at"></span>
           <div class="wall_brick__icon icon--higuys-0#{randomAvatar}"></div>
+          <div class="wall__brick__messages">
+            <span class="wall__brick__status js-status-message"></span>
+            <span class="wall__brick__active js-active-at"></span>
+          </div>
         </div>
       """
 
@@ -56,6 +58,6 @@ class @FriendView
 
   statusMessage: ->
     if @friend.status_message and @friend.status_message.length > 0
-      "“#{@friend.status_message}”"
+      "#{@friend.status_message}"
     else
       ""

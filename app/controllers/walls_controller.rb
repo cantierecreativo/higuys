@@ -11,7 +11,6 @@ class WallsController < ApplicationController
 
   def show
     joined = JoinWall.execute(@user, @wall)
-    @status_message = @user.status_message
     @pusher_channel = PushEvent.channel_name(@wall)
 
     if joined
