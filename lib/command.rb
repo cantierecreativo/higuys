@@ -3,4 +3,3 @@ module Command
     new(*args).execute
   end
 end
-

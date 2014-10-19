@@ -1,16 +1,15 @@
 module Api
   class ImagesController < BaseController
     def upload_request
-      apg = AwsPolicyGenerator.execute
-      render json: { upload_url: apg.upload_url, url: apg.url }, status: :ok
+      @apg = AwsPolicyGenerator.execute
+      respond_with @apg, status: :ok
     end
 
     def photos
       StorePhoto.execute(params[:s3_url], session)
-      render json: nil, status: :ok
+      respond_with_success code: 'OK'
     rescue StorePhoto::InvalidInputException
-      render json: nil, status: :unprocessable_entity
+      respond_with_error code: 'INVALID_REQUEST'
     end
   end
 end
-

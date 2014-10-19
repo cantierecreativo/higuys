@@ -4,13 +4,15 @@ AwsPolicyGenerator
 StorePhoto
 
 describe Api::ImagesController do
+  render_views
+
   describe 'POST :upload_request' do
     let(:url) { 'URL' }
     let(:upload_request) {
       class_double('AwsPolicyGenerator')
         .as_stubbed_const(transfer_nested_constants: true)
     }
-    let(:action) { post :upload_request }
+    let(:action) { post :upload_request, format: :json }
 
     before do
       allow(upload_request).to receive(:execute) { double(url: url, upload_url: url) }
@@ -38,7 +40,7 @@ describe Api::ImagesController do
       class_double("StorePhoto")
         .as_stubbed_const(transfer_nested_constants: true)
     }
-    let(:action) { post :photos, { s3_url: 'URL' } }
+    let(:action) { post :photos, { s3_url: 'URL', format: :json } }
 
     context 'on success' do
       before do
@@ -75,4 +77,3 @@ describe Api::ImagesController do
     end
   end
 end
-
