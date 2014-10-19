@@ -27,6 +27,7 @@ gem 'omniauth'
 gem 'omniauth-github'
 gem 'showcase'
 gem 'letter_opener'
+gem 'rack-rewrite'
 
 gem 'bourbon', '~> 3.2.1'
 gem 'rails-assets-normalize-scss'
