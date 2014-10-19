@@ -37,4 +37,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost:8000' }
   config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload, live_reload_port: 5729)
+
+  config.action_mailer.delivery_method = :letter_opener
 end
+

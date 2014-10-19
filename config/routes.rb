@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   end
 
   resources :accounts, only: %i(new create show) do
-    resources :invitations, only: %i(index create destroy)
+    resources :invitations, only: %i(index create destroy) do
+      collection do
+        get :accept
+      end
+    end
     resources :users, only: %i(index create destroy)
   end
 
@@ -28,3 +32,4 @@ Rails.application.routes.draw do
 
   root to: 'static#homepage'
 end
+

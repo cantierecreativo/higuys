@@ -10,6 +10,7 @@ class InviteFriend < Struct.new(:account, :params)
   private
 
   def send_invitation
+    ApplicationMailer.invitation(invitation).deliver
   end
 
   def invitation
