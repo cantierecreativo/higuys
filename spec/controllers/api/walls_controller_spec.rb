@@ -37,20 +37,42 @@ describe Api::WallsController do
       let(:user) { create(:guest, :with_wall) }
       let(:wall) { user.wall }
 
-      before do
-        allow(SessionManager).to receive(:new).with(session) { session_manager }
-        allow(session_manager).to receive(:current_user) { user }
+      context 'with an user signed in from website' do
+        before do
+          allow(SessionManager).to receive(:new).with(session) { session_manager }
+          allow(session_manager).to receive(:current_user) { user }
+        end
+
+        before { action }
+
+        it 'responds with ok' do
+          expect(response.status).to eq(200)
+        end
+
+        it 'returns an hash with an url and a request id' do
+          expect(response.body).to eq({ upload_url: 'URL' }.to_json)
+        end
       end
 
-      before { action }
+      context 'with an user signed in from native app' do
+        let(:user) { create(:guest, :with_wall, secret_token: 'XXX') }
 
-      it 'responds with ok' do
-        expect(response.status).to eq(200)
+        before do
+          user
+          request.headers['HTTP_AUTHORIZATION'] = 'XXX'
+        end
+
+        before { action }
+
+        it 'responds with ok' do
+          expect(response.status).to eq(200)
+        end
+
+        it 'returns an hash with an url and a request id' do
+          expect(response.body).to eq({ upload_url: 'URL' }.to_json)
+        end
       end
 
-      it 'returns an hash with an url and a request id' do
-        expect(response.body).to eq({ upload_url: 'URL' }.to_json)
-      end
     end
   end
 
