@@ -11,6 +11,13 @@
     background-color: rgba(black, 0.5)
     text-decoration: none !important
 
+  &.is-shooting
+    background-color: rgba($green-color, 0.9)
+
+  &.is-paused
+    &:hover
+      background-color: rgba($green-color, 0.9)
+
 .autoshoot-control__normal
   .autoshoot-control:hover &
     display: none
@@ -20,4 +27,3 @@
 
   .autoshoot-control:hover &
     display: inline-block
-

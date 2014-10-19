@@ -3,6 +3,7 @@
 class @AutoshootControl extends EventEmitter
   constructor: (@$dom) ->
     super
+    @initialClass = @$dom.attr('class')
     @remainingSeconds = '?'
     @setState('WAITING_PERMISSIONS')
 
@@ -34,7 +35,7 @@ class @AutoshootControl extends EventEmitter
     else if state == 'PAUSED'
       """
         <span>
-          <span class='autoshoot-control__normal'>Pause auto-shoot</span>
+          <span class='autoshoot-control__normal'>Auto-shoot paused</span>
           <span class='autoshoot-control__hover'>Resume</span>
         </span>
       """
@@ -43,7 +44,16 @@ class @AutoshootControl extends EventEmitter
         <span>Waiting for the camera...</span>
       """
 
-    @$dom.empty().html(template)
+    stateClass =
+      if state == 'COUNTDOWN'                then ""
+      else if state == 'SHOOTING'            then "is-shooting"
+      else if state == 'PAUSED'              then "is-paused"
+      else if state == 'WAITING_PERMISSIONS' then ""
+
+    @$dom.empty()
+      .html(template)
+      .removeClass()
+      .addClass("#{@initialClass} #{stateClass}")
 
   setRemainingSeconds: (seconds) ->
     @remainingSeconds = seconds
