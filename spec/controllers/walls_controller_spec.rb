@@ -12,7 +12,7 @@ RSpec.describe WallsController do
 
   before do
     allow(SessionManager).to receive(:new).with(session) { session_manager }
-    allow(session_manager).to receive(:generate_and_sign_in_user) { user }
+    allow(session_manager).to receive(:generate_and_sign_in_guest) { user }
   end
 
   describe "POST create" do

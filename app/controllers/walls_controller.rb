@@ -1,5 +1,5 @@
 class WallsController < ApplicationController
-  before_action :autogenerate_user
+  before_action :autogenerate_guest!
   before_action :init_wall, only: %w(show leave)
 
   def create
@@ -31,8 +31,8 @@ class WallsController < ApplicationController
     @wall = Wall.find_by_access_code!(params[:id])
   end
 
-  def autogenerate_user
-    @user = SessionManager.new(session).generate_and_sign_in_user
+  def autogenerate_guest!
+    @user ||= session_manager.generate_and_sign_in_guest
   end
 end
 

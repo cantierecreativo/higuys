@@ -1,5 +1,5 @@
 class SessionManager < Struct.new(:session)
-  def generate_and_sign_in_user
+  def generate_and_sign_in_guest
     if current_user
       current_user
     else
