@@ -3,7 +3,7 @@ class SessionManager < Struct.new(:session)
     if current_user
       current_user
     else
-      guest = Guest.create!
+      guest = Guest.create!(secret_token: secret_token)
       sign_in(guest)
       guest
     end
@@ -18,11 +18,17 @@ class SessionManager < Struct.new(:session)
       current_user.update_attribute(:email, email)
       current_user
     else
-      user = RegisteredUser.create!(github_user_id: github_uid, email: email)
+      user = RegisteredUser.create!(github_user_id: github_uid, email: email, secret_token: secret_token)
     end
     sign_in(user)
   end
 
+
+  def current_user
+    return nil unless session[:user_id]
+    @user ||= User.where(id: session[:user_id]).first
+  end
+ 
   def sign_in(user)
     session[:user_id] = user.id
   end
@@ -31,9 +37,9 @@ class SessionManager < Struct.new(:session)
     session[:user_id] = nil
   end
 
-  def current_user
-    return nil unless session[:user_id]
-    @user ||= User.where(id: session[:user_id]).first
+  private
+
+  def secret_token
+    SecureRandom.hex(32)
   end
 end
-
