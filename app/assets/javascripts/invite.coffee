@@ -5,4 +5,5 @@ $ ->
     $(".js-invite-dialog").click (e) ->
       if $(e.target).parents('.dialog__frame').length == 0
         $(".js-invite-dialog").removeClass('is-active')
-      e.preventDefault()
+    e.preventDefault()
+
