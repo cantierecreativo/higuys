@@ -1,5 +1,8 @@
 #= require jquery-tourbus
+#= require jquery-cookie
 
 $ ->
-  if Modernizr.mq('(min-width: 1024px)')
-    $(".js-tour").tourbus({}).trigger('depart.tourbus')
+  $(".js-tour").each ->
+    if Modernizr.mq('(min-width: 1024px)') and ($.cookie('tour') != 'yes')
+      $(this).tourbus({}).trigger('depart.tourbus')
+      $.cookie('tour', 'yes')
