@@ -5,13 +5,16 @@ class @FriendView
     template = if @friend.image_url
       """
         <div class="wall__brick is-hidden" style="background-image: url('#{@friend.image_url}')">
-          <span class="wall__brick__status js-active-at">#{@activeAtText()}</span>
+          <span class="wall__brick__status js-status-message">#{@statusMessage()}</span>
+          <span class="wall__brick__active js-active-at">#{@activeAtText()}</span>
         </div>
       """
     else
       randomAvatar = Math.floor(Math.random() * (4 - 1)) + 1
       """
         <div class="wall__brick is-hidden">
+          <span class="wall__brick__status js-status-message"></span>
+          <span class="wall__brick__active js-active-at"></span>
           <div class="wall_brick__icon icon--higuys-0#{randomAvatar}"></div>
         </div>
       """
@@ -33,13 +36,9 @@ class @FriendView
 
   redraw: (@friend) ->
     @$dom.css(backgroundImage: "url(#{@friend.image_url})")
-    if @$dom.find('.wall_brick__icon').length > 0
-      @$dom.find('.wall_brick__icon').remove()
-      @$dom.append """
-        <span class="wall__brick__status js-active-at">#{@activeAtText()}</span>
-      """
-    else
-      @$dom.find('.js-active-at').text(@activeAtText())
+    @$dom.find('.wall_brick__icon').remove()
+    @$dom.find('.js-status-message').text(@statusMessage())
+    @$dom.find('.js-active-at').text(@activeAtText())
 
   id: ->
     @friend.id
@@ -52,3 +51,9 @@ class @FriendView
 
   activeAtText: ->
     "active about #{ moment(@friend.active_at).fromNow() }"
+
+  statusMessage: ->
+    if @friend.status_message and @friend.status_message.length > 0
+      "“#{@friend.status_message}”"
+    else
+      ""

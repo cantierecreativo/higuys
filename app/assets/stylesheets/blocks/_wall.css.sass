@@ -110,12 +110,18 @@
   .is-stream-active &
     +animation(flash .2s ease-in 1.8s)
 
-.wall__brick__status
+.wall__brick__status, .wall__brick__active
   +font-size(smallprint)
   color: $white-color
-  +position(absolute, 0 0px 15px 0px)
+  +position(absolute, 0 0px 7px 0px)
+  text-shadow: 0 1px 1px rgba(black, 0.2)
   text-align: center
-  text-shadow: 0 1px 1px rgba(black, 0.4)
+  line-height: .9em
+
+.wall__brick__status
+  bottom: 25px
+  padding: 0 4em
+  +font-size(gamma)
 
 .wall__brick__countdown
   +position(absolute, 0 0 0px 0px)
