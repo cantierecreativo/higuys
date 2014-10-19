@@ -1,7 +1,21 @@
+$flash-height: 45px
+
++keyframes(slide-up)
+  0%
+    margin-top: 0
+  100%
+    margin-top: - $flash-height
+
 .flash
   color: white
   text-align: center
   +vertical-padding(1)
+  +animation(slide-up .5s 5s 1 forwards)
+  overflow: hidden
+  +position(relative)
+  z-index: 1000
+  height: $flash-height
+  +box-sizing(border-box)
 
 .flash--notice
   @extend .flash
