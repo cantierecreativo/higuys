@@ -4,10 +4,11 @@
       span
         i.icon--camera
         | Waiting for your camera&nbsp;:)
-      .wall__brick__status_message
     a.wall__brick__shoot.js-shoot href="#"
       i.wall_brick__icon.icon--photo
     video.wall__brick__camera
     .wall__brick__countdown
     .wall__brick__flash
+    .wall__brick__status.js-my-status-message = @user.status_message
+
   .js-friends
