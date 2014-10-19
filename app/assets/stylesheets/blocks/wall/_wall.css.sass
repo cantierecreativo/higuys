@@ -113,18 +113,22 @@
 .wall__brick__status, .wall__brick__active
   +font-size(smallprint)
   color: $white-color
-  +position(absolute, 0 0px 7px 0px)
   text-shadow: 0 1px 1px rgba(black, 0.6)
   text-align: center
-  line-height: .9em
+  line-height: 1.1em
+  display: block
 
+
+.wall__brick__messages
+  +position(absolute, 0 0px 0px 0px)
+  background-color: rgba(#000000, .3)
+  padding: 10px
 
 .wall__brick__active
   +font-size(milli)
 
 .wall__brick__status
-  bottom: 25px
-  padding: 0 4em
+  margin-bottom: 10px
   +font-size(gamma)
 
 .wall__brick__countdown
