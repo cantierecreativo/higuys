@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   get '/auth/github/callback', to: 'sessions#create'
-  get '/auth',                    to: 'sessions#prepare', as: 'sign_in'
-  get '/auth/failure',            to: 'sessions#oauth_failure'
-  delete '/auth',                 to: 'sessions#destroy', as: 'sign_out'
+  get '/auth',                 to: 'sessions#prepare', as: 'sign_in'
+  get '/auth/failure',         to: 'sessions#oauth_failure'
+  delete '/auth',              to: 'sessions#destroy', as: 'sign_out'
 
   if Rails.env.test? || Rails.env.development?
     get '/auth/force/:user_id',     to: 'sessions#force_signin_in_test'
@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-
     post  '/walls/:wall_id/upload-requests', to: 'walls#create_upload_policy'
     post  '/walls/:wall_id/photos',          to: 'walls#create_photo'
     get   '/walls/:wall_id',                 to: 'walls#show'

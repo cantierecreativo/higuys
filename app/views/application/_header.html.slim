@@ -1,7 +1,7 @@
 .header.js-headroom
   .wrap
     .header__logo
-      .sprite--logo hi guys!
+      a.sprite--logo(href=root_path) hi guys!
 
     .header__menu
       .nav
@@ -13,7 +13,7 @@
              - if current_user.wall.account
                 .nav__item= link_to current_user.wall.account.name, account_path(current_user.wall.account.slug), class: 'button--rev', role: 'goto-wall'
              - else
-                .nav__item= link_to "back to demo", new_account_path, class: 'button--rev', role: 'goto-wall'
+                .nav__item= link_to "back to demo", wall_path(current_user.wall), class: 'button--rev', role: 'goto-wall'
           - else
             .nav__item= link_to "make your private wall!", new_account_path, class: 'button--rev', role: 'register-account'
           .nav__item= link_to "sign out", sign_out_path, class: 'button--rev', data: { method: 'delete' }, role: 'sign-out'

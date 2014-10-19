@@ -1,6 +1,6 @@
 .ribbon
   +animate
-  background-color: $black-color
+  background-color: darken($black-color, 10%)
   color: $white-color
   position: fixed
   top: 40%
@@ -28,7 +28,7 @@
 .ribbon__opener
   +animate(.5s)
   z-index: $z-ribbon-opener
-  background-color: $black-color
+  background-color: darken($black-color, 10%)
   display: table
   text-align: center
   vertical-align: middle
@@ -45,4 +45,6 @@
 .ribbon__claim
   margin-top: 10px
   max-width: 200px
+  text-align: center
+  +font-size(smallprint)
 
