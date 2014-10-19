@@ -27,11 +27,16 @@
   background-position: center
   background-repeat: no-repeat
   margin-bottom: 2%
+  +transition(opacity .5s ease-out)
+  opacity: 1
 
   &:after
     content: ""
     display: block
     padding-top: 75%
+
+  &.is-hidden
+    opacity: 0
 
 .wall_brick__icon
   +position(absolute, 0px 0px 0px 0px)

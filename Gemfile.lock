@@ -212,6 +212,7 @@ GEM
     rails-assets-jquery (2.1.1)
     rails-assets-jquery-tourbus (0.4.2)
       rails-assets-jquery (>= 1.8)
+    rails-assets-lodash (2.4.1)
     rails-assets-modernizr (2.8.3)
     rails-assets-momentjs (2.8.3)
     rails-assets-normalize-scss (3.0.1)
@@ -356,6 +357,7 @@ DEPENDENCIES
   rails-assets-caman
   rails-assets-headroom.js
   rails-assets-jquery-tourbus
+  rails-assets-lodash
   rails-assets-modernizr
   rails-assets-momentjs
   rails-assets-normalize-scss

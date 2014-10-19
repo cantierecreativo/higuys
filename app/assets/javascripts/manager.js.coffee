@@ -19,9 +19,9 @@ class @Manager
     else
       @channel = pusher.subscribe("account-#{wallId}")
 
-    @channel.bind 'join', => @wall.addTempFriend()
-    @channel.bind 'leave', => @refreshStatus()
-    @channel.bind 'photo', => @refreshStatus()
+    @channel.bind 'join',  (data) => @wall.addTempFriend(data.user_id)
+    @channel.bind 'leave', (data) => @refreshStatus()
+    @channel.bind 'photo', (data) => @refreshStatus()
 
     @autoshoot.on 'requestStateChange', (state) =>
       if state == 'COUNTDOWN'

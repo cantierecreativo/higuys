@@ -4,7 +4,7 @@ class @FriendView
   constructor: (@friend) ->
     template = if @friend.image_url
       """
-        <div class="wall__brick" style="background-image: url('#{@friend.image_url}')">
+        <div class="wall__brick is-hidden" style="background-image: url('#{@friend.image_url}')">
           <span class="wall__brick__status js-active-at">#{@activeAtText()}</span>
         </div>
       """
@@ -20,7 +20,26 @@ class @FriendView
     @refreshActiveAt()
 
   remove: ->
-    @$dom.remove()
+    @$dom
+      .addClass('is-hidden')
+      .on 'transitionend webkitTransitionEnd oTransitionEnd otransitionend', =>  @$dom.remove()
+
+  appendTo: ($container) ->
+    $container.append(@$dom)
+    @$dom.removeClass('is-hidden')
+
+  redraw: (@friend) ->
+    @$dom.css(backgroundImage: "url(#{@friend.image_url})")
+    if @$dom.find('.wall_brick__icon').length > 0
+      @$dom.find('.wall_brick__icon').remove()
+      @$dom.append """
+        <span class="wall__brick__status js-active-at">#{@activeAtText()}</span>
+      """
+    else
+      @$dom.find('.js-active-at').text(@activeAtText())
+
+  id: ->
+    @friend.id
 
   refreshActiveAt: ->
     setTimeout( =>

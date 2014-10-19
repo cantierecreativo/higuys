@@ -35,6 +35,7 @@ gem 'rails-assets-caman'
 gem 'rails-assets-momentjs'
 gem 'rails-assets-jquery-tourbus'
 gem 'rails-assets-headroom.js'
+gem 'rails-assets-lodash'
 
 
 group :development do
