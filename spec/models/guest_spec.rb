@@ -15,26 +15,34 @@ RSpec.describe Guest, type: :model do
     end
   end
 
-  describe '.active' do
-    let(:guest1) { create(:guest) }
-    let(:guest2) { create(:guest) }
-    let(:image1) { create(:image, guest: guest1, image_path: 'foobar.jpg') }
-    let(:image2) { create(:image, guest: guest2, image_path: 'foobaz.jpg') }
+  describe '.active_in_the_last' do
+    let(:guest) { create(:guest) }
+    let(:image) { create(:image, guest: guest, image_path: 'foobar.jpg') }
 
-    before do
-      image1.created_at = 10.minutes.ago
-      image2.created_at = 2.minutes.ago
-      guest1.last_image = image1
-      guest2.last_image = image2
+    context 'if the guest was active less than 5 minutes ago' do
+      before do
+        image.created_at = 3.minutes.ago
+        guest.last_image = image
+        image.save
+        guest.save
+      end
 
-      image1.save
-      image2.save
-      guest1.save
-      guest2.save
+      it 'is returned' do
+        expect(Guest.active_in_the_last(5.minutes)).to eq([guest])
+      end
     end
 
-    it 'returns only the guests with a photo taken less than 5 minutes ago' do
-      expect(Guest.active).to eq([guest2])
+    context 'else' do
+      before do
+        image.created_at = 10.minutes.ago
+        guest.last_image = image
+        image.save
+        guest.save
+      end
+
+      it 'is not returned' do
+        expect(Guest.active_in_the_last(5.minutes)).to eq([])
+      end
     end
   end
 end
