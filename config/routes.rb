@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get '/auth/github/callback', to: 'sessions#create', as: 'sign_in'
-  get '/auth',                    to: 'sessions#prepare', as: 'prepare_auth'
+  get '/auth/github/callback', to: 'sessions#create'
+  get '/auth',                    to: 'sessions#prepare', as: 'sign_in'
   get '/auth/failure',            to: 'sessions#oauth_failure'
   delete '/auth',                 to: 'sessions#destroy', as: 'sign_out'
 

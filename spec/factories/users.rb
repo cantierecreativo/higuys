@@ -13,6 +13,7 @@ FactoryGirl.define do
   factory :registered_user, class: RegisteredUser, parent: :user do
     type "RegisteredUser"
     sequence(:github_user_id) { "XXX" }
+    email "foo@bar.it"
 
     trait :with_account do
       association :wall, factory: [:wall, :with_account]

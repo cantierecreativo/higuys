@@ -6,9 +6,19 @@
     .header__menu
       .nav
         - if current_user.present?
+          .nav__item
+            ' You're signed in as:
+            = present(current_user).display_name
+          - if current_user.wall
+             - if current_user.wall.account
+                .nav__item= link_to current_user.wall.account.name, account_path(current_user.wall.account.slug), class: 'button--rev', role: 'goto-wall'
+             - else
+                .nav__item= link_to "back to demo", new_account_path, class: 'button--rev', role: 'goto-wall'
+          - else
+            .nav__item= link_to "make your private wall!", new_account_path, class: 'button--rev', role: 'register-account'
           .nav__item= link_to "sign out", sign_out_path, class: 'button--rev', data: { method: 'delete' }, role: 'sign-out'
         - else
-          .nav__item= link_to "sign in", sign_in_path, class: 'button--rev', role: 'sign-in'
-          .nav__item= link_to "make your account", new_account_path, class: 'button--rev', role: 'register-account'
+          .nav__item= link_to "sign in", sign_in_path, role: 'sign-in'
+          .nav__item= link_to "make your account", new_account_path, role: 'register-account'
           .nav__item= link_to "live demo!", walls_path, data: { method: 'post' }, class: 'button--rev', role: 'join-demo-wall'
 
