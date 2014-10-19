@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_account
-    @account ||= Account.find_by_slug(params[:account_id])
+    @current_account ||= Account.find_by_slug(params[:account_id])
   end
   helper_method :current_account
 

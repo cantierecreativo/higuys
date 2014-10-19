@@ -11,9 +11,9 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(permitted_params)
     @account.build_wall
-    @account.save
-
-    @account.wall.users << current_user
+    if @account.save
+      @account.wall.users << current_user
+    end
 
     respond_with @account
   end
