@@ -1,16 +1,40 @@
-h3.gamma Pending invitations
+- content_for(:title){ "hi guys! I wish you were here!" }
+- content_for(:description){ "Invite your friend to your wall" }
 
-- if @invitations.any?
-  ul
-    - present_collection(@invitations).each do |invitation|
-      - if invitation.persisted?
-        = invitation.box(:li) do
-          span= invitation.email
-          = link_to "Cancel", account_invitation_path(current_account, invitation), data: { method: 'delete', confirm: 'Do you really want to cancel the invitation?' }
-- else
-  p No invitations present right now... invite someone!
+= render 'header'
 
-= simple_form_for @invitation, url: account_invitations_path, html: { role: 'invite-form' } do |f|
-  = f.input :email
-  = f.button :submit
+.inner-page
+  .wrap
 
+    .invite
+      h3.invite__title
+        | Invite your mates!
+
+      .invite__form
+        = simple_form_for @invitation, url: account_invitations_path, html: { role: 'invite-form' } do |f|
+          = f.input :email
+          .invite__form__actions
+            = f.button :submit, "Send invitation!"
+
+      - if @invitations.all.find_all(&:persisted?).any?
+        .invite__pendings
+          .formatted-content
+            h4.alpha Pending invitations
+            table.invite__table
+              thead.invite__table__head
+                th name
+                th actions
+              tbody
+                - present_collection(@invitations).each do |invitation|
+                  - if invitation.persisted?
+                    = invitation.box(:tr) do
+                      td
+                        = invitation.email
+                      td.invite__table__actions
+                        = link_to "Cancel", account_invitation_path(current_account, invitation), data: { method: 'delete', confirm: 'Do you really want to cancel the invitation?' }, class: 'button--small'
+
+      - else
+        h4.alpha No invitations present right now... invite someone!
+
+
+= render 'footer'
