@@ -9,7 +9,7 @@ module Api
     end
 
     def create_photo
-      StorePhoto.execute(current_user, params[:s3_url])
+      StorePhoto.execute(valid_user, params[:s3_url])
       respond_with_success code: 'OK'
     rescue StorePhoto::InvalidInputException
       respond_with_error code: 'INVALID_REQUEST'
@@ -21,7 +21,7 @@ module Api
     end
 
     def status
-      @user = current_user
+      @user = valid_user
       @user.update_attributes(status_message: params[:status_message])
       respond_to do |format|
         format.json { render status: :ok }
@@ -31,27 +31,23 @@ module Api
     private
 
     def require_user_with_wall!
-      valid_api_user = api_user.present? && api_user.wall.present?
-      valid_current_user = current_user.present? && current_user.wall.present?
-
-      if !valid_api_user && !valid_current_user
+      if !valid_user.present? || !valid_user.wall.present?
         respond_with_error code: 'INVALID_REQUEST'
       end
     end
 
+    def valid_user
+      api_user || current_user
+    end
+
     def api_user
       @user ||= if (( header_value = request.headers["HTTP_AUTHORIZATION"] ))
-                 User.find_by_secret_token(header_value)
-               end
+                  User.find_by_secret_token(header_value)
+                end
     end
 
     def wall
-      @wall ||= if api_user
-                  api_user.wall
-                else
-                  current_user.wall
-                end
+      @wall ||= valid_user.wall
     end
   end
 end
-
