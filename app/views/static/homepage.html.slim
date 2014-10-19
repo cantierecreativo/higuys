@@ -1,5 +1,5 @@
 - content_for(:title){ "hi guys!" }
-- content_for(:description){ "hi guys! is a remote presence tool where you can see your colleagues during the working day!" }
+- content_for(:description){ "hi guys! is a remote presence tool. You'll have fun working together all day remotely!" }
 
 = render 'header'
 
@@ -7,17 +7,17 @@
   .wrap
     .home-hero__faces= image_tag "faces.gif"
 
-    .home-hero__tagline the ultimate remote presence tool!
+    .home-hero__tagline The ultimate remote presence tool!
 
     .home-hero__screenshot
       = image_tag "home-wall.png"
 
 .infos
   .wrap--on-small-desk
-    h2.infos__title take a look at what your mates are doing!
+    h2.infos__title Take a look at what your mates are doing!
     .infos__body
-      p update pictures of each team member so you can see their smile and know they're there with you!
-      p you'll have fun working together all day remotely!
+      p Update pictures of each team member so you can see their smile and know they're there with you!
+      p You'll have fun working together all day remotely!
       .space--both-2
         p hi guys! take away the worry & hassle of feeling alone in the dark!
 
@@ -27,18 +27,18 @@
 
 .infos--light
   .wrap--on-small-desk
-    h2.infos__title use your browser or osx client
+    h2.infos__title Use your browser or desktop client
     .infos__body
-      p hi guys! works like a charm with modern browsers
-      p login and work with your mates!
+      p hi guys! works like a charm with modern browsers:
+      p join a wall and work alongside your mates!
       .space--both-2
-        p download the osx app to update your pic and update your status
+        p Download the application for your OS (Osx, Linux, Win) to update your pic and update your status.
 
       .space--both-2
         = image_tag "osx-app.png"
 
     .infos__actions
-      .button--large.button--disabled osx app coming soon!
+      .button--large.button--disabled coming soon!
 
 = render 'footer'
 
