@@ -47,7 +47,7 @@ module HiGuys
 
     Rails.application.config.middleware.use OmniAuth::Builder do
       provider :developer unless Rails.env.production?
-      provider :github, ENV.fetch('GITHUB_KEY'), ENV.fetch('GITHUB_SECRET')
+      provider :github, ENV.fetch('GITHUB_KEY'), ENV.fetch('GITHUB_SECRET'), scope: "user:email"
     end
 
   end
