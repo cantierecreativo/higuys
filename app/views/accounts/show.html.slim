@@ -9,7 +9,7 @@
           a.autoshoot-control.js-autoshoot(href="#")
         .or__item
           .wall-nav__item
-            = link_to "Invite a friend!", "#"
+            = link_to "Invite a friend!", account_invitations_path(@account)
           .wall-nav__item
             = link_to "Leave wall", "#", data: { method: 'post' }, role: 'leave', class: 'js-leave'
 

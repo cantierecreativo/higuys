@@ -3,13 +3,14 @@ h3.gamma Pending invitations
 - if @invitations.any?
   ul
     - present_collection(@invitations).each do |invitation|
-      = invitation.box(:li) do
-        span= invitation.email
-        = link_to "Cancel", account_invitation_path(@account, invitation), data: { method: 'delete' }
+      - if invitation.persisted?
+        = invitation.box(:li) do
+          span= invitation.email
+          = link_to "Cancel", account_invitation_path(current_account, invitation), data: { method: 'delete', confirm: 'Do you really want to cancel the invitation?' }
 - else
   p No invitations present right now... invite someone!
 
-= simple_form_for @account.invitations.build, url: account_invitations_path, html: { role: 'invite-form' } do |f|
+= simple_form_for @invitation, url: account_invitations_path, html: { role: 'invite-form' } do |f|
   = f.input :email
   = f.button :submit
 
