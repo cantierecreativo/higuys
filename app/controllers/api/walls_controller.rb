@@ -37,7 +37,7 @@ module Api
       end
     end
 
-    def require_permissions_if_account
+    def require_permissions_if_account!
       if current_user.wall.account
       end
     end
