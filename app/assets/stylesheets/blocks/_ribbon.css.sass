@@ -9,6 +9,7 @@
   box-sizing: border-box
   right: -250px
   height: 150px
+  display: none
 
   &:hover
     right: 0
@@ -20,6 +21,10 @@
       left: 0
       width: 0
 
+  +at-breakpoint(gte-small-desk)
+    display: block
+    .ribbon__opener
+      display: block
 
 .ribbon__opener
   +animate(.5s)
@@ -41,6 +46,4 @@
 .ribbon__claim
   margin-top: 10px
   max-width: 200px
-
-
 

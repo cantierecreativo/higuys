@@ -1,7 +1,10 @@
 #= require jquery
 #= require jquery_ujs
+#= require headroom.js/headroom
+#= require headroom.js/jQuery.headroom
 #= require ./manager
 #= require jquery-tourbus
+#= require ./shame
 
 navigator.getUserMedia = navigator.getUserMedia or
   navigator.webkitGetUserMedia or

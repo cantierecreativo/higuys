@@ -3,18 +3,19 @@
 
 = render 'ribbon'
 
+.header.js-headroom
+  .wrap
+    .header__logo
+      .sprite--logo hi guys!
+    .header__menu
+      .nav
+        .nav__item
+          a.button--rev.button-huge(href="#") Sign in
+        .nav__item
+          = link_to "Try the live demo!", walls_path, data: { method: 'post' }, class: 'button--rev button-huge visible--on-gte-small-desk', role: 'join-demo-wall'
+
 .home-hero
   .wrap
-    .or
-      .or__item
-        .sprite--logo hi guys!
-      .or__item
-        .nav
-          .nav__item
-            a.button--rev.button-huge(href="#") Sign in
-          .nav__item
-            = link_to "Try the live demo!", walls_path, data: { method: 'post' }, class: 'button--rev button-huge visible--on-gte-small-desk', role: 'join-demo-wall'
-
     .home-hero__faces= image_tag "faces.gif"
 
     .home-hero__tagline the ultimate remote presence tool!

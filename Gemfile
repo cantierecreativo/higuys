@@ -30,6 +30,8 @@ gem 'rails-assets-modernizr'
 gem 'rails-assets-caman'
 gem 'rails-assets-momentjs'
 gem 'rails-assets-jquery-tourbus'
+gem 'rails-assets-headroom.js'
+
 
 group :development do
   gem 'spring'
