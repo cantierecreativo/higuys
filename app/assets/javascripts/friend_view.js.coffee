@@ -49,4 +49,3 @@ class @FriendView
 
   activeAtText: ->
     "active about #{ moment(@friend.active_at).fromNow() }"
-

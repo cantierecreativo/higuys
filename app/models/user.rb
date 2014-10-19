@@ -13,4 +13,3 @@ class User < ActiveRecord::Base
 
   scope :by_id, -> { order(id: :asc) }
 end
-
