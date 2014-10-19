@@ -10,6 +10,7 @@ class @MyView extends EventEmitter
     @video = @$dom.find("video").get(0)
     @canvas = @$dom.find("canvas").get(0)
     @shoot = @$dom.find(".js-shoot")
+    @$dom.addClass('is-idle')
     @toggleVideo(false)
 
     @shoot.on 'click', => @emit 'requestShoot'
@@ -19,6 +20,7 @@ class @MyView extends EventEmitter
       cb(e)
 
     success = (stream) =>
+      @$dom.removeClass('is-idle')
       @stream = stream
       url = window.URL or window.webkitURL
       @video.src = if url then url.createObjectURL(stream) else stream

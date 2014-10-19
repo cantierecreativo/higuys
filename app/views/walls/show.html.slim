@@ -15,8 +15,12 @@
 
   .wall data-wall-id=@wall.access_code data-guest-id=@guest_id
     .wall__brick.js-camera.is-first
+      .wall__brick__idle
+        span 
+          i.icon--camera
+          | Waiting for your camera&nbsp;:)
       a.wall__brick__shoot.js-shoot href="#"
-        i.icon--camera
+        i.wall_brick__icon.icon--photo
       video.wall__brick__camera
       .wall__brick__countdown
       .wall__brick__flash

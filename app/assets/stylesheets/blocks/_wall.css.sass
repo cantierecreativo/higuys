@@ -33,16 +33,16 @@
     display: block
     padding-top: 75%
 
-  [class^=icon]
-    +position(absolute, 0px 0px 0px 0px)
+.wall_brick__icon
+  +position(absolute, 0px 0px 0px 0px)
 
-    &:before
-      +center
-      display: block
-      font-size: 80px
-      line-height: 1em
-      margin: auto
-      color: $gray-color
+  &:before
+    +center
+    display: block
+    font-size: 80px
+    line-height: 1em
+    margin: auto
+    color: $gray-color
 
 .wall__brick__shoot
   background-color: rgba(black, 0.6)
@@ -56,6 +56,33 @@
 
   .wall__brick:hover &
     opacity: 1
+
+  .is-stream-active:hover &,
+  .is-idle:hover &
+    display: none
+
+.wall__brick__idle
+  background: image-url('noise.gif')
+  +position(absolute, 0px 0px 0px 0px)
+  color: white
+  text-decoration: none
+  display: none
+  text-align: center
+  z-index: 1
+
+  span
+    +center
+    +padding(1)
+    background-color: rgba(black, 0.7)
+    border-radius: 4px
+
+    i
+      display: block
+      font-size: 60px
+      line-height: 1
+
+  .is-idle &
+    display: block
 
 .wall__brick__camera
   position: absolute

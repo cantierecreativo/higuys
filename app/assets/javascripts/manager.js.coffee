@@ -12,14 +12,9 @@ class @Manager
     pusher = new Pusher('7217b3c3ef1446696bf5')
     @channel = pusher.subscribe("demo-#{wallId}")
 
-    @channel.bind 'join', =>
-      @refreshStatus()
-
-    @channel.bind 'leave', =>
-      @refreshStatus()
-
-    @channel.bind 'photo', =>
-      @refreshStatus()
+    @channel.bind 'join', => @refreshStatus()
+    @channel.bind 'leave', => @refreshStatus()
+    @channel.bind 'photo', => @refreshStatus()
 
     @autoshoot.on 'requestStateChange', (state) =>
       if state == 'COUNTDOWN'
@@ -32,13 +27,14 @@ class @Manager
     @myView.on 'requestShoot', =>
       return if @isShooting
       return if @autoshoot.state == 'SHOOTING'
+      return if @autoshoot.state == 'WAITING_PERMISSIONS'
 
-      if @autoshoot.state == 'COUNTDOWN'
-        clearTimeout(@countdownTimeout)
-        @countdownTimeout = null
-        @shoot()
+      clearTimeout(@countdownTimeout)
+      @countdownTimeout = null
+      @shoot()
 
     @refreshStatus (err) =>
+      @myView.startStream
       @myView.startStream (e) =>
         if e
           alert "Fail"
@@ -48,7 +44,7 @@ class @Manager
   refreshStatus: (cb) ->
     @client.fetchStatus @wallId, (err, result) =>
       if err
-        cb(err)
+        cb?(err)
       else
         @wall.refreshFriends(result)
         cb?()
