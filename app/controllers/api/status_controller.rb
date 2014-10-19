@@ -7,4 +7,3 @@ class Api::StatusController < Api::BaseController
     respond_with @guests, status: :ok
   end
 end
-
