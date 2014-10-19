@@ -4,8 +4,7 @@
       .or
         .or__item
           = link_to "hi guys!", root_path, class: "sprite--logo is-small"
-          .js-update-status
-            input.update-status-control data-guest-status-url=api_update_status_path(@wall) value=@status_message placeholder='Today I feel ...'
+          input.update-status-control.js-update-status data-guest-status-url=api_update_status_path(@wall) value=@status_message placeholder='Today I feel ...'
         .or__item
           a.autoshoot-control.js-autoshoot(href="#")
         .or__item
@@ -83,8 +82,8 @@ ol.js-tour.tourbus-legs
       .icon--higuy-blink
     .help__body
       .formatted-content
-        h3 This is how you feel
-        p Here's where I explain how our navigation works...
+        h3 This your status
+        p Tell everybody what you're thinking!
       .help__actions
         a.button.tourbus-next href="javascript:void(0);" Go!
 
