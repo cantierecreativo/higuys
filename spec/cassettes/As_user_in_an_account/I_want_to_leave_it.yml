@@ -1,0 +1,36 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://api.pusherapp.com/apps/93294/events?auth_key=7217b3c3ef1446696bf5&auth_signature=04afef782ee12c6d5933b366354641a9fe8f4f23a5e25e91687c782b6bb9858a&auth_timestamp=1413749634&auth_version=1.0&body_md5=3bafcffe1d794d8c350c49f9f50ea937
+    body:
+      encoding: UTF-8
+      string: '{"name":"leave","channels":["account-foo-1"],"data":"{\"user_id\":3}"}'
+    headers:
+      User-Agent:
+      - HTTPClient/1.0 (2.5.0, ruby 2.1.2 (2014-05-08))
+      Accept:
+      - "*/*"
+      Date:
+      - Sun, 19 Oct 2014 20:13:54 GMT
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/html;charset=utf-8
+      Server:
+      - thin 1.6.1 codename Death Proof
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: "{}"
+    http_version: 
+  recorded_at: Sun, 19 Oct 2014 20:13:55 GMT
+recorded_with: VCR 2.9.3

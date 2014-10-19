@@ -18,11 +18,17 @@ class AccountsController < ApplicationController
     respond_with @account
   end
 
-  before_action :requires_user_within_account!, only: :show
+  before_action :requires_user_within_account!, only: %i(show leave)
   def show
     @wall = current_account.wall
     @user_id = current_user.id
     @pusher_channel = PushEvent.channel_name(@wall)
+  end
+
+  def leave
+    current_user.update_attributes!(wall: nil)
+    PushEvent.execute(current_account.wall, 'leave', user_id: current_user.id)
+    redirect_to root_path, notice: "You successfully left the wall"
   end
 
   private

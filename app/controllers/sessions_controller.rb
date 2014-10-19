@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   def create
     session_manager.generate_and_sign_in_registered_user(auth_hash.uid, auth_hash.info.email)
     redirect_path = session.delete(:redirect_after_auth) || root_path
-    redirect_to redirect_path, notice: 'Registration completed successfully!'
+    redirect_to redirect_path, notice: 'Signed in successfully!'
   end
 
   def force_signin_in_test

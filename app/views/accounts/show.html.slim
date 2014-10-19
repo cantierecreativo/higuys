@@ -11,7 +11,7 @@
           .wall-nav__item
             = link_to "Invite a friend!", account_invitations_path(@account)
           .wall-nav__item
-            = link_to "Leave wall", "#", data: { method: 'post' }, role: 'leave', class: 'js-leave'
+            = link_to "Leave wall", leave_account_path(@account), data: { method: 'post' }, role: 'leave', class: 'js-leave'
 
   .wall.js-wall data-pusher-channel=@pusher_channel data-user-id=@user_id
     .wall__brick.js-camera.is-first

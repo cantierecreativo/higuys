@@ -20,6 +20,9 @@ Rails.application.routes.draw do
         get :accept
       end
     end
+    member do
+      post :leave
+    end
     resources :users, only: %i(index create destroy)
   end
 
