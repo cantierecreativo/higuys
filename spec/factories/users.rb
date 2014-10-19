@@ -11,6 +11,7 @@ FactoryGirl.define do
 
   factory :registered_user, class: RegisteredUser, parent: :user do
     type "RegisteredUser"
+    sequence(:github_user_id) { "XXX" }
   end
 end
 

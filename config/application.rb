@@ -49,6 +49,7 @@ module HiGuys
       provider :developer unless Rails.env.production?
       provider :github, ENV.fetch('GITHUB_KEY'), ENV.fetch('GITHUB_SECRET')
     end
+
   end
 end
 

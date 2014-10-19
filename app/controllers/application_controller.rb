@@ -10,5 +10,13 @@ class ApplicationController < ActionController::Base
   end
 
   delegate :current_user, to: :session_manager
+  helper_method :current_user
+
+  def requires_registered_user!
+    unless current_user.is_a? RegisteredUser
+      session[:redirect_after_auth] = request.fullpath
+      redirect_to prepare_auth_path
+    end
+  end
 end
 
