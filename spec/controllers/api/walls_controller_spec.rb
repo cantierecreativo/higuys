@@ -35,6 +35,7 @@ describe Api::WallsController do
     context 'with a user user signed in (associated with a wall)' do
       let(:session_manager) { instance_double("SessionManager") }
       let(:user) { create(:guest, :with_wall) }
+      let(:wall) { user.wall }
 
       before do
         allow(SessionManager).to receive(:new).with(session) { session_manager }
@@ -59,7 +60,9 @@ describe Api::WallsController do
         .as_stubbed_const(transfer_nested_constants: true)
     }
     let(:wall) { create(:wall) }
-    let(:action) { post :create_photo, { s3_url: 'URL', format: :json, wall_id: wall.access_code } }
+    let(:action) {
+      post :create_photo, { s3_url: 'URL', format: :json, wall_id: wall.access_code }
+    }
 
     context 'with a non authenticated user' do
       before { action }
@@ -72,6 +75,7 @@ describe Api::WallsController do
     context 'with a user user signed in (associated with a wall)' do
       let(:session_manager) { instance_double("SessionManager") }
       let(:user) { create(:guest, :with_wall) }
+      let(:wall) { user.wall }
 
       before do
         allow(SessionManager).to receive(:new).with(session) { session_manager }
@@ -87,8 +91,7 @@ describe Api::WallsController do
       end
 
       it 'notify all the other clients that I have uploaded a photo' do
-        expect(store_photo).to have_received(:execute)
-          .with(user, 'URL')
+        expect(store_photo).to have_received(:execute).with(user, 'URL')
       end
 
       it 'responds with ok' do
@@ -199,3 +202,4 @@ describe Api::WallsController do
     end
   end
 end
+
