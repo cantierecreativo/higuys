@@ -1,7 +1,7 @@
 class JoinAccount < Struct.new(:user, :account)
   extend Command
 
-  MAX_USERS_FOR_WALL = 36
+  MAX_USERS_FOR_WALL = 100
 
   def execute
     if account.wall.users.count >= MAX_USERS_FOR_WALL

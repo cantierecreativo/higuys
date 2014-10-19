@@ -1,7 +1,7 @@
 class JoinWall < Struct.new(:user, :wall)
   extend Command
 
-  MAX_USERS_FOR_WALL = 36
+  MAX_USERS_FOR_WALL = 100
 
   def execute
     if user.wall && user.wall != wall
