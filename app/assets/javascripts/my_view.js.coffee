@@ -1,9 +1,9 @@
 #= require ./event_emitter
+#= require caman/caman.full
 
 class @MyView extends EventEmitter
-  CAMERA_WIDTH = 640
-  CAMERA_HEIGHT = 480
-  JPEG_QUALITY = .7
+  CAMERA_WIDTH = 320
+  CAMERA_HEIGHT = 240
 
   constructor: (@$dom) ->
     super
@@ -39,10 +39,24 @@ class @MyView extends EventEmitter
     context.fillRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT)
     context.drawImage(@video, 0, 0, CAMERA_WIDTH, CAMERA_HEIGHT)
 
-    data = canvas.toDataURL('image/jpeg', 0.7)
-    @setPhoto(data)
+    self = @
 
-    data
+    data = canvas.toDataURL('image/png')
+    @setPhoto(data)
+    @toggleVideo(false)
+
+    process = ->
+      Caman(canvas, ->
+        filters = ["jarques", "lomo", "vintage", "clarity", "nostalgia", "sunrise"]
+        filter = filters[Math.floor(Math.random() * filters.length)]
+        this[filter]()
+        this.render ->
+          data = this.toBase64('jpeg')
+          self.setPhoto(data)
+          cb(null, data)
+      )
+
+    setTimeout(process, 100)
 
   toggleVideo: (visible) ->
     @$dom.toggleClass('is-stream-active', visible)

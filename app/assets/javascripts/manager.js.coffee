@@ -55,10 +55,9 @@ class @Manager
 
   shoot: ->
     getPhoto = =>
-      photoDataUrl = @wall.myView.shootPhoto()
-      @wall.myView.toggleVideo(false)
-      @notifyNewPhoto(photoDataUrl)
-      @restartCountdown()
+      @wall.myView.shootPhoto (err, photoDataUrl) =>
+        @notifyNewPhoto(photoDataUrl)
+        @restartCountdown()
 
     @autoshoot.setState('SHOOTING')
     @wall.myView.toggleVideo(true)
