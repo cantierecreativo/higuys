@@ -55,4 +55,3 @@ ActiveRecord::Schema.define(version: 20141019055218) do
   add_index "walls", ["access_code"], name: "index_walls_on_access_code", unique: true, using: :btree
 
 end
-
