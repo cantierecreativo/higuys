@@ -151,6 +151,7 @@ describe Api::WallsController do
         expect(response.body).to include_json({id: user.id,
                                                image_url: user.last_image.imgx_url,
                                                active_at: user.last_image.created_at,
+                                               status_message: "a status message",
                                               }.to_json)
       end
     end
