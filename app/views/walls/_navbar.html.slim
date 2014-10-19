@@ -20,4 +20,5 @@
           .wall-nav__item
             = link_to "Invite a friend!", account_invitations_path(instance)
           .wall-nav__item
-            = link_to "Leave wall", "#", data: { method: 'post' }, role: 'leave', class: 'js-leave'
+            = link_to "Leave wall", leave_account_path(instance), data: { method: 'post' }, role: 'leave', class: 'js-leave'
+

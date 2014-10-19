@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :user do
     status_message "a status message"
+    sequence(:secret_token) { |i| "token-#{i}" }
     trait :with_wall do
       wall
     end

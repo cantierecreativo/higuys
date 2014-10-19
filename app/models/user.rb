@@ -12,5 +12,7 @@ class User < ActiveRecord::Base
   }
 
   scope :by_id, -> { order(id: :asc) }
+
+  validates :secret_token, presence: true, uniqueness: true
 end
 

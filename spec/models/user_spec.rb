@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+
+  it { is_expected.to validate_presence_of(:secret_token) }
+  it {
+    create(:guest)
+    is_expected.to validate_uniqueness_of(:secret_token)
+  }
+
   describe '.by_id' do
     let(:user1) { create(:guest) }
     let(:user2) { create(:guest) }

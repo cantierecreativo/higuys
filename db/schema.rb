@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019181303) do
+ActiveRecord::Schema.define(version: 20141019203018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,10 +70,11 @@ ActiveRecord::Schema.define(version: 20141019181303) do
     t.string   "github_user_id"
     t.string   "status_message"
     t.string   "email"
-    t.string   "secret_token"
+    t.string   "secret_token",   null: false
   end
 
   add_index "users", ["github_user_id"], name: "index_users_on_github_user_id", unique: true, using: :btree
+  add_index "users", ["secret_token"], name: "index_users_on_secret_token", unique: true, using: :btree
 
   create_table "walls", force: true do |t|
     t.string   "access_code"
