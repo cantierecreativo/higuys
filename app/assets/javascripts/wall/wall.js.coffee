@@ -7,6 +7,7 @@ class @Wall
     @friendViews = []
     @myView = new MyView(@$dom.find('.js-camera'))
     @$friendViewsContainer = @$dom.find('.js-friends')
+    @$userStatus = @$dom.find('#status_message')
 
   refreshFriends: (friends) ->
     myFriendsIds  = _.map(@friendViews, (f) -> f.id())

@@ -1,10 +1,11 @@
 .wall-container
   .wall-nav
-    .wall-nav__placeholder
     .wall-nav__bar
       .or
         .or__item
           = link_to "hi guys!", root_path, class: "sprite--logo is-small"
+          .js-update-status
+            input.update-status-control data-guest-status-url=api_update_status_path(@wall) value=@status_message placeholder='Today I feel ...'
         .or__item
           a.autoshoot-control.js-autoshoot(href="#")
         .or__item
@@ -19,6 +20,7 @@
         span
           i.icon--camera
           | Waiting for your camera&nbsp;:)
+        .wall__brick__status_message
       a.wall__brick__shoot.js-shoot href="#"
         i.wall_brick__icon.icon--photo
       video.wall__brick__camera
@@ -37,6 +39,7 @@
         input(type="text" value=wall_url(@wall) disabled)
 
 ol.js-tour.tourbus-legs
+
   li.help data-orientation="centered"
     .help__image
       .icon--logo-icon
@@ -74,6 +77,16 @@ ol.js-tour.tourbus-legs
       .help__actions
         a.button.tourbus-next href="javascript:void(0);" Cool!
 
+
+  li data-el=".js-update-status" data-orientation="bottom" data-width="400" data-arrow="10%"
+    .help__image
+      .icon--higuy-blink
+    .help__body
+      .formatted-content
+        h3 This is how you feel
+        p Here's where I explain how our navigation works...
+      .help__actions
+        a.button.tourbus-next href="javascript:void(0);" Go!
 
   li.help data-el=".js-invite" data-orientation="bottom" data-align="right" data-arrow="90%" data-top="30" data-width="400"
     .help__image

@@ -155,5 +155,46 @@ describe Api::WallsController do
       end
     end
   end
-end
 
+  describe "PUT #status" do
+    let(:old_status_message) { 'a_status_message' }
+    let(:new_status_message) { 'another_status' }
+
+    let(:wall) { create(:wall) }
+    let(:action) do
+      put :status, { wall_id: wall.access_code, format: :json , status_message: new_status_message }
+    end
+
+    context 'with a non authenticated user' do
+      before { action }
+
+      it 'responds with unprocessable entity' do
+        expect(response.status).to eq(422)
+      end
+    end
+
+    context 'with a user user signed in (associated with a wall)' do
+      let(:session_manager) { instance_double("SessionManager") }
+      let(:user) { create(:guest) }
+
+      before do
+        allow(SessionManager).to receive(:new).with(session) { session_manager }
+        allow(session_manager).to receive(:current_user) { user }
+      end
+
+      before do
+        user.wall = wall
+        user.save!
+      end
+
+      before do
+        action
+      end
+
+      it 'returns a json with all users of this wall and their photos' do
+        expect(response.body).to have_json_size(2)
+        expect(response.body).to eq({id: user.id, status_message: new_status_message }.to_json)
+      end
+    end
+  end
+end

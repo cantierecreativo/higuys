@@ -37,7 +37,6 @@ gem 'rails-assets-jquery-tourbus'
 gem 'rails-assets-headroom.js'
 gem 'rails-assets-lodash'
 
-
 group :development do
   gem 'spring'
   gem 'spring-commands-rspec'

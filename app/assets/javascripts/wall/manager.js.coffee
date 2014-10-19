@@ -99,4 +99,3 @@ class @Manager
       ia[i] = byteString.charCodeAt(i)
       i++
     new Blob([ia], type: mimeString)
-

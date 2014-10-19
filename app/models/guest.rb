@@ -1,3 +1,2 @@
 class Guest < User
 end
-

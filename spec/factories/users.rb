@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :user do
+    status_message "a status message"
     trait :with_wall do
       wall
     end

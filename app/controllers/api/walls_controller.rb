@@ -20,6 +20,14 @@ module Api
       respond_with @users, status: :ok
     end
 
+    def status
+      @user = current_user
+      @user.update_attributes(status_message: params[:status_message])
+      respond_to do |format|
+        format.json { render status: :ok }
+      end
+    end
+
     private
 
     def require_user_with_wall!

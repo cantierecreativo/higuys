@@ -11,6 +11,8 @@ class WallsController < ApplicationController
 
   def show
     joined = JoinWall.execute(@user, @wall)
+    @status_message = @user.status_message
+
     if joined
       flash.now[:notice] = "Welcome! You've successfully joined the wall!"
     end
@@ -36,4 +38,3 @@ class WallsController < ApplicationController
     @user ||= session_manager.generate_and_sign_in_guest
   end
 end
-

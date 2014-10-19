@@ -19,9 +19,11 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    post '/walls/:wall_id/upload-requests', to: 'walls#create_upload_policy'
-    post '/walls/:wall_id/photos',          to: 'walls#create_photo'
-    get  '/walls/:wall_id',                 to: 'walls#show'
+
+    post  '/walls/:wall_id/upload-requests', to: 'walls#create_upload_policy'
+    post  '/walls/:wall_id/photos',          to: 'walls#create_photo'
+    get   '/walls/:wall_id',                 to: 'walls#show'
+    put   '/walls/:wall_id/status',          to: 'walls#status',                as: 'update_status'
   end
 
   root to: 'static#homepage'
