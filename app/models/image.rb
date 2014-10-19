@@ -3,6 +3,8 @@ class Image < ActiveRecord::Base
   validates :guest, presence: true
   validates :image_path, presence: true, uniqueness: true
 
+  before_destroy -> { AwsDeletePhoto.execute(image_path) }
+
   scope :newst, -> { order(created_at: :desc) }
 
   def imgx_url
