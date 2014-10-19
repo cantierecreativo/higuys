@@ -14,14 +14,13 @@ class StorePhoto < Struct.new(:s3_url, :session)
     image
   end
 
-  def filename
-    @filename ||= File.basename(URI.parse(s3_url).path)
+  def image_path
+    @image_path ||= URI.parse(s3_url).path.gsub(/^\//, '')
   end
 
   def valid_url?
     s3_url.present? && s3_url.start_with?("http://#{ENV["S3_BUCKET_NAME"]}")
   end
-
 
   private
 
@@ -30,6 +29,7 @@ class StorePhoto < Struct.new(:s3_url, :session)
   end
 
   def image
-    @image ||= Image.create(filename: filename, guest: guest)
+    @image ||= Image.create(image_path: image_path, guest: guest)
   end
 end
+

@@ -1,15 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Image, type: :model do
-
-  let(:filename)   { "image.jpg" }
-  let(:image) { build(:image, filename: filename) }
+  let(:image_path) { "foo/bar/image.jpg" }
+  let(:image) { build(:image, image_path: image_path) }
 
   it { should validate_presence_of :guest }
-  it { should validate_presence_of :filename }
+  it { should validate_presence_of :image_path }
 
   describe '#imgx_url' do
-    let(:image) { create(:image, filename: 'test.jpg') }
+    let(:image) { create(:image, image_path: 'test.jpg') }
 
     before do
       stub_const 'ENV', { 'IMGX_URL' => 'http://foobar.imgx.com/' }
@@ -20,3 +19,4 @@ RSpec.describe Image, type: :model do
     end
   end
 end
+

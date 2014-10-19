@@ -1,21 +1,26 @@
 class DeletePhoto < Struct.new(:image)
+  extend Command
+
   def execute
     return if image.nil? || !image.persisted?
     s3_object.delete
     image.destroy
   end
 
+  private
+
   def s3_object
     s3 = AWS::S3.new(access_key_id: ENV["S3_KEY_ID"], secret_access_key: ENV["S3_SECRET"])
     bucket = s3.buckets[ENV["S3_BUCKET_NAME"]]
-    bucket.objects[filename]
+    bucket.objects[image_path]
   end
 
   def read_object
     s3_object.read
   end
 
-  def filename
-    image.filename
+  def image_path
+    image.image_path
   end
 end
+

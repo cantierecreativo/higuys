@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :image do
     guest
-    filename "image.jpg"
+    image_path "foo/bar/image.jpg"
   end
 end
+

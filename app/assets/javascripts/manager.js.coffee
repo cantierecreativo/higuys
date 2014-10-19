@@ -2,12 +2,6 @@
 #= require ./autoshoot_control
 #= require ./client
 
-#   ascoltare pusher
-#     -> aggiornare lo stato della camera
-#     -> aggiornare gli shots
-
-#   settare i timout per l'autoshoot
-
 class @Manager
   constructor: (@wallId, $wallDom, $autoshootControlDom, @guestId) ->
     @wall = new Wall($wallDom, @guestId)
@@ -87,17 +81,9 @@ class @Manager
     update()
 
   notifyNewPhoto: (photoDataUrl) ->
-    upload = (data) =>
-      $.ajax(
-        url: data.upload_url
-        type: 'PUT'
-        data: @dataUriToBlob(photoDataUrl)
-        processData: false
-        contentType: false
-        success: ->
-          $.post "/api/photos", s3_url: data.url
-      )
-    $.post("/api/upload-requests", upload, 'json')
+    @client.requestUpload @wallId, (err, result) =>
+      @client.s3Put result.upload_url, @dataUriToBlob(photoDataUrl), (err, data) =>
+          @client.notifyPhotoUpload(@wallId, result.upload_url)
 
   dataUriToBlob: (dataUrl) ->
     byteString = undefined

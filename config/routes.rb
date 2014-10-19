@@ -6,10 +6,11 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    post '/upload-requests', to: 'images#upload_request'
-    post '/photos', to: 'images#photos'
-    get '/status/:wall_id', to: 'status#index'
+    post '/walls/:wall_id/upload-requests', to: 'images#upload_request'
+    post '/walls/:wall_id/photos', to: 'images#photos'
+    get '/walls/:wall_id/status', to: 'status#index'
   end
 
   root to: 'static#homepage'
 end
+

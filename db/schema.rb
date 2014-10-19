@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019000436) do
+ActiveRecord::Schema.define(version: 20141019055218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20141019000436) do
 
   create_table "images", force: true do |t|
     t.integer  "guest_id",   null: false
-    t.string   "filename",   null: false
+    t.string   "image_path", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,3 +55,4 @@ ActiveRecord::Schema.define(version: 20141019000436) do
   add_index "walls", ["access_code"], name: "index_walls_on_access_code", unique: true, using: :btree
 
 end
+

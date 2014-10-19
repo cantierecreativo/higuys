@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe DeletePhoto do
-  let(:filename) { '7ad2202e06c692b3da9c37096aaf531e.jpg' }
-  let(:s3_url)   { "http://higuysio.s3.amazonaws.com/#{filename}" }
-  let!(:image)  { create(:image, filename: filename) }
+  let(:image_path) { '7ad2202e06c692b3da9c37096aaf531e.jpg' }
+  let(:s3_url)   { "http://higuysio.s3.amazonaws.com/#{image_path}" }
+  let!(:image)  { create(:image, image_path: image_path) }
   let(:command) { described_class.new(image) }
 
   it "takes the s3_url" do
@@ -18,3 +18,4 @@ describe DeletePhoto do
     end
   end
 end
+

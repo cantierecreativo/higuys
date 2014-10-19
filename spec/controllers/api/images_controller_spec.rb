@@ -7,19 +7,18 @@ describe Api::ImagesController do
   render_views
 
   describe 'POST :upload_request' do
-    let(:url) { 'URL' }
-    let(:upload_request) {
+    let(:wall) { create(:wall) }
+    let(:policy_generator) {
       class_double('AwsPolicyGenerator')
         .as_stubbed_const(transfer_nested_constants: true)
     }
-    let(:action) { post :upload_request, format: :json }
 
     before do
-      allow(upload_request).to receive(:execute) { double(url: url, upload_url: url) }
+      allow(policy_generator).to receive(:execute) { 'URL' }
     end
 
     before do
-      action
+      post :upload_request, format: :json, wall_id: wall.access_code
     end
 
     context 'on success' do
@@ -30,7 +29,7 @@ describe Api::ImagesController do
       end
 
       it 'returns an hash with an url and a request id' do
-        expect(response.body).to eq({ upload_url: url, url: url }.to_json)
+        expect(response.body).to eq({ upload_url: 'URL' }.to_json)
       end
     end
   end
@@ -40,7 +39,8 @@ describe Api::ImagesController do
       class_double("StorePhoto")
         .as_stubbed_const(transfer_nested_constants: true)
     }
-    let(:action) { post :photos, { s3_url: 'URL', format: :json } }
+    let(:wall) { create(:wall) }
+    let(:action) { post :photos, { s3_url: 'URL', format: :json, wall_id: wall.access_code } }
 
     context 'on success' do
       before do
@@ -77,3 +77,4 @@ describe Api::ImagesController do
     end
   end
 end
+
