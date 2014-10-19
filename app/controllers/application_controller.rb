@@ -18,5 +18,18 @@ class ApplicationController < ActionController::Base
       redirect_to prepare_auth_path, alert: 'To access the page you first have to sign in!'
     end
   end
+
+  def requires_user_within_account!
+    current_account or raise ActiveRecord::RecordNotFound
+
+    if !current_user.wall || current_user.wall.account != @account
+      redirect_to root_path, alert: 'You tried!'
+    end
+  end
+
+  def current_account
+    @account ||= Account.find_by_slug(params[:id])
+  end
+
 end
 
