@@ -19,7 +19,8 @@ class AccountsController < ApplicationController
   end
 
   def show
-    @wall = @account.wall
+    requires_user_within_account!
+    @wall = current_account.wall
     @user_id = current_user.id
   end
 
@@ -27,6 +28,10 @@ class AccountsController < ApplicationController
 
   def permitted_params
     params.require(:account).permit(:name, :slug)
+  end
+
+  def current_account
+    @account ||= Account.find_by_slug(params[:id])
   end
 end
 

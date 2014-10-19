@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_account
-    @account ||= Account.find_by_slug(params[:id])
+    @account ||= Account.find_by_slug(params[:account_id])
   end
 
 end

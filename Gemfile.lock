@@ -259,6 +259,8 @@ GEM
       sprockets-rails (~> 2.0)
     shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
+    showcase (0.2.5)
+      activesupport
     signature (0.1.7)
     simple_form (3.0.2)
       actionpack (~> 4.0)
@@ -365,6 +367,7 @@ DEPENDENCIES
   rspec-rails (~> 3.0.0)
   sass-rails (~> 4.0.3)
   shoulda-matchers
+  showcase
   simple_form
   slim-rails
   spring

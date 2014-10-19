@@ -2,6 +2,10 @@ require 'rails_helper'
 
 class InvitationsPage < Page
   set_url '/accounts{/account_id}/invitations'
+  field :email
+  submit_button
+
+  submission :invite
 end
 
 feature 'As user within an account' do
@@ -14,8 +18,11 @@ feature 'As user within an account' do
   end
 
   scenario 'I want to invite a friend to my wall' do
-    invitations_page.load(account_id: user.wall.account.id)
-    save_and_open_page
+    invitations_page.load(account_id: user.wall.account.slug)
+    invitations_page.invite!('test@bar.it')
+
+    expect(invitations_page).to have_notice
+    expect(invitations_page).to have_record(Invitation.first)
   end
 end
 

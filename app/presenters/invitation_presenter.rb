@@ -1,0 +1,3 @@
+class InvitationPresenter < BasePresenter
+end
+
