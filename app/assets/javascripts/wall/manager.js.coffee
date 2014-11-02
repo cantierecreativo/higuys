@@ -5,6 +5,7 @@
 class @Manager
   constructor: (pusherChannel, userId, $wallDom, $autoshootControlDom) ->
     @wall = new Wall($wallDom, userId)
+    @audio = $wallDom.find('audio').get(0)
     @myView = @wall.myView
     @autoshoot = new AutoshootControl($autoshootControlDom)
 
@@ -57,10 +58,11 @@ class @Manager
 
     @autoshoot.setState('SHOOTING')
     @wall.myView.toggleVideo(true)
-    setTimeout(getPhoto, 2000)
+    @audio.play()
+    setTimeout(getPhoto, 2200)
 
   restartCountdown: ->
-    @remainingSeconds = 20
+    @remainingSeconds = 40
     @autoshoot.setState('COUNTDOWN')
 
     update = =>
