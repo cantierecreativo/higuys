@@ -11,7 +11,7 @@ class @Manager
 
     @client = new Client()
 
-    pusher = new Pusher('7217b3c3ef1446696bf5')
+    pusher = new Pusher('<%= ENV.fetch("PUSHER_KEY") %>')
     @channel = pusher.subscribe(pusherChannel)
 
     @channel.bind 'join',  (data) => @wall.addTempFriend(data.user_id)
