@@ -21,6 +21,9 @@
   .sprite--logo
     display: block
 
+  +at-breakpoint(lte-lap)
+    display: block
+
 .header__menu
   display: table-cell
   text-align: right
@@ -31,8 +34,24 @@
   a
     color: white
 
+  +at-breakpoint(palm)
+    display: block
+    text-align: left
+
   .nav__item
     padding-left: 20px
+
+    +at-breakpoint(palm)
+      padding-left: 0
+      padding-right: 10px
+      &:last-child
+        padding-right: 0
+
+      .button
+        border: none
+        padding: 0
+
+
 
 .headroom--pinned
   top: 0
