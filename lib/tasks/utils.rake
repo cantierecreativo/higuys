@@ -9,4 +9,9 @@ namespace :hg do
     puts KickInactiveUsers.execute(5.minutes).to_s + " kicked!"
     puts PurgeEmptyUsers.execute(5.minutes).to_s + " destroyed!"
   end
+
+  desc "Export Image table content to CSV and delete rows"
+  task purge_images: :environment do
+    puts PurgeImages.execute(limit: 7000).to_s + " images saved and deleted!"
+  end
 end
