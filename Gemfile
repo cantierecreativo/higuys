@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
-ruby '2.1.3'
+ruby '2.1.5'
 
 gem 'aws-sdk'
 gem 'airbrake'
@@ -73,4 +73,3 @@ end
 group :staging, :production do
   gem 'newrelic_rpm', '>= 3.7.3'
 end
-
