@@ -3,11 +3,15 @@
 #= require ./client
 
 class @Manager
-  constructor: (pusherChannel, userId, $wallDom, $autoshootControlDom) ->
+  constructor: (pusherChannel, userId, $wallDom, $autoshootControlDom, $muteControlDom) ->
     @wall = new Wall($wallDom, userId)
     @audio = $wallDom.find('audio').get(0)
     @myView = @wall.myView
     @autoshoot = new AutoshootControl($autoshootControlDom)
+    @mute = false
+    $muteControlDom.click =>
+      @mute = !@mute
+      $muteControlDom.toggleClass('is-mute', @mute)
 
     @client = new Client()
 
@@ -58,7 +62,7 @@ class @Manager
 
     @autoshoot.setState('SHOOTING')
     @wall.myView.toggleVideo(true)
-    @audio.play()
+    @audio.play() unless @mute
     setTimeout(getPhoto, 2200)
 
   restartCountdown: ->

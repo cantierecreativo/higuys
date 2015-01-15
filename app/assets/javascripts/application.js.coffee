@@ -21,7 +21,8 @@ $ ->
         $wall.data('pusher-channel'),
         $wall.data('user-id'),
         $wall,
-        $(".js-autoshoot")
+        $(".js-autoshoot"),
+        $(".js-mute-toggler")
       )
     else
       alert("Unfortunately your browser is not fully compatible with this website. Are you using Chrome or Firefox? Then try to refresh the browser!")
