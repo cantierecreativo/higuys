@@ -12,6 +12,6 @@ namespace :hg do
 
   desc "Export Image table content to CSV and delete rows"
   task purge_images: :environment do
-    puts PurgeImages.execute(limit: 7000).to_s + " images saved and deleted!"
+    puts PurgeImages.execute(limit: 9_000_000).to_s + " images saved and deleted!"
   end
 end
